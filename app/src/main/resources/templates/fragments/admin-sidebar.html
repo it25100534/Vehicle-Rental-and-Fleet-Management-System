@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<aside th:fragment="sidebar" class="sidebar">
+
+    <div class="sidebar-header">
+        <div class="sidebar-brand">DriveEase</div>
+        <div class="sidebar-user">
+            <div class="avatar">
+                <img alt="Admin Profile" src="/images/manager.png">
+            </div>
+            <div class="user-info">
+                <div class="name">Admin</div>
+                <div class="role">Fleet Manager</div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <a class="nav-link" href="/admin/dashboard">
+            <span class="material-symbols-outlined">dashboard</span>
+            <span>Dashboard</span>
+        </a>
+
+        <a class="nav-link" href="/inventory">
+            <span class="material-symbols-outlined">directions_car</span>
+            <span>Inventory</span>
+        </a>
+
+        <a class="nav-link" href="/admin/registration">
+            <span class="material-symbols-outlined">badge</span>
+            <span>Staff</span>
+        </a>
+
+        <a class="nav-link" href="/maintenance">
+            <span class="material-symbols-outlined">build</span>
+            <span>Maintenance</span>
+        </a>
+
+        <a class="nav-link" href="/admin-report">
+            <span class="material-symbols-outlined">payments</span>
+            <span>Billing</span>
+        </a>
+
+        <a class="nav-link" href="/admin/activity-log">
+            <span class="material-symbols-outlined">history</span>
+            <span>Activity Logs</span>
+        </a>
+
+        <div style="margin-top: auto; padding-top: 20px;">
+            <a href="/logout" class="nav-link" style="color: var(--accent-red); border-top: 1px solid var(--border-subtle);">
+                <span class="material-symbols-outlined">logout</span>
+                Logout
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.sidebar-nav .nav-link');
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                const href = link.getAttribute('href');
+
+                if (currentPath === href || (href !== '/' && currentPath.startsWith(href))) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+</aside>
+</body>
+</html>

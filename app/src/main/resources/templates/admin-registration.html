@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveEase - Staff Registration</title>
+
+    <link rel="stylesheet" href="/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="~{fragments/admin-sidebar :: sidebar}"></div>
+
+<main class="main-content">
+
+    <div class="page-header">
+        <h2>Register User</h2>
+        <p>Create a new Admin or Staff account for the platform.</p>
+    </div>
+
+    <div th:if="${message != null and !#strings.isEmpty(message)}" class="alert alert-info" th:text="${message}"></div>
+
+    <div class="form-card">
+        <form th:action="@{/registerAdminStaff}" method="post">
+
+            <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" name="fullName" required placeholder="e.g. Jane Doe" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Username</label>
+                <input type="text" name="username" required placeholder="e.g. janedoe_admin" class="form-control">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label">Role</label>
+                    <select name="role" required class="form-control">
+                        <option value="ADMIN">ADMIN</option>
+                        <option value="STAFF">STAFF</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label">Employee Type</label>
+                    <select name="employeeType" required class="form-control">
+                        <option value="FULL_TIME">FULL_TIME</option>
+                        <option value="PART_TIME">PART_TIME</option>
+                        <option value="CONTRACT">CONTRACT</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input type="password" name="password" required placeholder="••••••••" class="form-control">
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" style="padding: 12px 24px;">Create Account</button>
+                <a th:href="@{/admin/dashboard}" class="btn btn-secondary" style="padding: 12px 24px;">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+</main>
+</body>
+</html>
