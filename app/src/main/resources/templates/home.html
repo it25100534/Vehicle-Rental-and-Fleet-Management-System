@@ -1,0 +1,1285 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>DriveEase - Premium Automotive Rentals</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Montserrat:wght@600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/catalog.css">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "on-primary-fixed": "#1b1b1b",
+                        "surface-variant": "#dce2f3",
+                        "primary-fixed": "#e2e2e2",
+                        "tertiary-container": "#1a1c1c",
+                        "on-surface": "#151c27",
+                        "on-primary-container": "#848484",
+                        "inverse-on-surface": "#ebf1ff",
+                        "secondary-fixed": "#d8e2ff",
+                        "surface-container-low": "#f0f3ff",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "surface-container-highest": "#dce2f3",
+                        "on-primary-fixed-variant": "#474747",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#cfc4c5",
+                        "tertiary": "#000000",
+                        "outline": "#7e7576",
+                        "secondary-container": "#2170e4",
+                        "surface-container": "#e7eefe",
+                        "primary-container": "#1b1b1b",
+                        "tertiary-fixed": "#e2e2e2",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "surface-tint": "#5e5e5e",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#0058be",
+                        "surface-dim": "#d3daea",
+                        "inverse-surface": "#2a313d",
+                        "background": "#f9f9ff",
+                        "on-background": "#151c27",
+                        "on-secondary-fixed": "#001a42",
+                        "on-tertiary-container": "#838484",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#c6c6c6",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "primary": "#000000",
+                        "surface-bright": "#f9f9ff",
+                        "surface-container-high": "#e2e8f8",
+                        "surface": "#f9f9ff",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#fefcff",
+                        "on-secondary-fixed-variant": "#004395",
+                        "on-surface-variant": "#4c4546",
+                        "on-tertiary-fixed": "#1a1c1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px",
+                        "2xl": "1.5rem"
+                    },
+                    "spacing": {
+                        "stack-sm": "12px",
+                        "stack-md": "24px",
+                        "base": "8px",
+                        "gutter": "24px",
+                        "stack-lg": "48px",
+                        "container-max": "1280px",
+                        "margin-desktop": "48px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Montserrat", "sans-serif"],
+                        "label-md": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "headline-md": ["Montserrat", "sans-serif"],
+                        "headline-lg-mobile": ["Montserrat", "sans-serif"],
+                        "display-lg": ["Montserrat", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "display-lg": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark-glass {
+            background: rgba(26, 28, 28, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .ambient-shadow {
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.04);
+        }
+        .ambient-shadow-lg {
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.08);
+        }
+
+                /* ===== JOURNEY HOVER SECTION ===== */
+
+        .journey-showcase {
+            background: #161618;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .journey-layout {
+            display: grid;
+            grid-template-columns: 1.35fr 0.9fr;
+            min-height: 80vh;
+        }
+
+        .journey-visual {
+            position: relative;
+            min-height: 520px;
+            overflow: hidden;
+            background: #101012;
+        }
+
+        .journey-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.02);
+            transition: opacity 0.35s ease, transform 0.7s ease, filter 0.35s ease;
+        }
+
+        .journey-visual.is-changing .journey-image {
+            opacity: 0.72;
+            transform: scale(1.06);
+            filter: blur(1px);
+        }
+
+        .journey-vignette {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(0,0,0,0.18), rgba(0,0,0,0));
+            pointer-events: none;
+        }
+
+        .journey-panel {
+            background: #161618;
+            padding: 72px 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .journey-pill {
+            width: fit-content;
+            margin-bottom: 34px;
+            padding: 7px 18px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.15);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .journey-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .journey-link {
+            position: relative;
+            width: fit-content;
+            display: inline-flex;
+            align-items: center;
+            gap: 18px;
+            color: rgba(255,255,255,0.92);
+            text-decoration: none;
+            line-height: 0.95;
+            transition: transform 0.28s ease, color 0.28s ease;
+        }
+
+        .journey-name {
+            font-size: clamp(46px, 4.8vw, 74px);
+            letter-spacing: -0.075em;
+            font-weight: 950;
+            transition: filter 0.28s ease, opacity 0.28s ease, color 0.28s ease;
+        }
+
+        .journey-arrow {
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: opacity 0.28s ease, transform 0.28s ease;
+            font-size: 34px;
+        }
+
+        .journey-count {
+            position: absolute;
+            left: calc(100% + 8px);
+            top: 6px;
+            padding: 5px 9px;
+            border-radius: 7px;
+            background: rgba(255,255,255,0.22);
+            color: #ffffff;
+            font-size: 13px;
+            line-height: 1;
+            font-weight: 900;
+            white-space: nowrap;
+            opacity: 0;
+            transform: rotate(11deg) translateY(6px);
+            transition: opacity 0.28s ease, transform 0.28s ease;
+        }
+
+        .journey-list.has-active .journey-link:not(.is-active) .journey-name {
+            filter: blur(4px);
+            opacity: 0.36;
+        }
+
+        .journey-link.is-active {
+            color: #ffffff;
+            transform: translateX(8px);
+        }
+
+        .journey-link.is-active .journey-count {
+            opacity: 1;
+            transform: rotate(11deg) translateY(0);
+        }
+
+        .journey-link.is-active .journey-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        @media (max-width: 980px) {
+            .journey-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .journey-visual {
+                min-height: 420px;
+            }
+
+            .journey-panel {
+                padding: 56px 24px;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .journey-name {
+                font-size: 42px;
+            }
+
+            .journey-count {
+                position: static;
+                transform: rotate(0);
+                margin-left: 4px;
+            }
+
+            .journey-link.is-active .journey-count {
+                transform: rotate(0);
+            }
+        }
+
+                /* ===== HOME FAQ ACCORDION ===== */
+
+        .home-faq-section {
+            padding: 96px 48px;
+            background: #ffffff;
+        }
+
+        .home-faq-shell {
+            width: min(1360px, 100%);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 0.72fr 1.18fr;
+            gap: 88px;
+            align-items: start;
+        }
+
+        .home-faq-title {
+            margin: 0;
+            color: #161618;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-size: clamp(54px, 5vw, 78px);
+            line-height: 0.95;
+            letter-spacing: -0.08em;
+            font-weight: 950;
+        }
+
+        .home-faq-card {
+            margin-top: 54px;
+            max-width: 420px;
+            background: #161618;
+            color: #ffffff;
+            border-radius: 24px;
+            padding: 42px;
+        }
+
+        .home-faq-card-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: #202023;
+            border: 1px solid #333338;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 28px;
+        }
+
+        .home-faq-card h3 {
+            margin: 0 0 24px;
+            color: #ffffff;
+            font-size: 24px;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            font-weight: 900;
+        }
+
+        .home-faq-card a {
+            width: fit-content;
+            min-width: 210px;
+            height: 58px;
+            border-radius: 10px;
+            background: #ffffff;
+            color: #161618;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .home-faq-list {
+            display: grid;
+            gap: 18px;
+        }
+
+        .faq-item {
+            background: #f4f4f4;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: background 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .faq-item.is-open {
+            background: #f4f4f4;
+        }
+
+        .faq-question {
+            width: 100%;
+            min-height: 82px;
+            border: none;
+            background: transparent;
+            color: #161618;
+            padding: 0 22px 0 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 22px;
+            cursor: pointer;
+            text-align: left;
+            font-family: inherit;
+        }
+
+        .faq-question span:first-child {
+            color: #161618;
+            font-size: 24px;
+            line-height: 1.2;
+            letter-spacing: -0.04em;
+            font-weight: 900;
+        }
+
+        .faq-icon {
+            width: 52px;
+            height: 52px;
+            min-width: 52px;
+            border-radius: 50%;
+            background: #ffffff;
+            color: #161618;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+        }
+
+        .faq-item.is-open .faq-icon {
+            background: #161618;
+            color: #ffffff;
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.32s ease, opacity 0.25s ease;
+        }
+
+        .faq-answer-inner {
+            padding: 0 92px 28px 28px;
+            color: #4d4d4d;
+            font-size: 18px;
+            line-height: 1.45;
+            font-weight: 500;
+        }
+
+        .faq-item.is-open .faq-answer {
+            max-height: 220px;
+            opacity: 1;
+        }
+
+        @media (max-width: 980px) {
+            .home-faq-section {
+                padding: 72px 18px;
+            }
+
+            .home-faq-shell {
+                grid-template-columns: 1fr;
+                gap: 42px;
+            }
+
+            .home-faq-card {
+                max-width: none;
+                margin-top: 32px;
+            }
+        }
+
+        @media (max-width: 620px) {
+            .home-faq-title {
+                font-size: 48px;
+            }
+
+            .faq-question {
+                min-height: 74px;
+                padding: 0 16px 0 18px;
+            }
+
+            .faq-question span:first-child {
+                font-size: 19px;
+            }
+
+            .faq-icon {
+                width: 42px;
+                height: 42px;
+                min-width: 42px;
+                font-size: 25px;
+            }
+
+            .faq-answer-inner {
+                padding: 0 18px 24px;
+                font-size: 16px;
+            }
+        }
+
+        .journey-layout {
+    grid-template-columns: 1.55fr 0.85fr;
+}
+
+.journey-panel {
+    padding: 64px 54px;
+}
+
+.journey-name {
+    font-size: clamp(44px, 4.4vw, 70px);
+}
+
+    /* ===== HOME VIDEO HERO ===== */
+
+.hero-video-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-video-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to bottom, rgba(0,0,0,0.45), rgba(0,0,0,0.25) 38%, rgba(0,0,0,0.82)),
+        radial-gradient(circle at center, rgba(0,0,0,0.05), rgba(0,0,0,0.45));
+}
+
+.home-hero-content {
+    justify-content: flex-end;
+    padding-bottom: 72px;
+}
+
+.home-hero-title {
+    font-size: clamp(64px, 11vw, 180px);
+    line-height: 0.82;
+    letter-spacing: -0.09em;
+    font-weight: 950;
+    opacity: 0.82;
+}
+
+.home-hero-subtitle {
+    margin-top: 18px;
+    font-size: clamp(36px, 5vw, 76px);
+    line-height: 0.95;
+    letter-spacing: -0.06em;
+    font-weight: 950;
+}
+
+.home-hero-badges {
+    margin-bottom: 22px;
+}
+
+.home-hero-action {
+    margin-top: 34px;
+}
+
+            /* ===== FINAL HOME HERO TEXT STYLE ===== */
+
+        .home-hero-content {
+            max-width: none;
+            justify-content: flex-start;
+            padding-top: 44px;
+            padding-bottom: 64px;
+            gap: 0;
+        }
+
+        .home-hero-title {
+            width: 100%;
+            margin: 0;
+            white-space: nowrap;
+            font-size: clamp(46px, 6.7vw, 128px);
+            line-height: 0.82;
+            letter-spacing: -0.09em;
+            font-weight: 950;
+            color: transparent;
+            background-image: linear-gradient(
+                0deg,
+                rgba(255, 255, 255, 0.38) 0%,
+                rgba(255, 255, 255, 0.62) 42%,
+                rgba(255, 255, 255, 1) 100%
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .home-hero-badges {
+            margin-top: 340px;
+        }
+
+        .home-hero-badges .dark-glass {
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .home-hero-subtitle {
+            margin-top: 24px;
+            font-size: clamp(28px, 3.2vw, 52px);
+            line-height: 1.05;
+            letter-spacing: -0.055em;
+            font-weight: 900;
+        }
+
+        .home-hero-action {
+            margin-top: auto;
+            margin-bottom: 6px;
+        }
+
+        @media (max-width: 980px) {
+            .home-hero-title {
+                white-space: normal;
+                font-size: clamp(46px, 12vw, 92px);
+                line-height: 0.9;
+            }
+
+            .home-hero-badges {
+                margin-top: 180px;
+            }
+        }
+
+        /* ===== FINAL HERO TITLE OVERRIDE ===== */
+
+.home-hero-title {
+    width: 100%;
+    margin: 0;
+    white-space: nowrap;
+
+    /* Change this to adjust size */
+    font-size: clamp(78px, 12.2vw, 230px) !important;
+
+    line-height: 0.78;
+    letter-spacing: -0.105em;
+    font-weight: 1000;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+    color: transparent;
+    background-image: linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.22) 0%,
+        rgba(255, 255, 255, 0.55) 42%,
+        rgba(255, 255, 255, 1) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    -webkit-text-stroke: 1.35px rgba(255, 255, 255, 0.50);
+}
+
+@media (max-width: 980px) {
+    .home-hero-title {
+        white-space: normal;
+        font-size: clamp(48px, 13vw, 96px) !important;
+        line-height: 0.86;
+    }
+}
+
+    /* ===== HOME HEADER OVER VIDEO ===== */
+
+body .catalog-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: transparent !important;
+    z-index: 50;
+}
+
+body .catalog-navbar {
+    min-height: 92px;
+}
+
+body .catalog-logo,
+body .catalog-logo-mark,
+body .catalog-nav-links a {
+    color: #ffffff !important;
+}
+
+body .catalog-nav-links a.active {
+    text-decoration-color: #ffffff;
+}
+
+body .catalog-header-btn {
+    background: rgba(255, 255, 255, 0.10) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+body .catalog-header-btn:hover {
+    background: rgba(255, 255, 255, 0.18) !important;
+}
+
+body .profile-nav-bubble {
+    background: rgba(255, 255, 255, 0.12) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+body .profile-nav-bubble:hover {
+    background: rgba(255, 255, 255, 0.22) !important;
+}
+
+    /* ===== FINAL HOME VIDEO HERO CONTROL PANEL ===== */
+
+.home-hero-content {
+    max-width: none;
+    justify-content: flex-start;
+    padding-top: 105px;
+    padding-bottom: 34px;
+    gap: 0;
+}
+
+/* BIG TOP TITLE */
+.home-hero-title {
+    width: 100%;
+    margin: 0;
+    white-space: nowrap;
+
+    /* TITLE SIZE */
+    font-size: clamp(80px, 12vw, 200px) !important;
+
+    line-height: 0.78;
+    letter-spacing: -0.105em;
+
+    /* TITLE THICKNESS */
+    font-weight: 1200;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+    color: transparent;
+    background-image: linear-gradient(
+        0deg,
+        rgba(255, 255, 255, 0.18) 0%,
+        rgba(255, 255, 255, 0.55) 42%,
+        rgba(255, 255, 255, 1) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* IMPORTANT: removes those ugly inner connecting lines */
+    -webkit-text-stroke: 0;
+    text-shadow: none;
+}
+
+/* BADGE POSITION */
+.home-hero-badges {
+    margin-top: 320px;
+}
+
+.home-hero-badges .dark-glass {
+    border-radius: 10px;
+    padding: 9px 14px;
+    font-size: 13px;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* SUBTITLE */
+.home-hero-subtitle {
+    margin-top: 22px;
+    font-size: clamp(30px, 3.4vw, 56px);
+    line-height: 1.02;
+    letter-spacing: -0.055em;
+    font-weight: 900;
+}
+
+/* BROWSE BUTTON POSITION */
+.home-hero-action {
+    margin-top: 18px;
+    margin-bottom: 0;
+}
+
+/* BROWSE BUTTON STYLE */
+.home-hero-action a {
+    min-height: 46px;
+    padding: 0 24px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 850;
+    background: rgba(255, 255, 255, 0.10) !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: none;
+}
+
+.home-hero-action a:hover {
+    background: rgba(255, 255, 255, 0.18) !important;
+    transform: translateY(-1px);
+}
+
+/* VIDEO DARKNESS / READABILITY */
+.hero-video-overlay {
+    background:
+        linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.18) 35%, rgba(0,0,0,0.78)),
+        radial-gradient(circle at center, rgba(0,0,0,0.02), rgba(0,0,0,0.42));
+}
+
+/* VIDEO POSITION */
+.hero-video-bg {
+    object-fit: cover;
+    object-position: center center;
+}
+
+@media (max-width: 980px) {
+    .home-hero-title {
+        white-space: normal;
+        font-size: clamp(46px, 13vw, 96px) !important;
+        line-height: 0.86;
+    }
+
+    .home-hero-content {
+        padding-top: 120px;
+        padding-bottom: 40px;
+    }
+
+    .home-hero-badges {
+        margin-top: 180px;
+    }
+}
+
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- TopNavBar (JSON Component) -->
+<header class="catalog-header">
+    <nav class="catalog-navbar">
+        <a href="/" class="catalog-logo">
+            <span class="catalog-logo-mark">✺</span>
+            <span>DriveEase</span>
+        </a>
+
+        <div class="catalog-nav-links">
+            <a href="/" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="/catalog">Vehicles</a>
+            <a href="#contact">Contact</a>
+        </div>
+
+        <div class="catalog-header-actions">
+            <a href="/catalog" class="catalog-header-btn">
+                Browse Vehicles
+                <span>→</span>
+            </a>
+
+            <a href="/profile" class="profile-nav-bubble" title="My Profile">👤</a>
+        </div>
+    </nav>
+</header>
+<!-- Hero Section -->
+<header class="relative min-h-screen flex flex-col justify-center items-center overflow-hidden">
+<!-- Background Image -->
+    <div class="absolute inset-0 w-full h-full z-0">
+        <video class="hero-video-bg" autoplay muted loop playsinline preload="auto">
+            <source src="/videos/home-hero-video.mp4" type="video/mp4">
+        </video>
+        <div class="hero-video-overlay"></div>
+    </div>
+<!-- Content -->
+    <div class="home-hero-content relative z-10 w-full min-h-[90vh] mx-auto px-margin-mobile md:px-margin-desktop text-center flex flex-col items-center">
+
+        <h1 class="home-hero-title uppercase drop-shadow-lg">
+            DRIVE CONFIDENT
+        </h1>
+
+        <div class="home-hero-badges flex flex-wrap justify-center gap-4">
+            <div class="dark-glass text-white font-label-md text-label-md px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+                <span class="material-symbols-outlined text-secondary-fixed-dim" style="font-variation-settings: &quot;FILL&quot; 1;">star</span>
+                4.8 Average Rating
+            </div>
+
+            <div class="dark-glass text-white font-label-md text-label-md px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
+                <span class="material-symbols-outlined text-secondary-fixed-dim" style="font-variation-settings: &quot;FILL&quot; 1;">support_agent</span>
+                24/7 Support
+            </div>
+        </div>
+
+        <p class="home-hero-subtitle text-white max-w-4xl mx-auto drop-shadow-md">
+            Rent vehicles that match your journey
+        </p>
+
+        <div class="home-hero-action flex flex-col sm:flex-row gap-4">
+            <a href="/catalog" class="bg-secondary text-white font-label-md text-label-md px-8 py-4 rounded-full hover:bg-secondary-container transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 flex items-center justify-center gap-2">
+                Browse Vehicles
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </a>
+        </div>
+    </div>
+</header>
+<!-- About Section -->
+<section id="about" class="py-stack-lg md:py-[96px] bg-surface px-margin-mobile md:px-margin-desktop">
+<div class="max-w-container-max mx-auto">
+<!-- Header -->
+<div class="text-center mb-16 flex flex-col items-center">
+<span class="inline-block bg-surface-variant text-on-surface-variant font-label-md text-label-md px-4 py-1.5 rounded-full mb-6">
+                    About us
+                </span>
+<p class="font-headline-md text-headline-md md:text-headline-lg text-on-surface max-w-3xl mx-auto leading-relaxed">
+                    We deliver unmatched reliability and comfort, ensuring your journey is as exceptional as your destination.
+                </p>
+</div>
+<!-- Content Grid (Bento Style) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+<!-- Left: Features List -->
+<div class="lg:col-span-5 flex flex-col gap-8 order-2 lg:order-1">
+<div class="flex items-start gap-4 p-6 rounded-2xl bg-surface-container-lowest ambient-shadow-lg border border-outline-variant/30 hover:-translate-y-1 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: &quot;FILL&quot; 1;">directions_car</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface mb-2">Well maintained vehicles</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Our fleet undergoes rigorous daily inspections to guarantee pristine condition and peak performance.</p>
+</div>
+</div>
+<div class="flex items-start gap-4 p-6 rounded-2xl bg-surface-container-lowest ambient-shadow-lg border border-outline-variant/30 hover:-translate-y-1 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: &quot;FILL&quot; 1;">event_available</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface mb-2">Flexible rental options</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">From hourly drives to monthly leases, adapt your rental period to suit your exact itinerary.</p>
+</div>
+</div>
+<div class="flex items-start gap-4 p-6 rounded-2xl bg-surface-container-lowest ambient-shadow-lg border border-outline-variant/30 hover:-translate-y-1 transition-transform duration-300">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: &quot;FILL&quot; 1;">how_to_reg</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface mb-2">Smooth pickup experience</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Skip the lines with our digital check-in and contactless key handover process.</p>
+</div>
+</div>
+</div>
+<!-- Right: Visual Asset -->
+<div class="lg:col-span-7 relative min-h-[400px] lg:min-h-[600px] order-1 lg:order-2 rounded-3xl overflow-hidden ambient-shadow-lg">
+<img alt="A dynamic composition featuring two overlapping glossy photos on a clean white background. One photo shows a sleek white premium SUV, while the other shows a modern black motorcycle. The lighting is studio-quality, emphasizing the clean lines and premium feel of the vehicles. The overall aesthetic is modern, minimalist, and corporate." class="absolute inset-0 w-full h-full object-cover rounded-3xl" src="/images/home-about.png">
+<!-- Decorative Element -->
+<div class="absolute bottom-6 left-6 right-6 p-6 glass-panel rounded-2xl">
+<p class="font-label-md text-label-md text-on-surface">Reliable Fleet Collection</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Trust Section -->
+<section class="py-8 md:py-10 bg-surface-container-low px-margin-mobile md:px-margin-desktop">
+    <div class="max-w-2xl mx-auto text-center">
+        <div class="bg-surface-container-lowest rounded-2xl p-5 md:p-7 ambient-shadow-lg border border-outline-variant/20 relative">
+            <span class="material-symbols-outlined absolute top-4 left-5 text-surface-variant text-4xl opacity-40" style="font-variation-settings: &quot;FILL&quot; 1;">format_quote</span>
+            <h2 class="font-headline-md text-[20px] md:text-[25px] leading-tight text-on-surface mb-4 relative z-10">
+                "We make every rental simple, reliable, and stress-free. Your journey is our priority."
+            </h2>
+            <div class="flex flex-col items-center gap-1">
+                <div class="w-9 h-9 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-sm mb-1">
+                    JD
+                </div>
+                <span class="font-label-md text-[12px] text-primary">Founder, DriveEase</span>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Categories Section (Split Layout) -->
+<section id="journeys" class="journey-showcase">
+    <div class="journey-layout">
+
+        <div class="journey-visual" id="journeyVisual">
+            <img
+                    id="journeyImage"
+                    class="journey-image"
+                    src="/images/home-journey-default.png"
+                    data-default-image="/images/home-journey-default.png"
+                    alt="DriveEase rental journey category preview"
+            >
+            <div class="journey-vignette"></div>
+        </div>
+
+        <div class="journey-panel">
+            <span class="journey-pill">Rental categories</span>
+
+            <div class="journey-list">
+                <a class="journey-link"
+                   href="/catalog?mode=USE&use=WEDDING"
+                   data-image="/images/home-journey-wedding.png">
+                    <span class="journey-name">Wedding</span>
+                    <span class="journey-count">6 vehicles</span>
+                    <span class="material-symbols-outlined journey-arrow">arrow_forward</span>
+                </a>
+
+                <a class="journey-link"
+                   href="/catalog?mode=USE&use=FAMILY"
+                   data-image="/images/home-journey-family.png">
+                    <span class="journey-name">Family</span>
+                    <span class="journey-count">8 vehicles</span>
+                    <span class="material-symbols-outlined journey-arrow">arrow_forward</span>
+                </a>
+
+                <a class="journey-link"
+                   href="/catalog?mode=USE&use=BUSINESS"
+                   data-image="/images/home-journey-business.png">
+                    <span class="journey-name">Business</span>
+                    <span class="journey-count">10 vehicles</span>
+                    <span class="material-symbols-outlined journey-arrow">arrow_forward</span>
+                </a>
+
+                <a class="journey-link"
+                   href="/catalog?mode=USE&use=ADVENTURE"
+                   data-image="/images/home-journey-adventure.png">
+                    <span class="journey-name">Adventure</span>
+                    <span class="journey-count">6 vehicles</span>
+                    <span class="material-symbols-outlined journey-arrow">arrow_forward</span>
+                </a>
+
+                <a class="journey-link"
+                   href="/catalog?mode=USE&use=TRANSPORT"
+                   data-image="/images/home-journey-transport.png">
+                    <span class="journey-name">Transport</span>
+                    <span class="journey-count">6 vehicles</span>
+                    <span class="material-symbols-outlined journey-arrow">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- FAQ Section -->
+<section id="faq" class="home-faq-section">
+    <div class="home-faq-shell">
+
+        <div>
+            <h2 class="home-faq-title">Frequently<br>asked questions</h2>
+
+            <div class="home-faq-card">
+                <div class="home-faq-card-icon">
+                    <span class="material-symbols-outlined">support_agent</span>
+                </div>
+
+                <h3>Can't find your answer?</h3>
+
+                <a href="#contact">
+                    Contact us now
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="home-faq-list">
+
+            <div class="faq-item is-open">
+                <button type="button" class="faq-question">
+                    <span>What documents are required to rent a vehicle?</span>
+                    <span class="material-symbols-outlined faq-icon">expand_less</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        You’ll need a valid driver’s license, a government-issued ID, and payment details.
+                        Additional documents may be requested depending on the vehicle category.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    <span>Is there a security deposit?</span>
+                    <span class="material-symbols-outlined faq-icon">expand_more</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        A refundable security deposit may be collected during vehicle pickup or handover.
+                        The amount depends on the vehicle type and rental policy.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    <span>Can I cancel or modify my booking?</span>
+                    <span class="material-symbols-outlined faq-icon">expand_more</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Pending bookings can be edited or deleted before admin approval. After approval or payment,
+                        contact support so our team can help with the request.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    <span>Are the vehicles insured?</span>
+                    <span class="material-symbols-outlined faq-icon">expand_more</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Yes, our vehicles are insured and regularly inspected. Late returns, damage, or policy
+                        violations may result in additional charges after vehicle inspection.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button type="button" class="faq-question">
+                    <span>Do you offer airport or city pickup?</span>
+                    <span class="material-symbols-outlined faq-icon">expand_more</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Pickup and drop-off arrangements can be coordinated with our support team. Availability may
+                        depend on location, vehicle type, and booking schedule.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- Footer (JSON Component) -->
+<footer class="site-footer" id="contact">
+    <div class="footer-inner">
+
+        <div class="footer-brand-area">
+            <div class="footer-brand-column">
+                <div class="footer-logo">✺</div>
+
+                <div class="priority-card rental-help-card">
+                    <h2>Manage your rental</h2>
+                    <p>View your bookings, continue browsing vehicles, or contact support if you need help.</p>
+
+                    <div class="footer-action-row">
+                        <a href="/reservationHistory" class="footer-primary-action">My Bookings</a>
+                        <a href="/catalog" class="footer-secondary-action">Browse Vehicles</a>
+                    </div>
+
+                    <small>Need help? Contact support@driveease.lk or call +94 77 123 4567.</small>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <div>
+                    <h3>Pages</h3>
+                    <div class="footer-link-grid">
+                        <a href="/" class="active">Home</a>
+                        <a href="#about">About</a>
+                        <a href="/catalog">Vehicles</a>
+                        <a href="#faq">FAQs</a>
+                        <a href="#contact">Contact</a>
+                        <a href="/reservationHistory">My Bookings</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>Contact info</h3>
+                    <p>+94 77 123 4567</p>
+                    <p>support@driveease.lk</p>
+                    <p>Colombo, Sri Lanka</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>Designed for the DriveEase vehicle rental system.</p>
+
+            <div class="socials">
+                <span>◎</span>
+                <span>𝕏</span>
+                <span>in</span>
+                <span>f</span>
+            </div>
+        </div>
+
+        <div class="footer-watermark">DriveEase</div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const journeyImage = document.getElementById("journeyImage");
+    const journeyVisual = document.getElementById("journeyVisual");
+    const journeyList = document.querySelector(".journey-list");
+    const journeyLinks = document.querySelectorAll(".journey-link");
+
+    function setJourneyImage(imageSrc) {
+        if (!journeyImage || !imageSrc) {
+            return;
+        }
+
+        if (journeyImage.getAttribute("src") === imageSrc) {
+            return;
+        }
+
+        if (journeyVisual) {
+            journeyVisual.classList.add("is-changing");
+        }
+
+        setTimeout(function () {
+            journeyImage.setAttribute("src", imageSrc);
+
+            if (journeyVisual) {
+                journeyVisual.classList.remove("is-changing");
+            }
+        }, 120);
+    }
+
+    function clearJourneyActive() {
+        journeyLinks.forEach(function (link) {
+            link.classList.remove("is-active");
+        });
+
+        if (journeyList) {
+            journeyList.classList.remove("has-active");
+        }
+
+        if (journeyImage) {
+            setJourneyImage(journeyImage.dataset.defaultImage || "/images/home-journey-default.png");
+        }
+    }
+
+    journeyLinks.forEach(function (link) {
+        link.addEventListener("mouseenter", function () {
+            journeyLinks.forEach(function (item) {
+                item.classList.remove("is-active");
+            });
+
+            link.classList.add("is-active");
+
+            if (journeyList) {
+                journeyList.classList.add("has-active");
+            }
+
+            setJourneyImage(link.dataset.image);
+        });
+
+        link.addEventListener("focus", function () {
+            journeyLinks.forEach(function (item) {
+                item.classList.remove("is-active");
+            });
+
+            link.classList.add("is-active");
+
+            if (journeyList) {
+                journeyList.classList.add("has-active");
+            }
+
+            setJourneyImage(link.dataset.image);
+        });
+    });
+
+    if (journeyList) {
+        journeyList.addEventListener("mouseleave", clearJourneyActive);
+    }
+
+    const faqItems = document.querySelectorAll(".faq-item");
+
+        function closeItem(item) {
+            const icon = item.querySelector(".faq-icon");
+
+            item.classList.remove("is-open");
+
+            if (icon) {
+                icon.textContent = "expand_more";
+            }
+        }
+
+        function openItem(item) {
+            const icon = item.querySelector(".faq-icon");
+
+            item.classList.add("is-open");
+
+            if (icon) {
+                icon.textContent = "expand_less";
+            }
+        }
+
+        faqItems.forEach(function (item) {
+            const question = item.querySelector(".faq-question");
+
+            if (!question) {
+                return;
+            }
+
+            question.addEventListener("click", function () {
+                const alreadyOpen = item.classList.contains("is-open");
+
+                faqItems.forEach(closeItem);
+
+                if (!alreadyOpen) {
+                    openItem(item);
+                }
+            });
+        });
+    });
+</script>
+</body></html>

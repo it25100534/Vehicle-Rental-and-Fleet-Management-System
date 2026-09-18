@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveEase - Admin Dashboard</title>
+
+    <link rel="stylesheet" href="/css/admin.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div th:replace="~{fragments/admin-sidebar :: sidebar}"></div>
+
+<main class="main-content">
+
+    <div class="page-header">
+        <h2>Overview</h2>
+        <p>Key metrics and recent operations for today.</p>
+    </div>
+
+    <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+
+        <div class="stat-card">
+            <div class="header">
+                <span>Staff Accounts</span>
+                <span class="material-symbols-outlined" style="color: var(--accent-blue); font-size: 1.4rem;">badge</span>
+            </div>
+            <div class="value" th:text="${#lists.size(admins)}">0</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="header">
+                <span>Activity Logs</span>
+                <span class="material-symbols-outlined" style="color: var(--accent-blue); font-size: 1.4rem;">history</span>
+            </div>
+            <div class="value" th:text="${#lists.size(logs)}">0</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="header">
+                <span>Total Bookings</span>
+                <span class="material-symbols-outlined" style="color: var(--accent-blue); font-size: 1.4rem;">calendar_month</span>
+            </div>
+            <div class="value" th:text="${#lists.size(allBookings)}">0</div>
+        </div>
+
+        <div class="stat-card" style="border-color: rgba(220, 38, 38, 0.2);">
+            <div class="header">
+                <span>Pending Maintenance</span>
+                <span class="material-symbols-outlined" style="color: var(--accent-red); font-size: 1.4rem;">build</span>
+            </div>
+            <div class="value" style="color: #f87171;" th:text="${pendingMaintenanceCount ?: '0'}">0</div>
+        </div>
+
+    </div>
+
+    <div class="table-card">
+        <div class="table-card-header">
+            <h3>Admins and Staff Accounts</h3>
+            <a href="/admin/registration" style="color: var(--accent-blue); text-decoration: none; font-size: 0.9rem; font-weight: 600;">+ Add New User</a>
+        </div>
+        <table class="premium-table">
+            <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Full Name</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Role</th>
+                <th>Password</th>
+                <th style="text-align: right;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(admins)}">
+                <td colspan="7" style="text-align: center; color: var(--text-secondary); padding: 2rem;">No accounts found.</td>
+            </tr>
+            <tr th:each="admin : ${admins}">
+                <td style="font-family: monospace; color: var(--text-secondary);" th:text="${admin.userId}"></td>
+                <td style="font-weight: 500;" th:text="${admin.fullName}"></td>
+                <td th:text="${admin.username}"></td>
+                <td th:text="${admin.maskedPasswordHash}"></td>
+                <td>
+                    <span class="badge" th:classappend="${admin.role == 'ADMIN' ? 'approved' : 'pending'}" th:text="${admin.role}"></span>
+                </td>
+                <td style="color: var(--text-secondary);" th:text="${admin.employeeType}"></td>
+                <td style="text-align: right;">
+                    <a class="btn btn-secondary" th:href="@{/admin/edit(userId=${admin.userId}, fullName=${admin.fullName}, username=${admin.username}, role=${admin.role}, employeeType=${admin.employeeType})}">Edit</a>
+
+                    <form th:action="@{/deleteAdminStaff}" method="post" style="display:inline; margin-left: 8px;">
+                        <input type="hidden" name="userId" th:value="${admin.userId}">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-card">
+        <div class="table-card-header">
+            <h3>Customer Vehicle Bookings</h3>
+        </div>
+        <table class="premium-table">
+            <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Vehicle ID</th>
+                <th>Dates</th>
+                <th>Status</th>
+                <th style="text-align: right;">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(allBookings)}">
+                <td colspan="5" style="text-align: center; color: var(--text-secondary); padding: 2rem;">No vehicle bookings found.</td>
+            </tr>
+            <tr th:each="booking : ${allBookings}">
+                <td style="font-weight: 500;" th:text="${booking.customerName}"></td>
+                <td style="font-family: monospace; color: var(--text-secondary);" th:text="${booking.vehicleId}"></td>
+                <td style="color: var(--text-secondary);" th:text="${booking.startDate + ' to ' + booking.returnDate}"></td>
+                <td>
+                    <span class="badge" th:classappend="${booking.bookingStatus == 'Pending' ? 'pending' : (booking.bookingStatus == 'Approved' ? 'approved' : 'rejected')}" th:text="${booking.bookingStatus}"></span>
+                </td>
+                <td style="text-align: right;">
+                    <div th:if="${booking.bookingStatus == 'Pending'}">
+                        <form action="/admin/approveBooking" method="POST" style="display:inline;">
+                            <input type="hidden" name="transactionId" th:value="${booking.transactionId}">
+                            <button type="submit" class="btn btn-primary">Approve</button>
+                        </form>
+                        <form action="/admin/rejectBooking" method="POST" style="display:inline; margin-left: 8px;">
+                            <input type="hidden" name="transactionId" th:value="${booking.transactionId}">
+                            <button type="submit" class="btn btn-danger">Reject</button>
+                        </form>
+                    </div>
+                    <span th:if="${booking.bookingStatus != 'Pending'}" style="color: var(--text-secondary); font-size: 0.85rem; font-style: italic;">Processed</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+</body>
+</html>

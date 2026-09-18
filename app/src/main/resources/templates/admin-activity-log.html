@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveEase - Activity Logs</title>
+
+    <link rel="stylesheet" href="/css/admin.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="~{fragments/admin-sidebar :: sidebar}"></div>
+
+<main class="main-content">
+
+    <div class="page-header">
+        <h2>System Activity Logs</h2>
+        <p>Monitor platform actions, security events, and user behavior.</p>
+    </div>
+
+    <div class="table-card">
+        <div class="table-card-header">
+            <h3 style="display: flex; align-items: center; gap: 8px;">
+                <span class="material-symbols-outlined" style="color: var(--accent-blue);">history</span>
+                Recent Operations
+            </h3>
+        </div>
+
+        <table class="premium-table">
+            <thead>
+            <tr>
+                <th>Timestamp</th>
+                <th>Actor</th>
+                <th>Action</th>
+                <th>Details</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${#lists.isEmpty(logs)}">
+                <td colspan="4" style="text-align: center; color: var(--text-secondary); padding: 3rem;">
+                    <span class="material-symbols-outlined" style="font-size: 2rem; opacity: 0.5; display: block; margin-bottom: 8px;">data_alert</span>
+                    No activity logs recorded yet.
+                </td>
+            </tr>
+
+            <tr th:each="log : ${logs}">
+                <td style="font-family: monospace; color: var(--text-secondary); white-space: nowrap;" th:text="${log.timestamp}"></td>
+
+                <td>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div class="avatar" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-subtle); background: transparent;">
+                            <span class="material-symbols-outlined" style="font-size: 1rem; color: var(--text-secondary);">person</span>
+                        </div>
+                        <span style="font-weight: 500;" th:text="${log.actor}"></span>
+                    </div>
+                </td>
+
+                <td style="color: #d8e2ff; font-weight: 500;" th:text="${log.action}"></td>
+                <td style="color: var(--text-secondary); font-size: 0.9rem;" th:text="${log.details}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+</body>
+</html>

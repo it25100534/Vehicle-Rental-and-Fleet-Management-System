@@ -22,3 +22,5 @@
 /app/vehicles.txt
 /app/src/main/resources/static/uploads/
 *.log
+__pycache__/
+*.pyc

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout | DriveEase</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/catalog.css">
+
+    <style>
+        .checkout-body {
+            margin: 0;
+            min-height: 100vh;
+            background: #ffffff;
+            color: #161618;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .checkout-main {
+            flex: 1;
+            padding: 95px 24px 130px;
+        }
+
+        .checkout-shell {
+            width: min(1320px, 100%);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 0.82fr 1.18fr;
+            gap: 76px;
+            align-items: start;
+        }
+
+        .checkout-info h1 {
+            margin: 0;
+            font-size: clamp(48px, 4.5vw, 68px);
+            line-height: 0.95;
+            letter-spacing: -0.08em;
+            font-weight: 900;
+            color: #161618;
+        }
+
+        .checkout-info > p {
+            max-width: 500px;
+            margin: 22px 0 0;
+            color: #565656;
+            font-size: 17px;
+            line-height: 1.45;
+            font-weight: 500;
+        }
+
+        .guide-block {
+            margin-top: 38px;
+        }
+
+        .guide-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 1px solid #d8d8d8;
+            background: #fafafa;
+            color: #363636;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .guide-list {
+            display: grid;
+            gap: 14px;
+        }
+
+        .guide-card,
+        .policy-card {
+            background: #f4f4f4;
+            border-radius: 18px;
+            padding: 20px;
+        }
+
+        .guide-card {
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            gap: 14px;
+            align-items: start;
+        }
+
+        .guide-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: #161618;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+        }
+
+        .guide-card h3,
+        .policy-card h3 {
+            margin: 0 0 8px;
+            color: #161618;
+            font-size: 18px;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            font-weight: 900;
+        }
+
+        .guide-card p,
+        .policy-card p {
+            margin: 0;
+            color: #4f4f4f;
+            font-size: 14px;
+            line-height: 1.45;
+            font-weight: 500;
+        }
+
+        .policy-card {
+            margin-top: 22px;
+            border: 1px solid #dedede;
+            background: #ffffff;
+        }
+
+        .policy-card strong {
+            color: #161618;
+        }
+
+        .checkout-card {
+            background: #f4f4f4;
+            border-radius: 24px;
+            padding: 42px 54px 56px;
+        }
+
+        .checkout-card,
+        .checkout-card * {
+            box-sizing: border-box;
+        }
+
+        .checkout-card-header {
+            margin-bottom: 30px;
+        }
+
+        .checkout-card-header h2 {
+            margin: 0;
+            color: #161618;
+            font-size: 34px;
+            line-height: 1;
+            letter-spacing: -0.06em;
+            font-weight: 900;
+        }
+
+        .checkout-card-header p {
+            margin: 12px 0 0;
+            color: #606060;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .checkout-form {
+            display: grid;
+            gap: 24px;
+        }
+
+        .checkout-section {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 24px;
+        }
+
+        .checkout-section h3 {
+            margin: 0 0 18px;
+            color: #161618;
+            font-size: 22px;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            font-weight: 900;
+        }
+
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 22px;
+        }
+
+        .checkout-field {
+            display: grid;
+            gap: 9px;
+            min-width: 0;
+        }
+
+        .checkout-field label {
+            color: #202020;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .checkout-field input,
+        .checkout-field select {
+            width: 100%;
+            max-width: 100%;
+            height: 54px;
+            border: 1px solid #d7d7d7;
+            border-radius: 10px;
+            background: #ffffff;
+            color: #161618;
+            padding: 0 16px;
+            font-size: 15px;
+            outline: none;
+            font-family: inherit;
+            display: block;
+        }
+
+        .checkout-field input:focus,
+        .checkout-field select:focus {
+            border-color: #161618;
+            box-shadow: 0 0 0 3px rgba(22, 22, 24, 0.08);
+        }
+
+        .checkout-field input[readonly] {
+            background: #f8f8f8;
+            color: #202020;
+            font-weight: 650;
+        }
+
+        .summary-lines {
+            display: grid;
+            gap: 14px;
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            padding: 14px 0;
+            border-bottom: 1px solid #eeeeee;
+            color: #555;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .summary-line:last-child {
+            border-bottom: none;
+        }
+
+        .summary-line strong {
+            color: #161618;
+            font-size: 16px;
+            font-weight: 900;
+        }
+
+        .summary-total {
+            margin-top: 6px;
+            padding: 18px;
+            border-radius: 14px;
+            background: #161618;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .summary-total span {
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .summary-total strong {
+            color: #ffffff;
+            font-size: 28px;
+            letter-spacing: -0.05em;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .agreement-box {
+            display: grid;
+            grid-template-columns: 22px 1fr;
+            gap: 12px;
+            align-items: start;
+            color: #4f4f4f;
+            font-size: 14px;
+            line-height: 1.45;
+            font-weight: 600;
+        }
+
+        .agreement-box input {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            accent-color: #161618;
+        }
+
+        .agreement-box a {
+            color: #161618;
+            font-weight: 900;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        .payment-top-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 18px;
+            align-items: end;
+            margin-bottom: 20px;
+        }
+
+        .saved-method-link {
+            color: #161618;
+            font-size: 14px;
+            font-weight: 900;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            white-space: nowrap;
+            padding-bottom: 14px;
+        }
+
+        .payment-details {
+            display: grid;
+            gap: 18px;
+        }
+
+        .message {
+            border-radius: 12px;
+            padding: 15px 16px;
+            font-size: 14px;
+            font-weight: 800;
+            line-height: 1.45;
+            display: none;
+        }
+
+        .message.visible {
+            display: block;
+        }
+
+        .message.success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .message.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .checkout-actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .checkout-btn {
+            min-width: 180px;
+            height: 58px;
+            border: none;
+            border-radius: 9px;
+            padding: 0 28px;
+            background: #161618;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 900;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .checkout-btn:hover {
+            background: #1f61d1;
+        }
+
+        @media (max-width: 1100px) {
+            .checkout-main {
+                padding-top: 70px;
+            }
+
+            .checkout-shell {
+                grid-template-columns: 1fr;
+                gap: 56px;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .checkout-main {
+                padding: 48px 14px 80px;
+            }
+
+            .checkout-card {
+                padding: 32px 20px;
+            }
+
+            .checkout-grid,
+            .payment-top-row {
+                grid-template-columns: 1fr;
+            }
+
+            .checkout-info h1 {
+                font-size: 52px;
+            }
+
+            .summary-total {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .checkout-btn {
+                width: 100%;
+            }
+
+            .checkout-actions {
+                align-items: stretch;
+            }
+
+            .saved-method-link {
+                padding-bottom: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="checkout-body">
+
+<header class="catalog-header">
+    <nav class="catalog-navbar">
+        <a href="/" class="catalog-logo">
+            <span class="catalog-logo-mark">✺</span>
+            <span>DriveEase</span>
+        </a>
+
+        <div class="catalog-nav-links">
+            <a href="/">Home</a>
+            <a href="/#about">About</a>
+            <a href="/catalog">Vehicles</a>
+            <a href="/#contact">Contact</a>
+        </div>
+
+        <div class="catalog-header-actions">
+            <a href="/reservationHistory" class="catalog-header-btn">
+                My Bookings
+                <span>→</span>
+            </a>
+
+            <a href="/profile" class="profile-nav-bubble" title="My Profile">👤</a>
+        </div>
+    </nav>
+</header>
+
+<main class="checkout-main">
+    <section class="checkout-shell">
+
+        <div class="checkout-info">
+            <h1>Complete payment!</h1>
+            <p>Review your approved booking and complete payment to confirm your rental with DriveEase.</p>
+
+            <div class="guide-block">
+                <span class="guide-pill">Payment guidance</span>
+
+                <div class="guide-list">
+                    <div class="guide-card">
+                        <span class="guide-number">1</span>
+                        <div>
+                            <h3>Review booking</h3>
+                            <p>Check your vehicle, rental duration, daily rate, and total amount before continuing.</p>
+                        </div>
+                    </div>
+
+                    <div class="guide-card">
+                        <span class="guide-number">2</span>
+                        <div>
+                            <h3>Choose method</h3>
+                            <p>Select card, PayPal, or cash depending on how you want to complete the payment.</p>
+                        </div>
+                    </div>
+
+                    <div class="guide-card">
+                        <span class="guide-number">3</span>
+                        <div>
+                            <h3>Confirm payment</h3>
+                            <p>After payment succeeds, your booking status changes to Paid and the invoice is saved.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="policy-card">
+                    <h3>Deposit and late return note</h3>
+                    <p>
+                        A refundable security deposit may be collected during vehicle pickup or handover depending on the
+                        vehicle type and rental policy. <strong>Late returns may include an additional late fee</strong>
+                        after staff review the return time and vehicle condition.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="checkout-card">
+            <div class="checkout-card-header">
+                <h2>Checkout details</h2>
+                <p>Confirm your booking summary, agree to the rental conditions, and choose a payment method.</p>
+            </div>
+
+            <form id="checkout-form" class="checkout-form">
+                <input type="hidden" id="transactionId" th:value="${transactionId}">
+
+                <section class="checkout-section">
+                    <h3>Booking summary</h3>
+
+                    <div class="checkout-grid">
+                        <div class="checkout-field">
+                            <label for="customerName">Customer Name</label>
+                            <input id="customerName" name="customerName" type="text" th:value="${customerName}" readonly required>
+                        </div>
+
+                        <div class="checkout-field">
+                            <label for="vehicleId">Vehicle ID</label>
+                            <input id="vehicleId" name="vehicleId" type="text" th:value="${vehicleId}" readonly required>
+                        </div>
+
+                        <div class="checkout-field">
+                            <label for="vehicleName">Vehicle Model</label>
+                            <input id="vehicleName" name="vehicleName" type="text" th:value="${vehicleName}" readonly required>
+                        </div>
+
+                        <div class="checkout-field">
+                            <label for="rentalDays">Rental Days</label>
+                            <input id="rentalDays" name="rentalDays" type="number" min="1" th:value="${rentalDays}" readonly required>
+                        </div>
+
+                        <div class="checkout-field">
+                            <label for="amountPerDay">Amount Per Day</label>
+                            <input id="amountPerDay" name="amountPerDay" type="number" min="0" step="0.01" th:value="${amountPerDay}" readonly required>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="checkout-section">
+                    <h3>Price summary</h3>
+
+                    <div class="summary-lines">
+                        <div class="summary-line">
+                            <span>Rental subtotal</span>
+                            <strong id="subtotalDisplay">Rs. 0.00</strong>
+                        </div>
+
+                        <div class="summary-line">
+                            <span>Security deposit</span>
+                            <strong>Paid at pickup if required</strong>
+                        </div>
+
+                        <div class="summary-total">
+                            <span>Total online payment</span>
+                            <strong id="totalDisplay">Rs. 0.00</strong>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="checkout-section">
+                    <label class="agreement-box">
+                        <input id="termsAccepted" type="checkbox" required>
+                        <span>
+                            I agree to the rental terms, privacy policy, payment conditions, and understand that
+                            late returns may result in extra charges after vehicle return inspection.
+                        </span>
+                    </label>
+                </section>
+
+                <section class="checkout-section">
+                    <h3>Payment method</h3>
+
+                    <div class="payment-top-row">
+                        <div class="checkout-field">
+                            <label for="paymentType">Payment Type</label>
+                            <select id="paymentType" name="paymentType" required>
+                                <option value="creditCard">Credit Card</option>
+                                <option value="paypal">PayPal</option>
+                                <option value="cash">Cash</option>
+                            </select>
+                        </div>
+
+                        <a href="#" class="saved-method-link" onclick="event.preventDefault(); alert('Saved payment methods can be connected later.');">
+                            Manage saved methods →
+                        </a>
+                    </div>
+
+                    <div id="payment-details" class="payment-details"></div>
+                </section>
+
+                <div id="message" class="message"></div>
+
+                <div class="checkout-actions">
+                    <button type="submit" class="checkout-btn">Confirm Payment</button>
+                </div>
+            </form>
+        </div>
+
+    </section>
+</main>
+
+<footer class="site-footer" id="contact">
+    <div class="footer-inner">
+
+        <div class="footer-brand-area">
+            <div class="footer-brand-column">
+                <div class="footer-logo">✺</div>
+
+                <div class="priority-card rental-help-card">
+                    <h2>Manage your rental</h2>
+                    <p>View your bookings, continue browsing vehicles, or contact support if you need help.</p>
+
+                    <div class="footer-action-row">
+                        <a href="/reservationHistory" class="footer-primary-action">My Bookings</a>
+                        <a href="/catalog" class="footer-secondary-action">Browse Vehicles</a>
+                    </div>
+
+                    <small>Need help? Contact support@driveease.lk or call +94 77 123 4567.</small>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <div>
+                    <h3>Pages</h3>
+                    <div class="footer-link-grid">
+                        <a href="/">Home</a>
+                        <a href="/#about">About</a>
+                        <a href="/catalog">Vehicles</a>
+                        <a href="/#faq">FAQs</a>
+                        <a href="/#contact">Contact</a>
+                        <a href="/reservationHistory" class="active">My Bookings</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>Contact info</h3>
+                    <p>+94 77 123 4567</p>
+                    <p>support@driveease.lk</p>
+                    <p>Colombo, Sri Lanka</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>Designed for the DriveEase vehicle rental system.</p>
+
+            <div class="socials">
+                <span>◎</span>
+                <span>𝕏</span>
+                <span>in</span>
+                <span>f</span>
+            </div>
+        </div>
+
+        <div class="footer-watermark">DriveEase</div>
+    </div>
+</footer>
+
+<script src="/js/checkout.js?v=5"></script>
+</body>
+</html>
