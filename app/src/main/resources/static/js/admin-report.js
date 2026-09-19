@@ -52,9 +52,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     <td><span class="badge pending">${invoice.status || "N/A"}</span></td>
                     <td style="color: var(--text-secondary); font-weight: 500;">${formatPaymentMethod(invoice.paymentMethod)}</td>
                     <td style="text-align: right;">
-                        <button class="btn btn-secondary" onclick="alert('Invoice details feature can be added later')">
+                        <a class="btn btn-secondary"
+                           href="/api/invoices/${invoice.id || invoice.invoiceId}"
+                           target="_blank"
+                           rel="noopener">
                             View
-                        </button>
+                        </a>
                     </td>
                 `;
 
