@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Admin Dashboard</h2>
+        <div>
+            <a th:href="@{/admin-registration.html}" class="btn btn-primary">Register Staff/Admin</a>
+            <a th:href="@{/admin-activity-log.html}" class="btn btn-outline-dark">View Activity Logs</a>
+            <a th:href="@{/maintenance}" class="btn btn-info text-white fw-bold">Vehicle Maintenance</a>
+            <a th:href="@{/inventory}" class="btn btn-success fw-bold">Manage Vehicles</a>
+            <a th:href="@{/admin-logout}" class="btn btn-danger fw-bold ms-2">Logout</a>
+        </div>
+    </div>
+
+    <div class="alert alert-info" th:if="${message != null and !#strings.isEmpty(message)}" th:text="${message}"></div>
+
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h6 class="text-muted">Total Accounts</h6>
+                    <h3 th:text="${#lists.size(admins)}"></h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h6 class="text-muted">Activity Logs</h6>
+                    <h3 th:text="${#lists.size(logs)}"></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-header">
+            <h5 class="mb-0">Admins and Staff Accounts</h5>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped mb-0">
+                <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Full Name</th>
+                    <th>Username</th>
+                    <th>Role</th>
+                    <th>Employee Type</th>
+                    <th>Password (Masked)</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(admins)}">
+                    <td colspan="7" class="text-center py-3">No staff/admin accounts found.</td>
+                </tr>
+                <tr th:each="admin : ${admins}">
+                    <td th:text="${admin.userId}"></td>
+                    <td th:text="${admin.fullName}"></td>
+                    <td th:text="${admin.username}"></td>
+                    <td th:text="${admin.role}"></td>
+                    <td th:text="${admin.employeeType}"></td>
+                    <td th:text="${admin.maskedPasswordHash}"></td>
+                    <td>
+                        <a class="btn btn-sm btn-warning"
+                           th:href="@{/edit-admin-staff.html(
+                                userId=${admin.userId},
+                                fullName=${admin.fullName},
+                                username=${admin.username},
+                                role=${admin.role},
+                                employeeType=${admin.employeeType}
+                           )}">
+                            Edit
+                        </a>
+                        <form th:action="@{/deleteAdminStaff}" method="post" style="display:inline;">
+                            <input type="hidden" name="userId" th:value="${admin.userId}">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card shadow-sm border-0 mt-4">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">Customer Vehicle Bookings</h5>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped mb-0">
+                <thead>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Vehicle ID</th>
+                    <th>Dates</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(allBookings)}">
+                    <td colspan="5" class="text-center py-3">No vehicle bookings found.</td>
+                </tr>
+                <tr th:each="booking : ${allBookings}">
+                    <td th:text="${booking.customerName}"></td>
+                    <td th:text="${booking.vehicleId}"></td>
+                    <td th:text="${booking.startDate + ' to ' + booking.returnDate}"></td>
+
+                    <td>
+                        <span class="badge"
+                              th:classappend="${booking.bookingStatus == 'Pending' ? 'bg-warning text-dark' : (booking.bookingStatus == 'Approved' ? 'bg-success' : 'bg-danger')}"
+                              th:text="${booking.bookingStatus}">
+                        </span>
+                    </td>
+
+                    <td>
+                        <div th:if="${booking.bookingStatus == 'Pending'}">
+                            <form action="/admin/approveBooking" method="POST" style="display:inline;">
+                                <input type="hidden" name="transactionId" th:value="${booking.transactionId}">
+                                <button type="submit" class="btn btn-sm btn-success">Approve</button>
+                            </form>
+
+                            <form action="/admin/rejectBooking" method="POST" style="display:inline;">
+                                <input type="hidden" name="transactionId" th:value="${booking.transactionId}">
+                                <button type="submit" class="btn btn-sm btn-danger">Reject</button>
+                            </form>
+                        </div>
+                        <span th:if="${booking.bookingStatus != 'Pending'}" class="text-muted small">Processed</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,504 @@
+:root {
+    --bg-main: #0A0A0A;
+    --bg-card: #1C1C1E;
+    --bg-hover: #2A2A2C;
+    --text-primary: #ffffff;
+    --text-secondary: #858383;
+    --border-subtle: rgba(68, 71, 72, 0.2);
+    --accent-blue: #2480ff;
+    --accent-blue-hover: #1a5cbf;
+    --accent-red: #dc2626;
+    --accent-green: #16a34a;
+    --accent-yellow: #eab308;
+
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    /* Deep indigo/black base */
+    background-color: #080612;
+    background-image:
+        radial-gradient(circle at 15% 40%, rgba(36, 128, 255, 0.3) 0, transparent 45%),   /* Bright Blue */
+        radial-gradient(circle at 85% 20%, rgba(139, 92, 246, 0.3) 0, transparent 45%),   /* Vibrant Purple */
+        radial-gradient(circle at 50% 90%, rgba(225, 29, 72, 0.2) 0, transparent 50%);    /* Rose/Red */
+
+    background-attachment: fixed;
+    color: var(--text-primary);
+    margin: 0;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* --- GLASSMORPHISM EFFECT --- */
+.sidebar,
+.topbar,
+.stat-card,
+.table-card,
+.form-card {
+    /* Semi-transparent dark background */
+    background-color: rgba(28, 28, 30, 0.4) !important;
+
+    /* The magic frosted glass blur */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px); /* Safari support */
+
+    /* Subtle glowing edge */
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Make table headers slightly more transparent to match */
+.premium-table th {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Make table hover rows transparent */
+.premium-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+h1, h2, h3 {
+    font-family: 'Hanken Grotesk', sans-serif;
+    margin-bottom: 0.5rem;
+}
+
+/* --- LAYOUT & SPACING --- */
+.main-content {
+    flex: 1;
+    margin-left: 256px; /* Space for sidebar */
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-header p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+/* --- STAT CARDS --- */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 120px;
+    transition: transform 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.stat-card:hover {
+    transform: scale(1.02);
+}
+
+.stat-card .header {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.stat-card .value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* --- DATA TABLES --- */
+.table-card {
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-subtle);
+}
+
+.table-card-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.premium-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.premium-table th {
+    padding: 1rem;
+    background-color: rgba(10, 10, 10, 0.5);
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.premium-table td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.95rem;
+}
+
+.premium-table tr:hover {
+    background-color: var(--bg-hover);
+}
+
+/* --- BUTTONS & BADGES --- */
+.badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+.badge.pending { background-color: rgba(234, 179, 8, 0.2); color: var(--accent-yellow); }
+.badge.approved { background-color: rgba(22, 163, 74, 0.2); color: var(--accent-green); }
+.badge.rejected { background-color: rgba(220, 38, 38, 0.2); color: var(--accent-red); }
+
+.btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-primary { background-color: var(--accent-green); color: white; }
+.btn-primary:hover { background-color: #15803d; }
+.btn-danger { background-color: var(--accent-red); color: white; }
+.btn-danger:hover { background-color: #b91c1c; }
+.btn-ghost-yellow { background-color: rgba(234, 179, 8, 0.1); color: var(--accent-yellow); border: 1px solid rgba(234, 179, 8, 0.3); }
+.btn-ghost-yellow:hover { background-color: rgba(234, 179, 8, 0.3); }
+
+/* --- SIDEBAR --- */
+.sidebar {
+    width: 256px;
+    background-color: var(--bg-card);
+    border-right: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 50;
+}
+
+.sidebar-header {
+    padding: 2rem 1.5rem;
+}
+
+.sidebar-brand {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+}
+
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 2rem;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--bg-hover);
+    overflow: hidden;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-info .name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.user-info .role {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0 1rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+/* The highlighted state for the page you are currently on */
+.nav-link.active {
+    background-color: rgba(36, 128, 255, 0.15);
+    color: var(--accent-blue);
+}
+
+/* --- FORMS & INPUTS --- */
+.form-card {
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 800px;
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-label {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 1px var(--accent-blue);
+}
+
+.form-control:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23858383%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem top 50%;
+    background-size: 0.65rem auto;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-subtle);
+}
+
+.btn-secondary:hover {
+    background-color: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+/* Alert messages */
+.alert {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    max-width: 800px;
+}
+.alert-info {
+    background-color: rgba(36, 128, 255, 0.2);
+    color: #60a5fa;
+    border: 1px solid rgba(36, 128, 255, 0.3);
+}
+
+/* --- INVENTORY SPECIFIC --- */
+.img-thumbnail-container {
+    width: 80px;
+    height: 56px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-subtle);
+    transition: border-color 0.2s;
+}
+
+.premium-table tr:hover .img-thumbnail-container {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.img-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.premium-table tr:hover .action-buttons {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   FLUID ANIMATIONS & TRANSITIONS
+   ========================================================================== */
+
+/* 1. Page Load Animation (Fade & Slide Up) */
+@keyframes fadeSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply the animation to main layout chunks */
+.page-header,
+.stats-grid,
+.table-card,
+.form-card,
+.edit-card {
+    /* The cubic-bezier makes the animation snap quickly but settle softly */
+    animation: fadeSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0; /* Keep them hidden until the animation starts */
+}
+
+/* Stagger the delays so elements cascade into the screen */
+.page-header { animation-delay: 0.05s; }
+.stats-grid  { animation-delay: 0.15s; }
+.table-card  { animation-delay: 0.25s; }
+.form-card, .edit-card { animation-delay: 0.15s; }
+
+/* 2. Fluid Card Hovers (Lift & Glow) */
+.stat-card,
+.rule-card,
+.why-card {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.3s ease;
+    will-change: transform, box-shadow; /* Hardware acceleration for smoothness */
+}
+
+.stat-card:hover,
+.rule-card:hover,
+.why-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2) !important; /* Adjust opacity if using light mode */
+    border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* 3. Interactive Buttons (Scale & Spring) */
+.btn,
+.icon-btn,
+.booking-btn,
+.edit-btn {
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
+                background-color 0.2s ease,
+                color 0.2s ease !important;
+}
+
+.btn:hover,
+.booking-btn:hover,
+.edit-btn:hover {
+    transform: scale(1.03); /* Slight expansion on hover */
+}
+
+.btn:active,
+.booking-btn:active,
+.edit-btn:active,
+.icon-btn:active {
+    transform: scale(0.96); /* Satisfying "squish" when clicked */
+}
+
+/* 4. Smooth Sidebar Navigation */
+.sidebar-nav .nav-link {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sidebar-nav .nav-link:hover {
+    transform: translateX(6px); /* Nudges the text/icon slightly to the right */
+    background-color: rgba(255, 255, 255, 0.05); /* Soft highlight */
+}
+
+/* 5. Table Row Transitions */
+.premium-table tbody tr {
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Portal | DriveEase</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/catalog.css">
+
+    <style>
+        .admin-login-body {
+            margin: 0;
+            min-height: 100vh;
+            background: #ffffff;
+            color: #161618;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .admin-login-main {
+            flex: 1;
+            padding: 95px 24px 130px;
+        }
+
+        .admin-login-shell {
+            width: min(1280px, 100%);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            gap: 84px;
+            align-items: start;
+        }
+
+        .admin-info h1 {
+            margin: 0;
+            color: #161618;
+            font-size: clamp(54px, 5vw, 82px);
+            line-height: 0.9;
+            letter-spacing: -0.09em;
+            font-weight: 950;
+        }
+
+        .admin-info > p {
+            max-width: 560px;
+            margin: 24px 0 0;
+            color: #565656;
+            font-size: 18px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .admin-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 58px;
+            margin-bottom: 20px;
+            padding: 7px 15px;
+            border-radius: 999px;
+            border: 1px solid #d8d8d8;
+            background: #fafafa;
+            color: #363636;
+            font-size: 13px;
+            font-weight: 850;
+        }
+
+        .admin-feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            max-width: 560px;
+        }
+
+        .admin-feature-card {
+            min-height: 150px;
+            border-radius: 20px;
+            background: #f4f4f4;
+            padding: 22px;
+        }
+
+        .admin-feature-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 9px;
+            background: #161618;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            margin-bottom: 22px;
+        }
+
+        .admin-feature-card h3 {
+            margin: 0 0 9px;
+            color: #161618;
+            font-size: 19px;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            font-weight: 950;
+        }
+
+        .admin-feature-card p {
+            margin: 0;
+            color: #4f4f4f;
+            font-size: 14px;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+
+        .admin-login-card {
+            background: #f4f4f4;
+            border-radius: 26px;
+            padding: 56px 62px 60px;
+        }
+
+        .admin-login-card,
+        .admin-login-card * {
+            box-sizing: border-box;
+        }
+
+        .admin-card-header {
+            margin-bottom: 34px;
+        }
+
+        .admin-card-header h2 {
+            margin: 0;
+            color: #161618;
+            font-size: 40px;
+            line-height: 1;
+            letter-spacing: -0.07em;
+            font-weight: 950;
+        }
+
+        .admin-card-header p {
+            margin: 14px 0 0;
+            color: #606060;
+            font-size: 16px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .admin-alert {
+            background: #fee2e2;
+            color: #991b1b;
+            border-radius: 12px;
+            padding: 15px 16px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            font-weight: 850;
+            line-height: 1.4;
+        }
+
+        .admin-form {
+            display: grid;
+            gap: 22px;
+        }
+
+        .admin-field {
+            display: grid;
+            gap: 9px;
+        }
+
+        .admin-field label {
+            color: #202020;
+            font-size: 15px;
+            font-weight: 850;
+        }
+
+        .admin-field input {
+            width: 100%;
+            max-width: 100%;
+            height: 58px;
+            border: 1px solid #d7d7d7;
+            border-radius: 10px;
+            background: #ffffff;
+            color: #161618;
+            padding: 0 18px;
+            font-size: 16px;
+            outline: none;
+            font-family: inherit;
+            display: block;
+        }
+
+        .admin-field input:focus {
+            border-color: #161618;
+            box-shadow: 0 0 0 3px rgba(22, 22, 24, 0.08);
+        }
+
+        .admin-submit {
+            width: 100%;
+            height: 60px;
+            border: none;
+            border-radius: 10px;
+            background: #161618;
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 950;
+            font-family: inherit;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .admin-submit:hover {
+            background: #1f61d1;
+        }
+
+        .admin-card-divider {
+            height: 1px;
+            background: #dedede;
+            margin: 28px 0;
+        }
+
+        .admin-extra-actions {
+            display: grid;
+            gap: 14px;
+        }
+
+        .admin-secondary-link {
+            width: 100%;
+            height: 56px;
+            border-radius: 10px;
+            background: #ffffff;
+            color: #161618;
+            border: 1px solid #d0d0d0;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 950;
+            font-size: 15px;
+        }
+
+        .admin-secondary-link:hover {
+            background: #161618;
+            color: #ffffff;
+        }
+
+        .admin-note {
+            margin-top: 22px;
+            color: #606060;
+            font-size: 13px;
+            line-height: 1.5;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        @media (max-width: 1050px) {
+            .admin-login-main {
+                padding-top: 64px;
+            }
+
+            .admin-login-shell {
+                grid-template-columns: 1fr;
+                gap: 56px;
+            }
+
+            .admin-feature-grid {
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .admin-login-main {
+                padding: 48px 14px 80px;
+            }
+
+            .admin-login-card {
+                padding: 38px 22px;
+            }
+
+            .admin-feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-info h1 {
+                font-size: 56px;
+            }
+        }
+    </style>
+</head>
+
+<body class="admin-login-body">
+
+<header class="catalog-header">
+    <nav class="catalog-navbar">
+        <a href="/" class="catalog-logo">
+            <span class="catalog-logo-mark">✺</span>
+            <span>DriveEase</span>
+        </a>
+
+        <div class="catalog-nav-links">
+            <a href="/">Home</a>
+            <a href="/#about">About</a>
+            <a href="/catalog">Vehicles</a>
+            <a href="/#contact">Contact</a>
+        </div>
+
+        <a href="/login" class="catalog-header-btn">
+            Customer Login
+            <span>→</span>
+        </a>
+    </nav>
+</header>
+
+<main class="admin-login-main">
+    <section class="admin-login-shell">
+
+        <div class="admin-info">
+            <h1>Admin access!</h1>
+            <p>
+                Manage booking approvals, vehicle operations, billing records, and staff workflows from the secure
+                DriveEase administration portal.
+            </p>
+
+            <span class="admin-pill">Staff portal</span>
+
+            <div class="admin-feature-grid">
+                <div class="admin-feature-card">
+                    <span class="admin-feature-icon">✓</span>
+                    <h3>Secure staff login</h3>
+                    <p>Only registered administrators and staff members can access the dashboard.</p>
+                </div>
+
+                <div class="admin-feature-card">
+                    <span class="admin-feature-icon">↻</span>
+                    <h3>Booking approvals</h3>
+                    <p>Review customer booking requests before payments and vehicle handovers.</p>
+                </div>
+
+                <div class="admin-feature-card">
+                    <span class="admin-feature-icon">Rs</span>
+                    <h3>Billing records</h3>
+                    <p>Track invoices, payment completion, and rental-related billing information.</p>
+                </div>
+
+                <div class="admin-feature-card">
+                    <span class="admin-feature-icon">⚙</span>
+                    <h3>Operations control</h3>
+                    <p>Manage vehicles, maintenance activities, and daily service operations.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="admin-login-card">
+            <div class="admin-card-header">
+                <h2>Staff sign in</h2>
+                <p>Enter your admin credentials to continue to the dashboard.</p>
+            </div>
+
+            <div class="admin-alert" th:if="${error != null}">
+                <span th:text="${error}"></span>
+            </div>
+
+            <form class="admin-form" th:action="@{/admin-login}" method="post">
+                <div class="admin-field">
+                    <label for="username">Admin Username*</label>
+                    <input id="username"
+                           type="text"
+                           name="username"
+                           placeholder="e.g. system_admin"
+                           required
+                           autocomplete="off">
+                </div>
+
+                <div class="admin-field">
+                    <label for="password">Authorization Key*</label>
+                    <input id="password"
+                           type="password"
+                           name="password"
+                           placeholder="Enter your password"
+                           required>
+                </div>
+
+                <button type="submit" class="admin-submit">Access Dashboard →</button>
+            </form>
+
+            <div class="admin-card-divider"></div>
+
+            <div class="admin-extra-actions">
+                <a href="/login" class="admin-secondary-link">Return to Customer Login</a>
+                <a href="/catalog" class="admin-secondary-link">Browse Vehicles</a>
+            </div>
+
+            <p class="admin-note">
+                Access is limited to authorized DriveEase administrators. Unauthorized attempts may be reviewed.
+            </p>
+        </div>
+
+    </section>
+</main>
+
+</body>
+</html>

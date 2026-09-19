@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payments & Billing Report | DriveEase Admin</title>
+
+    <link rel="stylesheet" href="/css/admin.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="~{fragments/admin-sidebar :: sidebar}"></div>
+
+<main class="main-content">
+
+    <div class="page-header">
+        <h2>Payments & Billing Report</h2>
+        <p>Review invoice details, billing information, and recent payment records.</p>
+    </div>
+
+    <div class="stats-grid" style="grid-template-columns: 1fr; margin-bottom: 2rem;">
+        <div class="stat-card" style="height: auto; min-height: 80px;">
+            <div class="header">
+                <span>Data Summary</span>
+                <span class="material-symbols-outlined" style="color: var(--accent-blue);">analytics</span>
+            </div>
+            <div id="invoice-summary" style="margin-top: 15px; font-size: 0.95rem; color: var(--text-primary); font-weight: 500;">
+                Loading invoice data...
+            </div>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <div class="table-card-header">
+            <h3>Invoice Records</h3>
+        </div>
+        <table class="premium-table">
+            <thead>
+            <tr>
+                <th>Invoice ID</th>
+                <th>Customer</th>
+                <th>Vehicle</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Payment Method</th>
+                <th style="text-align: right;">Actions</th>
+            </tr>
+            </thead>
+            <tbody id="invoice-table-body">
+            <tr>
+                <td colspan="7" style="text-align: center; color: var(--text-secondary); padding: 3rem;">Loading invoice records...</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<script src="/js/admin-report.js"></script>
+</body>
+</html>
