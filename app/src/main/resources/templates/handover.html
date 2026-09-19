@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveEase - Handover and Return</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .handover-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.25rem; }
+        .handover-card { padding: 1.25rem; border: 1px solid var(--border-subtle); border-radius: 12px; background: rgba(0, 0, 0, .18); }
+        .handover-card h4 { margin: 0 0 1rem; }
+        .record-meta { color: var(--text-secondary); font-size: .82rem; line-height: 1.6; margin-bottom: 1rem; }
+        .record-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .record-actions form { padding: 1rem; border-radius: 10px; background: rgba(255, 255, 255, .035); }
+        .record-actions h5 { margin: 0 0 .8rem; }
+        .compact .form-group { margin-bottom: .8rem; }
+        .empty-state { padding: 2rem; text-align: center; color: var(--text-secondary); }
+        .notice { padding: .9rem 1rem; margin-bottom: 1.25rem; border-radius: 8px; font-weight: 600; }
+        .notice.success { color: #86efac; background: rgba(22, 163, 74, .14); border: 1px solid rgba(22, 163, 74, .3); }
+        .notice.error { color: #fca5a5; background: rgba(220, 38, 38, .14); border: 1px solid rgba(220, 38, 38, .3); }
+        .status-active { color: #fde047; }
+        .status-returned { color: #86efac; }
+        @media (max-width: 900px) { .record-actions { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/admin-sidebar :: sidebar}"></div>
+
+<main class="main-content">
+    <div class="page-header">
+        <h2>Vehicle Handover & Return</h2>
+        <p>Record the vehicle condition and mileage when a rental starts and when it is returned.</p>
+    </div>
+
+    <div th:if="${message}" class="notice success" th:text="${message}"></div>
+    <div th:if="${error}" class="notice error" th:text="${error}"></div>
+
+    <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="stat-card">
+            <div class="header"><span>Total Records</span><span class="material-symbols-outlined">receipt_long</span></div>
+            <div class="value" th:text="${#lists.size(records)}">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="header"><span>Active Rentals</span><span class="material-symbols-outlined">key</span></div>
+            <div class="value" th:text="${#lists.size(activeRecords)}">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="header"><span>Completed Returns</span><span class="material-symbols-outlined">task_alt</span></div>
+            <div class="value" th:text="${#lists.size(records) - #lists.size(activeRecords)}">0</div>
+        </div>
+    </div>
+
+    <section class="form-card" style="max-width: 100%; margin-bottom: 2rem;">
+        <h3>Record a Vehicle Handover</h3>
+        <p style="color: var(--text-secondary);" th:if="${#lists.isEmpty(eligibleBookings)}">
+            No approved or paid booking is ready. Approve a booking first, then return to this page.
+        </p>
+        <form action="/handover/create" method="post" th:unless="${#lists.isEmpty(eligibleBookings)}">
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Approved or Paid Booking</label>
+                    <select class="form-control" name="bookingId" required>
+                        <option value="">Choose a booking</option>
+                        <option th:each="booking : ${eligibleBookings}"
+                                th:value="${booking.transactionId}"
+                                th:text="${booking.customerName + ' — ' + booking.vehicleId + ' — return ' + booking.returnDate}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Outgoing Odometer (km)</label>
+                    <input class="form-control" name="odometerOut" type="number" min="0" step="0.1" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Outgoing Fuel Level</label>
+                    <select class="form-control" name="fuelLevelOut" required>
+                        <option value="">Choose fuel level</option>
+                        <option>FULL</option><option>THREE_QUARTERS</option><option>HALF</option><option>QUARTER</option><option>EMPTY</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Outgoing Condition</label>
+                    <input class="form-control" name="conditionOut" maxlength="180" placeholder="Clean, no visible damage" required>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit" style="padding: 11px 20px;">Complete Handover</button>
+        </form>
+    </section>
+
+    <section class="table-card">
+        <div class="table-card-header"><h3>Rental Records</h3></div>
+        <div th:if="${#lists.isEmpty(records)}" class="empty-state">No handover records yet.</div>
+        <div class="handover-grid" style="padding: 1.25rem;" th:unless="${#lists.isEmpty(records)}">
+            <article class="handover-card" th:each="record : ${records}">
+                <h4>
+                    <span th:text="${record.vehicleId}">CAR-001</span>
+                    <span th:class="${record.active ? 'status-active' : 'status-returned'}"
+                          th:text="${' · ' + record.status}"> · ACTIVE</span>
+                </h4>
+                <div class="record-meta">
+                    <div><strong>Record:</strong> <span th:text="${record.recordId}"></span></div>
+                    <div><strong>Booking:</strong> <span th:text="${record.bookingId}"></span></div>
+                    <div><strong>Customer:</strong> <span th:text="${record.customerName}"></span></div>
+                    <div><strong>Handover:</strong> <span th:text="${record.handedOverAt}"></span></div>
+                    <div><strong>Due:</strong> <span th:text="${record.scheduledReturnDate}"></span></div>
+                    <div><strong>Outgoing:</strong> <span th:text="${record.odometerOut + ' km, ' + record.fuelLevelOut + ', ' + record.conditionOut}"></span></div>
+                    <div th:unless="${record.active}"><strong>Returned:</strong> <span th:text="${record.returnedAt}"></span></div>
+                    <div th:unless="${record.active}"><strong>Incoming:</strong> <span th:text="${record.odometerIn + ' km, ' + record.fuelLevelIn + ', ' + record.conditionIn}"></span></div>
+                    <div th:unless="${record.active}"><strong>Late fee:</strong> Rs. <span th:text="${#numbers.formatDecimal(record.lateFee, 1, 2)}"></span></div>
+                </div>
+
+                <div class="record-actions compact" th:if="${record.active}">
+                    <form action="/handover/update" method="post">
+                        <h5>Update Handover</h5>
+                        <input type="hidden" name="recordId" th:value="${record.recordId}">
+                        <div class="form-group"><label class="form-label">Return Date</label><input class="form-control" type="date" name="scheduledReturnDate" th:value="${record.scheduledReturnDate}" required></div>
+                        <div class="form-group"><label class="form-label">Odometer Out</label><input class="form-control" type="number" min="0" step="0.1" name="odometerOut" th:value="${record.odometerOut}" required></div>
+                        <div class="form-group"><label class="form-label">Fuel Out</label><select class="form-control" name="fuelLevelOut" required><option th:selected="${record.fuelLevelOut == 'FULL'}">FULL</option><option th:selected="${record.fuelLevelOut == 'THREE_QUARTERS'}">THREE_QUARTERS</option><option th:selected="${record.fuelLevelOut == 'HALF'}">HALF</option><option th:selected="${record.fuelLevelOut == 'QUARTER'}">QUARTER</option><option th:selected="${record.fuelLevelOut == 'EMPTY'}">EMPTY</option></select></div>
+                        <div class="form-group"><label class="form-label">Condition Out</label><input class="form-control" name="conditionOut" maxlength="180" th:value="${record.conditionOut}" required></div>
+                        <button class="btn btn-ghost-yellow" type="submit">Save Changes</button>
+                    </form>
+
+                    <form action="/handover/return" method="post">
+                        <h5>Complete Return</h5>
+                        <input type="hidden" name="recordId" th:value="${record.recordId}">
+                        <div class="form-group"><label class="form-label">Odometer In</label><input class="form-control" type="number" min="0" step="0.1" name="odometerIn" th:min="${record.odometerOut}" required></div>
+                        <div class="form-group"><label class="form-label">Fuel In</label><select class="form-control" name="fuelLevelIn" required><option value="">Choose</option><option>FULL</option><option>THREE_QUARTERS</option><option>HALF</option><option>QUARTER</option><option>EMPTY</option></select></div>
+                        <div class="form-group"><label class="form-label">Condition In</label><input class="form-control" name="conditionIn" maxlength="180" placeholder="Returned condition" required></div>
+                        <div class="form-group"><label class="form-label">Late Fee (Rs.)</label><input class="form-control" type="number" min="0" step="0.01" name="lateFee" value="0" required></div>
+                        <button class="btn btn-primary" type="submit">Record Return</button>
+                    </form>
+                </div>
+
+                <form action="/handover/delete" method="post" style="margin-top: 1rem;" onsubmit="return confirm('Delete this rental record?');">
+                    <input type="hidden" name="recordId" th:value="${record.recordId}">
+                    <button class="btn btn-danger" type="submit">Delete Record</button>
+                </form>
+            </article>
+        </div>
+    </section>
+</main>
+</body>
+</html>
