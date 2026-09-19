@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveEase - Vehicle Inventory</title>
+
+    <link rel="stylesheet" href="/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="~{fragments/admin-sidebar :: sidebar}"></div>
+
+<main class="main-content">
+
+    <div class="page-header" style="display: flex; justify-content: space-between; align-items: flex-end;">
+        <div>
+            <h2>Fleet Inventory</h2>
+            <p style="margin-bottom: 0;">Manage your vehicle catalog, pricing, and availability.</p>
+        </div>
+
+        <a href="/vehicleForm" class="btn btn-primary" style="padding: 12px 24px; gap: 8px;">
+            <span class="material-symbols-outlined" style="font-size: 1.2rem;">add</span>
+            Add New Vehicle
+        </a>
+    </div>
+
+    <div class="table-card" style="margin-top: 2rem;">
+        <table class="premium-table">
+            <thead>
+            <tr>
+                <th>Image</th>
+                <th>ID</th>
+                <th>Make & Model</th>
+                <th>Type</th>
+                <th>Rate / Day</th>
+                <th>Status</th>
+                <th style="text-align: right;">Actions</th>
+            </tr>
+            </thead>
+            <tbody id="inventoryBody">
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<script src="/js/inventory.js"></script>
+</body>
+</html>
