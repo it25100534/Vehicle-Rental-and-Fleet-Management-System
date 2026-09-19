@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Booking | DriveEase</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/catalog.css">
+
+    <style>
+        .edit-body {
+            margin: 0;
+            min-height: 100vh;
+            background: #ffffff;
+            color: #161618;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .edit-main {
+            flex: 1;
+            padding: 105px 24px 130px;
+        }
+
+        .edit-shell {
+            width: min(1280px, 100%);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            gap: 82px;
+            align-items: start;
+        }
+
+        .edit-info h1 {
+            margin: 0;
+            font-size: clamp(46px, 4.2vw, 64px);
+            line-height: 0.96;
+            letter-spacing: -0.08em;
+            font-weight: 900;
+            color: #161618;
+        }
+
+        .edit-info > p {
+            max-width: 500px;
+            margin: 20px 0 0;
+            color: #565656;
+            font-size: 17px;
+            line-height: 1.45;
+            font-weight: 500;
+        }
+
+        .rules-block {
+            margin-top: 34px;
+        }
+
+        .rules-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 1px solid #d8d8d8;
+            background: #fafafa;
+            color: #363636;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            max-width: 520px;
+        }
+
+        .rule-card {
+            background: #f4f4f4;
+            border-radius: 18px;
+            padding: 18px 20px;
+            min-height: 138px;
+        }
+
+        .rule-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: #161618;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            margin-bottom: 18px;
+            font-weight: 900;
+        }
+
+        .rule-card h3 {
+            margin: 0 0 8px;
+            color: #161618;
+            font-size: 18px;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            font-weight: 900;
+        }
+
+        .rule-card p {
+            margin: 0;
+            color: #4f4f4f;
+            font-size: 13.5px;
+            line-height: 1.35;
+            font-weight: 500;
+        }
+
+        .edit-card {
+            background: #f4f4f4;
+            border-radius: 24px;
+            padding: 42px 62px 58px;
+        }
+
+        .edit-card,
+        .edit-card * {
+            box-sizing: border-box;
+        }
+
+        .edit-card-header {
+            margin-bottom: 30px;
+        }
+
+        .edit-card-header h2 {
+            margin: 0;
+            color: #161618;
+            font-size: 34px;
+            line-height: 1;
+            letter-spacing: -0.06em;
+            font-weight: 900;
+        }
+
+        .edit-card-header p {
+            margin: 12px 0 0;
+            color: #606060;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .edit-form {
+            display: grid;
+            gap: 24px;
+        }
+
+        .edit-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px 24px;
+        }
+
+        .edit-field {
+            display: grid;
+            gap: 9px;
+            min-width: 0;
+        }
+
+        .edit-field label {
+            color: #202020;
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .edit-field input {
+            width: 100%;
+            max-width: 100%;
+            height: 56px;
+            border: 1px solid #d7d7d7;
+            border-radius: 10px;
+            background: #ffffff;
+            color: #161618;
+            padding: 0 18px;
+            font-size: 16px;
+            outline: none;
+            font-family: inherit;
+            display: block;
+        }
+
+        .edit-field input:focus {
+            border-color: #161618;
+            box-shadow: 0 0 0 3px rgba(22, 22, 24, 0.08);
+        }
+
+        .edit-field input[readonly] {
+            background: #ffffff;
+            color: #71717a;
+            font-weight: 650;
+            cursor: not-allowed;
+        }
+
+        .edit-alert {
+            border-radius: 12px;
+            padding: 15px 16px;
+            color: #991b1b;
+            background: #fee2e2;
+            font-size: 14px;
+            font-weight: 800;
+            line-height: 1.45;
+        }
+
+        .edit-actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            padding-top: 4px;
+        }
+
+        .edit-btn {
+            min-width: 150px;
+            height: 58px;
+            border: none;
+            border-radius: 9px;
+            padding: 0 26px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 900;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .edit-btn.primary {
+            background: #161618;
+            color: #ffffff;
+        }
+
+        .edit-btn.primary:hover {
+            background: #1f61d1;
+        }
+
+        .edit-btn.secondary {
+            background: #ffffff;
+            color: #161618;
+            border: 1px solid #d0d0d0;
+        }
+
+        .edit-btn.secondary:hover {
+            background: #161618;
+            color: #ffffff;
+        }
+
+        @media (max-width: 1050px) {
+            .edit-main {
+                padding-top: 70px;
+            }
+
+            .edit-shell {
+                grid-template-columns: 1fr;
+                gap: 56px;
+            }
+
+            .rules-grid {
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .edit-main {
+                padding: 48px 14px 80px;
+            }
+
+            .edit-card {
+                padding: 34px 22px;
+            }
+
+            .edit-grid,
+            .rules-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .edit-info h1 {
+                font-size: 52px;
+            }
+
+            .edit-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .edit-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body class="edit-body">
+
+<header class="catalog-header">
+    <nav class="catalog-navbar">
+        <a href="/" class="catalog-logo">
+            <span class="catalog-logo-mark">✺</span>
+            <span>DriveEase</span>
+        </a>
+
+        <div class="catalog-nav-links">
+            <a href="/">Home</a>
+            <a href="/#about">About</a>
+            <a href="/catalog">Vehicles</a>
+            <a href="/#contact">Contact</a>
+        </div>
+
+        <div class="catalog-header-actions">
+            <a href="/reservationHistory" class="catalog-header-btn">
+                My Bookings
+                <span>→</span>
+            </a>
+
+            <a href="/profile" class="profile-nav-bubble" title="My Profile">👤</a>
+        </div>
+    </nav>
+</header>
+
+<main class="edit-main">
+    <section class="edit-shell">
+
+        <div class="edit-info">
+            <h1>Update booking!</h1>
+            <p>You can only update rental dates while your booking is still pending. Vehicle changes are locked to keep the request accurate.</p>
+
+            <div class="rules-block">
+                <span class="rules-pill">Edit rules</span>
+
+                <div class="rules-grid">
+                    <div class="rule-card">
+                        <span class="rule-icon">✓</span>
+                        <h3>Pending only</h3>
+                        <p>Approved, paid, or rejected bookings cannot be edited from this page.</p>
+                    </div>
+
+                    <div class="rule-card">
+                        <span class="rule-icon">#</span>
+                        <h3>Vehicle locked</h3>
+                        <p>The selected vehicle ID stays fixed. To change vehicles, create a new booking.</p>
+                    </div>
+
+                    <div class="rule-card">
+                        <span class="rule-icon">◷</span>
+                        <h3>Valid dates</h3>
+                        <p>Start date cannot be in the past, and return date must be after start date.</p>
+                    </div>
+
+                    <div class="rule-card">
+                        <span class="rule-icon">!</span>
+                        <h3>No overlaps</h3>
+                        <p>Booked dates are checked again before saving your updated request.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="edit-card">
+            <div class="edit-card-header">
+                <h2>Edit details</h2>
+                <p>Review the booking reference and choose your new rental dates.</p>
+            </div>
+
+            <form class="edit-form" action="/updateBooking" method="POST">
+
+                <input type="hidden" id="transactionId" name="transactionId" th:value="${transactionId}" required>
+
+                <div class="edit-grid">
+
+                    <div class="edit-field" style="grid-column: 1 / -1;">
+                        <label for="vehicleId">Vehicle ID (Locked)</label>
+                        <input id="vehicleId"
+                               type="text"
+                               name="vehicleId"
+                               th:value="${vehicleId}"
+                               readonly>
+                    </div>
+
+                    <div class="edit-field">
+                        <label for="startDate">New Start Date*</label>
+                        <input id="startDate"
+                               type="date"
+                               name="startDate"
+                               th:value="${startDate}"
+                               required>
+                    </div>
+
+                    <div class="edit-field">
+                        <label for="returnDate">New Return Date*</label>
+                        <input id="returnDate"
+                               type="date"
+                               name="returnDate"
+                               th:value="${returnDate}"
+                               required>
+                    </div>
+                </div>
+
+                <div class="edit-alert" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
+
+                <div class="edit-actions">
+                    <a href="/reservationHistory" class="edit-btn secondary">Cancel</a>
+                    <button type="submit" class="edit-btn primary">Save Changes</button>
+                </div>
+
+            </form>
+        </div>
+
+    </section>
+</main>
+
+<footer class="site-footer" id="contact">
+    <div class="footer-inner">
+
+        <div class="footer-brand-area">
+            <div class="footer-brand-column">
+                <div class="footer-logo">✺</div>
+
+                <div class="priority-card rental-help-card">
+                    <h2>Manage your rental</h2>
+                    <p>View your bookings, continue browsing vehicles, or contact support if you need help.</p>
+
+                    <div class="footer-action-row">
+                        <a href="/reservationHistory" class="footer-primary-action">My Bookings</a>
+                        <a href="/catalog" class="footer-secondary-action">Browse Vehicles</a>
+                    </div>
+
+                    <small>Need help? Contact support@driveease.lk or call +94 77 123 4567.</small>
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <div>
+                    <h3>Pages</h3>
+                    <div class="footer-link-grid">
+                        <a href="/">Home</a>
+                        <a href="/#about">About</a>
+                        <a href="/catalog">Vehicles</a>
+                        <a href="/#faq">FAQs</a>
+                        <a href="/#contact">Contact</a>
+                        <a href="/reservationHistory" class="active">My Bookings</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>Contact info</h3>
+                    <p>+94 77 123 4567</p>
+                    <p>support@driveease.lk</p>
+                    <p>Colombo, Sri Lanka</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>Designed for the DriveEase vehicle rental system.</p>
+
+            <div class="socials">
+                <span>◎</span>
+                <span>𝕏</span>
+                <span>in</span>
+                <span>f</span>
+            </div>
+        </div>
+
+        <div class="footer-watermark">DriveEase</div>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const startDateInput = document.getElementById('startDate');
+        const returnDateInput = document.getElementById('returnDate');
+
+        if (startDateInput && returnDateInput) {
+            const today = new Date().toISOString().split('T')[0];
+            startDateInput.setAttribute('min', today);
+
+            startDateInput.addEventListener('change', function() {
+                // The Math Trick: Add exactly 1 day (86,400,000 milliseconds) to the selected date
+                const nextDay = new Date(this.valueAsNumber + 86400000).toISOString().split('T')[0];
+
+                returnDateInput.setAttribute('min', nextDay);
+
+                // If the return date is the same or earlier, bump it to tomorrow
+                if (returnDateInput.value && returnDateInput.value <= this.value) {
+                    returnDateInput.value = nextDay;
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>
