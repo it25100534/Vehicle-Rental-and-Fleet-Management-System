@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rental Branches | DriveEase</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/admin-sidebar :: sidebar}"></div>
+
+<main class="main-content">
+    <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start;gap:2rem">
+        <div>
+            <h2>Rental Branches</h2>
+            <p>Manage branch details, operating status, and assigned fleet vehicles.</p>
+        </div>
+        <a class="btn btn-primary" href="/admin/branches/new" style="padding:12px 20px;gap:6px">
+            <span class="material-symbols-outlined">add</span> Add Branch
+        </a>
+    </div>
+
+    <div class="alert alert-info" th:if="${message}" th:text="${message}"></div>
+    <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+
+    <div class="table-card" style="margin-top:2rem">
+        <div class="table-card-header">
+            <div>
+                <h3 style="margin:0">Branch Directory</h3>
+                <div class="secondary-cell">Closing a branch makes every assigned vehicle unavailable. It does not delete the branch.</div>
+            </div>
+        </div>
+        <table class="premium-table">
+            <thead><tr>
+                <th>ID</th><th>Branch</th><th>Address</th><th>Phone</th><th>Vehicles</th><th>Status</th><th style="text-align:right">Actions</th>
+            </tr></thead>
+            <tbody>
+            <tr th:each="branch : ${branches}">
+                <td class="mono-cell" th:text="${branch.branchId}"></td>
+                <td><div style="display:flex;align-items:center;gap:14px"><img th:if="${branch.imagePath != null}" th:src="${branch.imagePath}" alt="Branch photo" style="width:64px;height:48px;object-fit:cover;border-radius:8px"><div class="primary-cell" th:text="${branch.name}"></div></div></td>
+                <td th:text="${branch.address}"></td>
+                <td th:text="${branch.phone}"></td>
+                <td>
+                    <span class="badge booked" th:text="${vehicleService.countVehiclesAtBranch(branch.branchId)} + ' assigned'"></span>
+                </td>
+                <td>
+                    <span class="badge" th:classappend="${branch.open} ? ' approved' : ' closed'"
+                          th:text="${branch.open} ? 'OPEN' : 'CLOSED'"></span>
+                </td>
+                <td>
+                    <div class="action-buttons">
+                        <a class="btn btn-ghost-yellow" th:href="@{/admin/branches/{id}/edit(id=${branch.branchId})}">
+                            <span class="material-symbols-outlined">edit</span> Edit
+                        </a>
+                        <form th:action="@{/admin/branches/{id}/status(id=${branch.branchId})}" method="post"
+                              style="display:flex;gap:8px;align-items:center">
+                            <select class="form-control" name="open" style="min-width:110px;padding:7px 30px 7px 10px">
+                                <option value="true" th:selected="${branch.open}">Open</option>
+                                <option value="false" th:selected="${!branch.open}">Closed</option>
+                            </select>
+                            <button class="btn btn-secondary" type="submit">Update</button>
+                        </form>
+                        <form th:action="@{/admin/branches/{id}/delete(id=${branch.branchId})}" method="post"
+                              onsubmit="return confirm('Delete this branch? This works only when no vehicles are assigned.');">
+                            <button class="btn btn-danger" type="submit" title="Delete branch">
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>
