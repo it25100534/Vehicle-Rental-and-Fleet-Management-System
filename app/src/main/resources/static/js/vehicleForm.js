@@ -1,5 +1,6 @@
 // Run this exactly once when the page loads
-window.onload = function() {
+window.onload = async function() {
+    await loadFleetOptions();
     toggleFields(); // Set up the dropdowns initially
 
     // Check if there is an ID in the URL
@@ -17,19 +18,31 @@ function toggleFields() {
     const seatsGroup = document.getElementById("seatsGroup");
     const driveGroup = document.getElementById("driveTrainGroup");
     const motoGroup = document.getElementById("motoGroup");
+    const seats = document.getElementById("seats");
+    const driveTrain = document.getElementById("driveTrain");
+    const motoType = document.getElementById("motoType");
 
     if (type === "MOTORCYCLE") {
         seatsGroup.style.display = "none";
         driveGroup.style.display = "none";
         motoGroup.style.display = "block";
+        seats.required = false;
+        driveTrain.required = false;
+        motoType.required = true;
     } else if (type === "CAR") {
         seatsGroup.style.display = "block";
         driveGroup.style.display = "none";
         motoGroup.style.display = "none";
+        seats.required = true;
+        driveTrain.required = false;
+        motoType.required = false;
     } else {
         seatsGroup.style.display = "block";
         driveGroup.style.display = "block";
         motoGroup.style.display = "none";
+        seats.required = true;
+        driveTrain.required = true;
+        motoType.required = false;
     }
 }
 
@@ -52,6 +65,8 @@ async function loadVehicleData(id) {
         document.getElementById("rate").value = v.rentalRate;
         document.getElementById("mileage").value = v.mileage;
         document.getElementById("type").value = v.type;
+        document.getElementById("category").value = v.usageCategory;
+        document.getElementById("branch").value = v.currentBranch;
 
         // Prevent changing the type during an update
         document.getElementById("type").disabled = true;
@@ -83,6 +98,10 @@ async function submitVehicleForm() {
     const formElement = document.getElementById("vehicleForm");
     const isUpdate = formElement.dataset.editId !== undefined;
 
+    if (!formElement.reportValidity()) {
+        return;
+    }
+
     // Require image only if it's a NEW vehicle
     if (!isUpdate && !fileInput.files[0]) {
         alert("Please select a vehicle image.");
@@ -99,6 +118,8 @@ async function submitVehicleForm() {
     formData.append("fuel", document.getElementById("fuel").value);
     formData.append("rate", document.getElementById("rate").value);
     formData.append("mileage", document.getElementById("mileage").value);
+    formData.append("category", document.getElementById("category").value);
+    formData.append("branch", document.getElementById("branch").value);
 
     // Add the image if they uploaded one (required for new, optional for update)
     if (fileInput.files[0]) {
@@ -139,4 +160,21 @@ async function submitVehicleForm() {
     } catch (error) {
         console.error("Error during save:", error);
     }
+}
+
+async function loadFleetOptions() {
+    const [categoryResponse, branchResponse] = await Promise.all([
+        fetch('/api/vehicle-categories'), fetch('/api/branches')
+    ]);
+    if (!categoryResponse.ok || !branchResponse.ok) throw new Error('Could not load branch/category options.');
+    const categories = await categoryResponse.json();
+    const branches = await branchResponse.json();
+    document.getElementById('category').innerHTML = categories.map(c =>
+        `<option value="${escapeOption(c.code)}">${escapeOption(c.name)}</option>`).join('');
+    document.getElementById('branch').innerHTML = branches.map(b =>
+        `<option value="${escapeOption(b.branchId)}">${escapeOption(b.name)}</option>`).join('');
+}
+
+function escapeOption(value) {
+    return String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 }
