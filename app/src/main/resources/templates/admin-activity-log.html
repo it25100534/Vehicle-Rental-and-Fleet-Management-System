@@ -20,6 +20,7 @@
         <h2>System Activity Logs</h2>
         <p>Monitor platform actions, security events, and user behavior.</p>
     </div>
+    <p class="table-meta" style="margin-bottom:12px" th:text="${total + ' recorded events'}">0 recorded events</p>
 
     <div class="table-card">
         <div class="table-card-header">
@@ -64,6 +65,14 @@
             </tbody>
         </table>
     </div>
+    <nav class="admin-pagination" aria-label="Activity log pages" th:if="${pages > 1}">
+        <span th:text="${'Showing ' + from + '–' + to + ' of ' + total}"></span>
+        <div class="page-links">
+            <a th:if="${page > 1}" th:href="@{/admin/activity-log(page=${page - 1})}">Previous</a>
+            <span class="page-current" th:text="${page + ' / ' + pages}"></span>
+            <a th:if="${page < pages}" th:href="@{/admin/activity-log(page=${page + 1})}">Next</a>
+        </div>
+    </nav>
 
 </main>
 </body>
