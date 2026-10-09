@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vehicle Categories | DriveEase</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{fragments/admin-sidebar :: sidebar}"></div>
+<main class="main-content">
+    <div class="page-header">
+        <h2>Vehicle Categories</h2>
+        <p>Manage the reusable journey categories shown in the vehicle catalogue.</p>
+    </div>
+
+    <div class="alert alert-info" th:if="${message}" th:text="${message}"></div>
+    <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+
+    <section class="form-card" style="max-width:none;margin-bottom:2rem">
+        <h3 style="margin-top:0">Add Vehicle Category</h3>
+        <form action="/admin/vehicle-categories/save" method="post">
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="code">Category Code</label>
+                    <input class="form-control" id="code" name="code" pattern="[A-Z][A-Z0-9_-]{2,19}"
+                           maxlength="20" placeholder="Example: AIRPORT" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="name">Display Name</label>
+                    <input class="form-control" id="name" name="name" minlength="2" maxlength="50"
+                           placeholder="Example: Airport Transfers" required>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit" style="padding:11px 20px">
+                <span class="material-symbols-outlined">add</span> Add Category
+            </button>
+        </form>
+    </section>
+
+    <section class="table-card">
+        <div class="table-card-header">
+            <div>
+                <h3 style="margin:0">Category Directory</h3>
+                <div class="secondary-cell">Disabled categories remain saved but are removed from customer filters and new vehicle forms.</div>
+            </div>
+        </div>
+        <table class="premium-table">
+            <thead>
+            <tr><th>Code</th><th>Display Name</th><th>Status</th><th style="text-align:right">Action</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="category : ${categories}">
+                <td class="mono-cell" th:text="${category.code}"></td>
+                <td><div class="primary-cell" th:text="${category.name}"></div></td>
+                <td>
+                    <span class="badge" th:classappend="${category.active} ? ' approved' : ' closed'"
+                          th:text="${category.active} ? 'ACTIVE' : 'DISABLED'"></span>
+                </td>
+                <td>
+                    <form th:action="@{/admin/vehicle-categories/{code}/status(code=${category.code})}"
+                          method="post" style="display:flex;justify-content:flex-end;gap:8px;align-items:center">
+                        <select class="form-control" name="active" style="min-width:125px;padding:7px 30px 7px 10px">
+                            <option value="true" th:selected="${category.active}">Active</option>
+                            <option value="false" th:selected="${!category.active}">Disabled</option>
+                        </select>
+                        <button class="btn btn-secondary" type="submit">Update</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(categories)}">
+                <td colspan="4" class="empty-table-cell">No vehicle categories have been created.</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>

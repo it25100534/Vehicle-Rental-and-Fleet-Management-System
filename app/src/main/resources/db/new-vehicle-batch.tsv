@@ -1,0 +1,51 @@
+# id	type	year	make	model	fuel	seats	subtype	use	branch	rate	body	transmission	image-source
+CAR-0010	CAR	2024	Toyota	Wigo	Petrol	5	Hatchback	DAILY	BR-002	6500	Hatchback	Automatic	Gemini_Generated_Image_hw2iyvhw2iyvhw2i.jpg
+CAR-0011	CAR	2022	Toyota	Aqua	Petrol	5	Hatchback	DAILY	BR-001	7500	Hatchback	Automatic	Gemini_Generated_Image_xpzgt0xpzgt0xpzg.jpg
+CAR-0012	CAR	2020	Honda	Fit	Petrol	5	Hatchback	DAILY	BR-002	7800	Hatchback	Automatic	Gemini_Generated_Image_xsmo4jxsmo4jxsmo.jpg
+CAR-0013	CAR	2024	Suzuki	Swift	Petrol	5	Hatchback	DAILY	BR-003	8500	Hatchback	Automatic	Gemini_Generated_Image_dssec7dssec7dsse.jpg
+CAR-0014	CAR	2022	Suzuki	Wagon R	Petrol	4	Hatchback	DAILY	BR-001	5200	Hatchback	Automatic	Gemini_Generated_Image_jiiq7jiiq7jiiq7j.jpg
+CAR-0015	CAR	2022	Nissan	March	Petrol	5	Hatchback	DAILY	BR-003	6500	Hatchback	Automatic	Gemini_Generated_Image_6uw7lw6uw7lw6uw7.jpg
+CAR-0016	CAR	2024	Toyota	Yaris ATIV	Petrol	5	Sedan	BUSINESS	BR-001	11000	Sedan	Automatic	Gemini_Generated_Image_oskgsjoskgsjoskg.jpg
+CAR-0017	CAR	2024	Honda	City	Petrol	5	Sedan	BUSINESS	BR-002	10500	Sedan	Automatic	Gemini_Generated_Image_vahrlcvahrlcvahr.jpg
+CAR-0018	CAR	2024	Suzuki	Dzire	Petrol	5	Sedan	DAILY	BR-003	8500	Sedan	Automatic	Gemini_Generated_Image_8u9a1b8u9a1b8u9a.jpg
+CAR-0019	CAR	2022	Hyundai	Elantra	Petrol	5	Sedan	BUSINESS	BR-001	12000	Sedan	Automatic	Gemini_Generated_Image_x8lbiix8lbiix8lb.jpg
+MOT-0026	MOTORCYCLE	2024	Royal Enfield	Meteor 350	Petrol	2	Cruiser	ADVENTURE	BR-002	7500	Cruiser	Manual	Gemini_Generated_Image_nnyfujnnyfujnnyf.jpg
+MOT-0011	MOTORCYCLE	2024	Royal Enfield	Bullet 350	Petrol	2	Cruiser	ADVENTURE	BR-003	7000	Cruiser	Manual	Gemini_Generated_Image_w3ju38w3ju38w3ju.jpg
+MOT-0012	MOTORCYCLE	2020	Bajaj	Avenger Cruise 220	Petrol	2	Cruiser	ADVENTURE	BR-003	5500	Cruiser	Manual	Gemini_Generated_Image_vycg2pvycg2pvycg.jpg
+MOT-0013	MOTORCYCLE	2024	Yamaha	RayZR 125	Petrol	2	Scooter	DAILY	BR-001	3500	Scooter	Automatic	Gemini_Generated_Image_kkpuz3kkpuz3kkpu.jpg
+MOT-0014	MOTORCYCLE	2024	Suzuki	Burgman Street 125	Petrol	2	Scooter	DAILY	BR-002	4300	Scooter	Automatic	Gemini_Generated_Image_h28ip9h28ip9h28i.jpg
+MOT-0015	MOTORCYCLE	2024	TVS	Jupiter 125	Petrol	2	Scooter	DAILY	BR-003	3200	Scooter	Automatic	Gemini_Generated_Image_fkt8bjfkt8bjfkt8.jpg
+MOT-0016	MOTORCYCLE	2024	Honda	PCX 160	Petrol	2	Scooter	DAILY	BR-001	5500	Scooter	Automatic	Gemini_Generated_Image_f6bn3vf6bn3vf6bn.jpg
+MOT-0017	MOTORCYCLE	2024	Yamaha	R15 V4	Petrol	2	Sport bike	ADVENTURE	BR-002	7000	Sport bike	Manual	Gemini_Generated_Image_csjyvkcsjyvkcsjy.jpg
+MOT-0018	MOTORCYCLE	2020	KTM	RC 200	Petrol	2	Sport bike	ADVENTURE	BR-003	6500	Sport bike	Manual	Gemini_Generated_Image_b29pwkb29pwkb29p.jpg
+MOT-0019	MOTORCYCLE	2024	Bajaj	Pulsar RS200	Petrol	2	Sport bike	ADVENTURE	BR-001	6000	Sport bike	Manual	Gemini_Generated_Image_ix64paix64paix64.jpg
+MOT-0020	MOTORCYCLE	2024	Honda	SP125	Petrol	2	Standard	DAILY	BR-002	3800	Standard	Manual	Gemini_Generated_Image_9bmcbs9bmcbs9bmc.jpg
+MOT-0021	MOTORCYCLE	2020	Bajaj	CT100	Petrol	2	Standard	DAILY	BR-001	2500	Standard	Manual	Gemini_Generated_Image_6hdvhg6hdvhg6hdv.jpg
+MOT-0022	MOTORCYCLE	2020	Bajaj	Discover 125	Petrol	2	Standard	DAILY	BR-003	3200	Standard	Manual	Gemini_Generated_Image_3w4cjw3w4cjw3w4c.jpg
+MOT-0023	MOTORCYCLE	2024	TVS	Apache RTR 160 4V	Petrol	2	Street bike	DAILY	BR-001	5200	Street bike	Manual	Gemini_Generated_Image_whs09qwhs09qwhs0.jpg
+MOT-0024	MOTORCYCLE	2017	Yamaha	FZ V2	Petrol	2	Street bike	DAILY	BR-002	4500	Street bike	Manual	Gemini_Generated_Image_se6j2ase6j2ase6j.jpg
+MOT-0025	MOTORCYCLE	2020	Yamaha	FZ V3	Petrol	2	Street bike	DAILY	BR-003	5000	Street bike	Manual	Gemini_Generated_Image_5iqt5c5iqt5c5iqt.jpg
+PRE-0010	SUV	2022	Mercedes-Benz	GLE	Petrol	5	AWD	WEDDING	BR-001	42000	Luxury SUV	Automatic	Gemini_Generated_Image_g4kh3ig4kh3ig4kh.jpg
+PRE-0011	SUV	2023	Lexus	RX	Petrol	5	AWD	WEDDING	BR-002	38000	Luxury SUV	Automatic	Gemini_Generated_Image_t3kw5lt3kw5lt3kw.jpg
+PRE-0012	CAR	2022	Mercedes-Benz	E-Class	Petrol	5	Sedan	WEDDING	BR-003	36000	Luxury sedan	Automatic	Gemini_Generated_Image_z0jfm4z0jfm4z0jf.jpg
+PRE-0013	CAR	2022	BMW	5 Series	Petrol	5	Sedan	BUSINESS	BR-001	34000	Luxury sedan	Automatic	Gemini_Generated_Image_927qyu927qyu927q.jpg
+PRE-0014	CAR	2020	Subaru	Levorg	Petrol	5	Sport wagon	ADVENTURE	BR-002	22000	Sport wagon	Automatic	Gemini_Generated_Image_ymbkccymbkccymbk.jpg
+PRE-0015	CAR	2022	Mercedes-Benz	C-Class Estate	Petrol	5	Sport wagon	BUSINESS	BR-003	32000	Sport wagon	Automatic	Gemini_Generated_Image_kq2auvkq2auvkq2a.jpg
+PRE-0016	CAR	2024	Audi	A3 Sportback	Petrol	5	Sportback	BUSINESS	BR-001	28000	Sportback	Automatic	Gemini_Generated_Image_pne5wrpne5wrpne5.jpg
+PRE-0017	CAR	2018	Audi	A5 Sportback	Petrol	5	Sportback	BUSINESS	BR-002	30000	Sportback	Automatic	Gemini_Generated_Image_h43pxkh43pxkh43p.jpg
+SUV-0010	SUV	2024	Suzuki	Jimny	Petrol	4	4WD	ADVENTURE	BR-002	15000	4WD SUV	Automatic	Gemini_Generated_Image_o5ntsho5ntsho5nt.jpg
+SUV-0011	SUV	2024	Toyota	Land Cruiser 300	Diesel	7	4WD	ADVENTURE	BR-001	35000	4WD SUV	Automatic	Gemini_Generated_Image_snt2zzsnt2zzsnt2.jpg
+SUV-0012	SUV	2022	Nissan	Patrol	Petrol	7	4WD	ADVENTURE	BR-003	30000	4WD SUV	Automatic	Gemini_Generated_Image_hjhwh3hjhwh3hjhw.jpg
+SUV-0013	SUV	2019	Mitsubishi	Pajero	Diesel	7	4WD	ADVENTURE	BR-002	22000	4WD SUV	Automatic	Gemini_Generated_Image_ptxzdpptxzdpptxz.jpg
+SUV-0014	SUV	2024	Toyota	Raize	Petrol	5	2WD	DAILY	BR-001	12000	Crossover SUV	Automatic	Gemini_Generated_Image_c09hnec09hnec09h.jpg
+SUV-0015	SUV	2024	Toyota	Yaris Cross	Petrol	5	2WD	FAMILY	BR-002	16000	Crossover SUV	Automatic	Gemini_Generated_Image_jqjystjqjystjqjy.jpg
+SUV-0016	SUV	2024	Toyota	Corolla Cross	Petrol	5	2WD	FAMILY	BR-003	18500	Crossover SUV	Automatic	Gemini_Generated_Image_y4lrx7y4lrx7y4lr.jpg
+SUV-0017	SUV	2024	Honda	HR-V	Petrol	5	2WD	FAMILY	BR-001	18000	Crossover SUV	Automatic	Gemini_Generated_Image_5nan8u5nan8u5nan.jpg
+SUV-0018	SUV	2024	Suzuki	Fronx	Petrol	5	2WD	DAILY	BR-002	12500	Crossover SUV	Automatic	Gemini_Generated_Image_eqh26yeqh26yeqh2.jpg
+VAN-0010	VAN	2024	Toyota	Alphard	Petrol	7	2WD	WEDDING	BR-001	32000	Luxury van	Automatic	Gemini_Generated_Image_6fdw0v6fdw0v6fdw.jpg
+VAN-0011	VAN	2024	Toyota	Vellfire	Petrol	7	2WD	WEDDING	BR-002	34000	Luxury van	Automatic	Gemini_Generated_Image_cgtqencgtqencgtq.jpg
+VAN-0012	VAN	2023	Toyota	Sienta	Petrol	7	2WD	FAMILY	BR-003	13000	Minivan	Automatic	Gemini_Generated_Image_y7t2muy7t2muy7t2.jpg
+VAN-0013	VAN	2020	Honda	Freed	Petrol	7	2WD	FAMILY	BR-001	12000	Minivan	Automatic	Gemini_Generated_Image_ro1rebro1rebro1r.jpg
+VAN-0014	VAN	2023	Nissan	Serena	Petrol	8	2WD	FAMILY	BR-002	15000	Minivan	Automatic	Gemini_Generated_Image_yz1ofyz1ofyz1ofy.jpg
+VAN-0015	VAN	2020	Mitsubishi	Delica D:5	Diesel	8	4WD	TRANSPORT	BR-003	18000	Passenger van	Automatic	Gemini_Generated_Image_mzfekgmzfekgmzfe.jpg
+VAN-0016	VAN	2024	Suzuki	Every Wagon	Petrol	4	2WD	TRANSPORT	BR-001	9000	Passenger van	Automatic	Gemini_Generated_Image_j7go83j7go83j7go.jpg

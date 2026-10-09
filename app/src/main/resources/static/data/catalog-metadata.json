@@ -1,0 +1,667 @@
+{
+  "CAR-0001": {
+    "displayCategory": "CAR",
+    "useCategory": "DAILY",
+    "topChoice": true,
+    "body": "Sedan",
+    "transmission": "Automatic"
+  },
+  "CAR-0002": {
+    "displayCategory": "CAR",
+    "useCategory": "DAILY",
+    "topChoice": true,
+    "body": "Hatchback",
+    "transmission": "Automatic"
+  },
+  "CAR-0003": {
+    "displayCategory": "CAR",
+    "useCategory": "BUSINESS",
+    "topChoice": true,
+    "body": "Sedan",
+    "transmission": "Automatic"
+  },
+  "CAR-0004": {
+    "displayCategory": "CAR",
+    "useCategory": "FAMILY",
+    "topChoice": false,
+    "body": "Sedan",
+    "transmission": "Automatic"
+  },
+  "CAR-0005": {
+    "displayCategory": "CAR",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Hatchback",
+    "transmission": "Manual"
+  },
+  "CAR-0006": {
+    "displayCategory": "CAR",
+    "useCategory": "BUSINESS",
+    "topChoice": false,
+    "body": "Sedan",
+    "transmission": "Automatic"
+  },
+  "CAR-0007": {
+    "displayCategory": "CAR",
+    "useCategory": "FAMILY",
+    "topChoice": false,
+    "body": "Sedan",
+    "transmission": "Automatic"
+  },
+  "CAR-0008": {
+    "displayCategory": "CAR",
+    "useCategory": "BUSINESS",
+    "topChoice": false,
+    "body": "Hatchback",
+    "transmission": "Automatic"
+  },
+  "CAR-0009": {
+    "displayCategory": "CAR",
+    "useCategory": "WEDDING",
+    "topChoice": true,
+    "body": "Sedan",
+    "transmission": "Automatic"
+  },
+  "CAR-0010": {
+    "displayCategory": "CAR",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Hatchback",
+    "transmission": "Automatic"
+  },
+  "CAR-0011": {
+    "displayCategory": "CAR",
+    "useCategory": "DAILY",
+    "topChoice": true,
+    "body": "Hatchback",
+    "transmission": "Automatic"
+  },
+  "CAR-0012": {
+    "displayCategory": "CAR",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Hatchback",
+    "transmission": "Automatic"
+  },
+  "CAR-0013": {
+    "displayCategory": "CAR",
+    "useCategory": "DAILY",
+    "topChoice": true,
+    "body": "Hatchback",
+    "transmission": "Automatic"
+  },
+  "CAR-0014": {
+    "displayCategory": "CAR",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Hatchback",
+    "transmission": "Automatic"
+  },
+  "CAR-0015": {
+    "displayCategory": "CAR",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Hatchback",
+    "transmission": "Automatic"
+  },
+  "CAR-0016": {
+    "displayCategory": "CAR",
+    "useCategory": "BUSINESS",
+    "topChoice": true,
+    "body": "Sedan",
+    "transmission": "Automatic"
+  },
+  "CAR-0017": {
+    "displayCategory": "CAR",
+    "useCategory": "BUSINESS",
+    "topChoice": false,
+    "body": "Sedan",
+    "transmission": "Automatic"
+  },
+  "CAR-0018": {
+    "displayCategory": "CAR",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Sedan",
+    "transmission": "Automatic"
+  },
+  "CAR-0019": {
+    "displayCategory": "CAR",
+    "useCategory": "BUSINESS",
+    "topChoice": false,
+    "body": "Sedan",
+    "transmission": "Automatic"
+  },
+  "MOT-0001": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "DAILY",
+    "topChoice": true,
+    "body": "Scooter",
+    "transmission": "Automatic"
+  },
+  "MOT-0002": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Street bike",
+    "transmission": "Manual"
+  },
+  "MOT-0003": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Scooter",
+    "transmission": "Automatic"
+  },
+  "MOT-0004": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "ADVENTURE",
+    "topChoice": true,
+    "body": "Street bike",
+    "transmission": "Manual"
+  },
+  "MOT-0005": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Sport bike",
+    "transmission": "Manual"
+  },
+  "MOT-0006": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "ADVENTURE",
+    "topChoice": true,
+    "body": "Street bike",
+    "transmission": "Manual"
+  },
+  "MOT-0007": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Street bike",
+    "transmission": "Manual"
+  },
+  "MOT-0008": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "ADVENTURE",
+    "topChoice": false,
+    "body": "Street bike",
+    "transmission": "Manual"
+  },
+  "MOT-0009": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "ADVENTURE",
+    "topChoice": true,
+    "body": "Cruiser",
+    "transmission": "Manual"
+  },
+  "MOT-0011": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "ADVENTURE",
+    "topChoice": false,
+    "body": "Cruiser",
+    "transmission": "Manual"
+  },
+  "MOT-0012": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "ADVENTURE",
+    "topChoice": false,
+    "body": "Cruiser",
+    "transmission": "Manual"
+  },
+  "MOT-0013": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Scooter",
+    "transmission": "Automatic"
+  },
+  "MOT-0014": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Scooter",
+    "transmission": "Automatic"
+  },
+  "MOT-0015": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Scooter",
+    "transmission": "Automatic"
+  },
+  "MOT-0016": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "DAILY",
+    "topChoice": true,
+    "body": "Scooter",
+    "transmission": "Automatic"
+  },
+  "MOT-0017": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "ADVENTURE",
+    "topChoice": true,
+    "body": "Sport bike",
+    "transmission": "Manual"
+  },
+  "MOT-0018": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "ADVENTURE",
+    "topChoice": false,
+    "body": "Sport bike",
+    "transmission": "Manual"
+  },
+  "MOT-0019": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "ADVENTURE",
+    "topChoice": false,
+    "body": "Sport bike",
+    "transmission": "Manual"
+  },
+  "MOT-0020": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Standard",
+    "transmission": "Manual"
+  },
+  "MOT-0021": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Standard",
+    "transmission": "Manual"
+  },
+  "MOT-0022": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Standard",
+    "transmission": "Manual"
+  },
+  "MOT-0023": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Street bike",
+    "transmission": "Manual"
+  },
+  "MOT-0024": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Street bike",
+    "transmission": "Manual"
+  },
+  "MOT-0025": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Street bike",
+    "transmission": "Manual"
+  },
+  "MOT-0026": {
+    "displayCategory": "MOTORCYCLE",
+    "useCategory": "ADVENTURE",
+    "topChoice": false,
+    "body": "Cruiser",
+    "transmission": "Manual"
+  },
+  "PRE-0001": {
+    "displayCategory": "PREMIUM",
+    "useCategory": "WEDDING",
+    "topChoice": true,
+    "body": "Luxury sedan",
+    "transmission": "Automatic"
+  },
+  "PRE-0002": {
+    "displayCategory": "PREMIUM",
+    "useCategory": "WEDDING",
+    "topChoice": true,
+    "body": "Luxury sedan",
+    "transmission": "Automatic"
+  },
+  "PRE-0003": {
+    "displayCategory": "PREMIUM",
+    "useCategory": "BUSINESS",
+    "topChoice": false,
+    "body": "Luxury sedan",
+    "transmission": "Automatic"
+  },
+  "PRE-0004": {
+    "displayCategory": "PREMIUM",
+    "useCategory": "WEDDING",
+    "topChoice": true,
+    "body": "Luxury SUV",
+    "transmission": "Automatic"
+  },
+  "PRE-0005": {
+    "displayCategory": "PREMIUM",
+    "useCategory": "WEDDING",
+    "topChoice": true,
+    "body": "Luxury SUV",
+    "transmission": "Automatic"
+  },
+  "PRE-0006": {
+    "displayCategory": "PREMIUM",
+    "useCategory": "BUSINESS",
+    "topChoice": false,
+    "body": "Luxury SUV",
+    "transmission": "Automatic"
+  },
+  "PRE-0007": {
+    "displayCategory": "PREMIUM",
+    "useCategory": "BUSINESS",
+    "topChoice": true,
+    "body": "Sport wagon",
+    "transmission": "Automatic"
+  },
+  "PRE-0008": {
+    "displayCategory": "PREMIUM",
+    "useCategory": "WEDDING",
+    "topChoice": true,
+    "body": "Luxury sedan",
+    "transmission": "Automatic"
+  },
+  "PRE-0009": {
+    "displayCategory": "PREMIUM",
+    "useCategory": "BUSINESS",
+    "topChoice": true,
+    "body": "Sportback",
+    "transmission": "Automatic"
+  },
+  "PRE-0010": {
+    "displayCategory": "PREMIUM",
+    "useCategory": "WEDDING",
+    "topChoice": true,
+    "body": "Luxury SUV",
+    "transmission": "Automatic"
+  },
+  "PRE-0011": {
+    "displayCategory": "PREMIUM",
+    "useCategory": "WEDDING",
+    "topChoice": false,
+    "body": "Luxury SUV",
+    "transmission": "Automatic"
+  },
+  "PRE-0012": {
+    "displayCategory": "PREMIUM",
+    "useCategory": "WEDDING",
+    "topChoice": true,
+    "body": "Luxury sedan",
+    "transmission": "Automatic"
+  },
+  "PRE-0013": {
+    "displayCategory": "PREMIUM",
+    "useCategory": "BUSINESS",
+    "topChoice": false,
+    "body": "Luxury sedan",
+    "transmission": "Automatic"
+  },
+  "PRE-0014": {
+    "displayCategory": "PREMIUM",
+    "useCategory": "ADVENTURE",
+    "topChoice": false,
+    "body": "Sport wagon",
+    "transmission": "Automatic"
+  },
+  "PRE-0015": {
+    "displayCategory": "PREMIUM",
+    "useCategory": "BUSINESS",
+    "topChoice": false,
+    "body": "Sport wagon",
+    "transmission": "Automatic"
+  },
+  "PRE-0016": {
+    "displayCategory": "PREMIUM",
+    "useCategory": "BUSINESS",
+    "topChoice": false,
+    "body": "Sportback",
+    "transmission": "Automatic"
+  },
+  "PRE-0017": {
+    "displayCategory": "PREMIUM",
+    "useCategory": "BUSINESS",
+    "topChoice": false,
+    "body": "Sportback",
+    "transmission": "Automatic"
+  },
+  "SUV-0001": {
+    "displayCategory": "SUV",
+    "useCategory": "FAMILY",
+    "topChoice": true,
+    "body": "Crossover SUV",
+    "transmission": "Automatic"
+  },
+  "SUV-0002": {
+    "displayCategory": "SUV",
+    "useCategory": "FAMILY",
+    "topChoice": true,
+    "body": "Crossover SUV",
+    "transmission": "Automatic"
+  },
+  "SUV-0003": {
+    "displayCategory": "SUV",
+    "useCategory": "ADVENTURE",
+    "topChoice": false,
+    "body": "4WD SUV",
+    "transmission": "Automatic"
+  },
+  "SUV-0004": {
+    "displayCategory": "SUV",
+    "useCategory": "ADVENTURE",
+    "topChoice": true,
+    "body": "4WD SUV",
+    "transmission": "Automatic"
+  },
+  "SUV-0005": {
+    "displayCategory": "SUV",
+    "useCategory": "ADVENTURE",
+    "topChoice": false,
+    "body": "4WD SUV",
+    "transmission": "Automatic"
+  },
+  "SUV-0006": {
+    "displayCategory": "SUV",
+    "useCategory": "BUSINESS",
+    "topChoice": false,
+    "body": "Crossover SUV",
+    "transmission": "Automatic"
+  },
+  "SUV-0007": {
+    "displayCategory": "SUV",
+    "useCategory": "FAMILY",
+    "topChoice": false,
+    "body": "Crossover SUV",
+    "transmission": "Automatic"
+  },
+  "SUV-0008": {
+    "displayCategory": "SUV",
+    "useCategory": "TRANSPORT",
+    "topChoice": true,
+    "body": "4WD SUV",
+    "transmission": "Automatic"
+  },
+  "SUV-0009": {
+    "displayCategory": "SUV",
+    "useCategory": "FAMILY",
+    "topChoice": false,
+    "body": "Crossover SUV",
+    "transmission": "Automatic"
+  },
+  "SUV-0010": {
+    "displayCategory": "SUV",
+    "useCategory": "ADVENTURE",
+    "topChoice": true,
+    "body": "4WD SUV",
+    "transmission": "Automatic"
+  },
+  "SUV-0011": {
+    "displayCategory": "SUV",
+    "useCategory": "ADVENTURE",
+    "topChoice": false,
+    "body": "4WD SUV",
+    "transmission": "Automatic"
+  },
+  "SUV-0012": {
+    "displayCategory": "SUV",
+    "useCategory": "ADVENTURE",
+    "topChoice": false,
+    "body": "4WD SUV",
+    "transmission": "Automatic"
+  },
+  "SUV-0013": {
+    "displayCategory": "SUV",
+    "useCategory": "ADVENTURE",
+    "topChoice": false,
+    "body": "4WD SUV",
+    "transmission": "Automatic"
+  },
+  "SUV-0014": {
+    "displayCategory": "SUV",
+    "useCategory": "DAILY",
+    "topChoice": true,
+    "body": "Crossover SUV",
+    "transmission": "Automatic"
+  },
+  "SUV-0015": {
+    "displayCategory": "SUV",
+    "useCategory": "FAMILY",
+    "topChoice": true,
+    "body": "Crossover SUV",
+    "transmission": "Automatic"
+  },
+  "SUV-0016": {
+    "displayCategory": "SUV",
+    "useCategory": "FAMILY",
+    "topChoice": true,
+    "body": "Crossover SUV",
+    "transmission": "Automatic"
+  },
+  "SUV-0017": {
+    "displayCategory": "SUV",
+    "useCategory": "FAMILY",
+    "topChoice": false,
+    "body": "Crossover SUV",
+    "transmission": "Automatic"
+  },
+  "SUV-0018": {
+    "displayCategory": "SUV",
+    "useCategory": "DAILY",
+    "topChoice": false,
+    "body": "Crossover SUV",
+    "transmission": "Automatic"
+  },
+  "VAN-0001": {
+    "displayCategory": "VAN",
+    "useCategory": "TRANSPORT",
+    "topChoice": true,
+    "body": "Passenger van",
+    "transmission": "Manual"
+  },
+  "VAN-0002": {
+    "displayCategory": "VAN",
+    "useCategory": "TRANSPORT",
+    "topChoice": false,
+    "body": "Passenger van",
+    "transmission": "Manual"
+  },
+  "VAN-0003": {
+    "displayCategory": "VAN",
+    "useCategory": "TRANSPORT",
+    "topChoice": false,
+    "body": "Passenger van",
+    "transmission": "Manual"
+  },
+  "VAN-0004": {
+    "displayCategory": "VAN",
+    "useCategory": "TRANSPORT",
+    "topChoice": true,
+    "body": "Passenger van",
+    "transmission": "Automatic"
+  },
+  "VAN-0005": {
+    "displayCategory": "VAN",
+    "useCategory": "FAMILY",
+    "topChoice": false,
+    "body": "Minivan",
+    "transmission": "Automatic"
+  },
+  "VAN-0006": {
+    "displayCategory": "VAN",
+    "useCategory": "FAMILY",
+    "topChoice": false,
+    "body": "Minivan",
+    "transmission": "Automatic"
+  },
+  "VAN-0007": {
+    "displayCategory": "VAN",
+    "useCategory": "WEDDING",
+    "topChoice": true,
+    "body": "Luxury van",
+    "transmission": "Automatic"
+  },
+  "VAN-0008": {
+    "displayCategory": "VAN",
+    "useCategory": "TRANSPORT",
+    "topChoice": false,
+    "body": "Passenger van",
+    "transmission": "Manual"
+  },
+  "VAN-0009": {
+    "displayCategory": "VAN",
+    "useCategory": "TRANSPORT",
+    "topChoice": false,
+    "body": "Passenger van",
+    "transmission": "Manual"
+  },
+  "VAN-0010": {
+    "displayCategory": "VAN",
+    "useCategory": "WEDDING",
+    "topChoice": true,
+    "body": "Luxury van",
+    "transmission": "Automatic"
+  },
+  "VAN-0011": {
+    "displayCategory": "VAN",
+    "useCategory": "WEDDING",
+    "topChoice": false,
+    "body": "Luxury van",
+    "transmission": "Automatic"
+  },
+  "VAN-0012": {
+    "displayCategory": "VAN",
+    "useCategory": "FAMILY",
+    "topChoice": false,
+    "body": "Minivan",
+    "transmission": "Automatic"
+  },
+  "VAN-0013": {
+    "displayCategory": "VAN",
+    "useCategory": "FAMILY",
+    "topChoice": false,
+    "body": "Minivan",
+    "transmission": "Automatic"
+  },
+  "VAN-0014": {
+    "displayCategory": "VAN",
+    "useCategory": "FAMILY",
+    "topChoice": false,
+    "body": "Minivan",
+    "transmission": "Automatic"
+  },
+  "VAN-0015": {
+    "displayCategory": "VAN",
+    "useCategory": "TRANSPORT",
+    "topChoice": false,
+    "body": "Passenger van",
+    "transmission": "Automatic"
+  },
+  "VAN-0016": {
+    "displayCategory": "VAN",
+    "useCategory": "TRANSPORT",
+    "topChoice": false,
+    "body": "Passenger van",
+    "transmission": "Automatic"
+  }
+}

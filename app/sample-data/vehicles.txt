@@ -1,0 +1,45 @@
+CAR,CAR-0001,2020,Toyota,Corolla,Petrol,32000.0,CAR-0001_toyota-corolla-2020.png,7500.0,true,5,Sedan
+CAR,CAR-0002,2021,Toyota,Prius,Petrol,28000.0,CAR-0002_toyota-prius-2021.png,8500.0,true,5,Hatchback
+CAR,CAR-0003,2020,Honda,Civic,Petrol,30000.0,CAR-0003_honda-civic-2020.png,9500.0,true,5,Sedan
+CAR,CAR-0004,2018,Toyota,Axio,Petrol,52000.0,CAR-0004_toyota-axio-2018.png,6500.0,true,5,Sedan
+CAR,CAR-0005,2022,Suzuki,Alto,Petrol,18000.0,CAR-0005_suzuki-alto-2022.png,4500.0,true,4,Hatchback
+CAR,CAR-0006,2019,Honda,Grace,Petrol,41000.0,CAR-0006_honda-grace-2019.png,7000.0,true,5,Sedan
+CAR,CAR-0007,2019,Nissan,Sylphy,Petrol,45000.0,CAR-0007_nissan-sylphy-2019.png,6800.0,true,5,Sedan
+CAR,CAR-0008,2020,Mazda,Axela,Petrol,34000.0,CAR-0008_mazda-axela-2020.png,9000.0,true,5,Hatchback
+CAR,CAR-0009,2020,Toyota,Camry,Petrol,26000.0,CAR-0009_toyota-camry-2020.png,12000.0,true,5,Sedan
+SUV,SUV-0001,2020,Toyota,RAV4,Petrol,36000.0,SUV-0001_toyota-rav4-2020.png,13000.0,true,5,AWD
+SUV,SUV-0002,2020,Honda,CR-V,Petrol,38000.0,SUV-0002_honda-cr-v-2020.png,12500.0,true,5,AWD
+SUV,SUV-0003,2019,Nissan,X-Trail,Petrol,47000.0,SUV-0003_nissan-x-trail-2019.png,11500.0,true,5,4WD
+SUV,SUV-0004,2021,Toyota,Land Cruiser Prado,Diesel,31000.0,SUV-0004_toyota-land-cruiser-prado-2021.png,22000.0,true,7,4WD
+SUV,SUV-0005,2020,Mitsubishi,Montero Sport,Diesel,42000.0,SUV-0005_mitsubishi-montero-sport-2020.png,18000.0,true,7,4WD
+SUV,SUV-0006,2021,Hyundai,Tucson,Petrol,29000.0,SUV-0006_hyundai-tucson-2021.png,14000.0,true,5,AWD
+SUV,SUV-0007,2021,Kia,Sportage,Petrol,26000.0,SUV-0007_kia-sportage-2021.png,13500.0,true,5,AWD
+SUV,SUV-0008,2020,Toyota,Fortuner,Diesel,39000.0,SUV-0008_toyota-fortuner-2020.png,19000.0,true,7,4WD
+SUV,SUV-0009,2020,Suzuki,Vitara,Petrol,33000.0,SUV-0009_suzuki-vitara-2020.png,10500.0,true,5,2WD
+VAN,VAN-0001,2023,Toyota,Hiace,Diesel,21000.0,VAN-0001_toyota-hiace-2023.png,18000.0,true,12,2WD
+VAN,VAN-0002,2020,Nissan,Caravan,Diesel,47000.0,VAN-0002_nissan-caravan-2020.png,15000.0,true,12,2WD
+VAN,VAN-0003,2018,Toyota,KDH,Diesel,69000.0,VAN-0003_toyota-kdh-2018.png,14000.0,true,12,2WD
+VAN,VAN-0004,2019,Hyundai,H1,Diesel,56000.0,VAN-0004_hyundai-h1-2019.png,13500.0,true,8,2WD
+VAN,VAN-0005,2020,Toyota,Noah,Petrol,42000.0,VAN-0005_toyota-noah-2020.png,12000.0,true,7,2WD
+VAN,VAN-0006,2020,Toyota,Voxy,Petrol,39000.0,VAN-0006_toyota-voxy-2020.png,12500.0,true,7,2WD
+VAN,VAN-0007,2020,Mercedes-Benz,Vito,Diesel,35000.0,VAN-0007_mercedes-benz-vito-2020.png,24000.0,true,8,2WD
+VAN,VAN-0008,2019,Toyota,RegiusAce,Diesel,58000.0,VAN-0008_toyota-regiusace-2019.png,15500.0,true,12,2WD
+VAN,VAN-0009,2021,Nissan,NV350,Diesel,37000.0,VAN-0009_nissan-nv350-2021.png,16500.0,true,12,2WD
+MOTORCYCLE,MOT-0001,2026,TVS,Ntorq,Petrol,1200.0,MOT-0001_tvs-ntorq-2026.png,4500.0,true,Scooter
+MOTORCYCLE,MOT-0002,2026,Bajaj,Pulsar N160,Petrol,1500.0,MOT-0002_pulsar-n160-2026.png,5000.0,true,Standard
+MOTORCYCLE,MOT-0003,2022,Honda,Dio,Petrol,9000.0,MOT-0003_honda-dio-2022.png,3000.0,true,Scooter
+MOTORCYCLE,MOT-0004,2020,Yamaha,FZ,Petrol,18000.0,MOT-0004_yamaha-fz-2020.png,4500.0,true,Standard
+MOTORCYCLE,MOT-0005,2021,Bajaj,Pulsar NS200,Petrol,16000.0,MOT-0005_bajaj-pulsar-ns200-2021.png,4200.0,true,Standard
+MOTORCYCLE,MOT-0006,2020,KTM,Duke 200,Petrol,14000.0,MOT-0006_ktm-duke-200-2020.png,6000.0,true,Standard
+MOTORCYCLE,MOT-0007,2020,Honda,CB Hornet,Petrol,22000.0,MOT-0007_honda-cb-hornet-2020.png,4000.0,true,Standard
+MOTORCYCLE,MOT-0008,2021,Yamaha,MT-15,Petrol,13000.0,MOT-0008_yamaha-mt-15-2021.png,6500.0,true,Standard
+MOTORCYCLE,MOT-0009,2021,Royal Enfield,Classic 350,Petrol,17000.0,MOT-0009_royal-enfield-classic-350-2021.png,7000.0,true,Standard
+CAR,PRE-0001,2020,Mercedes-Benz,S-Class,Petrol,22000.0,PRE-0001_mercedes-benz-s-class-2020.png,42000.0,true,5,Sedan
+CAR,PRE-0002,2020,BMW,3 Series,Petrol,26000.0,PRE-0002_bmw-3-series-2020.png,26000.0,true,5,Sedan
+CAR,PRE-0003,2020,Audi,A4,Petrol,24000.0,PRE-0003_audi-a4-2020.png,27000.0,true,5,Sedan
+SUV,PRE-0004,2021,BMW,X5,Petrol,28000.0,PRE-0004_bmw-x5-2021.png,35000.0,true,5,AWD
+SUV,PRE-0005,2020,Range Rover,Evoque,Petrol,30000.0,PRE-0005_range-rover-evoque-2020.png,38000.0,true,5,AWD
+SUV,PRE-0006,2020,Audi,Q5,Petrol,29000.0,PRE-0006_audi-q5-2020.png,32000.0,true,5,AWD
+CAR,PRE-0007,2020,Audi,RS6,Petrol,18000.0,PRE-0007_audi-rs6-2020.png,46000.0,true,5,Sedan
+CAR,PRE-0008,2020,Lexus,ES,Petrol,25000.0,PRE-0008_lexus-es-2020.png,30000.0,true,5,Sedan
+CAR,PRE-0009,2021,Audi,RS7,Petrol,16000.0,PRE-0009_audi-rs7-2021.png,50000.0,true,5,Sedan
