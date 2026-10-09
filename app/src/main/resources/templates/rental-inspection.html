@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Rental Inspection | DriveEase</title><link rel="stylesheet" href="/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"></head>
+<body><div th:replace="~{fragments/admin-sidebar :: sidebar}"></div>
+<main class="main-content">
+    <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div><h2>Rental Agreement &amp; Inspection</h2><p>Read-only agreement, outgoing inspection, and return history.</p></div>
+        <a class="btn btn-secondary" href="/handover">Back to Handover &amp; Return</a>
+    </div>
+    <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="stat-card"><div class="header"><span>Record</span><span class="material-symbols-outlined">description</span></div><div class="value" style="font-size:1.1rem" th:text="${record.recordId}"></div></div>
+        <div class="stat-card"><div class="header"><span>Vehicle</span><span class="material-symbols-outlined">directions_car</span></div><div class="value" style="font-size:1.3rem" th:text="${record.vehicleId}"></div></div>
+        <div class="stat-card"><div class="header"><span>Rental Status</span><span class="material-symbols-outlined">key</span></div><div class="value" style="font-size:1.3rem" th:text="${record.rentalState}"></div></div>
+    </div>
+    <div class="form-row">
+        <section class="form-card" style="max-width:none">
+            <h3>Agreement Details</h3>
+            <p><strong>Booking:</strong> <span th:text="${record.bookingId}"></span></p>
+            <p><strong>Customer:</strong> <span th:text="${record.customerName}"></span></p>
+            <p><strong>Vehicle:</strong> <span th:text="${vehicle == null ? record.vehicleId : vehicle.make + ' ' + vehicle.model + ' (' + record.vehicleId + ')'}"></span></p>
+            <p><strong>Handover time:</strong> <span th:text="${record.handedOverAt}"></span></p>
+            <p><strong>Scheduled return:</strong> <span th:text="${record.scheduledReturnDate}"></span></p>
+            <p th:if="${record.overdue}"><strong>Overdue:</strong> <span class="badge rejected" th:text="${record.daysOverdue + ' day(s)'}"></span></p>
+        </section>
+        <section class="form-card" style="max-width:none">
+            <h3>Outgoing Inspection</h3>
+            <p><strong>Odometer:</strong> <span th:text="${record.odometerOut + ' km'}"></span></p>
+            <p><strong>Fuel:</strong> <span th:text="${record.fuelLevelOut}"></span></p>
+            <p><strong>Condition:</strong> <span th:text="${record.conditionOut}"></span></p>
+        </section>
+    </div>
+    <section class="form-card" style="max-width:none;margin-top:1.5rem">
+        <h3>Return Inspection &amp; History</h3>
+        <div th:if="${record.active}" class="empty-table-cell">This rental is still active. Complete the return from the Handover &amp; Return page.</div>
+        <div th:unless="${record.active}">
+            <p><strong>Returned:</strong> <span th:text="${record.returnedAt}"></span></p>
+            <p><strong>Odometer:</strong> <span th:text="${record.odometerIn + ' km'}"></span></p>
+            <p><strong>Fuel:</strong> <span th:text="${record.fuelLevelIn}"></span></p>
+            <p><strong>Condition:</strong> <span th:text="${record.conditionIn}"></span></p>
+            <p><strong>Late fee:</strong> Rs. <span th:text="${#numbers.formatDecimal(record.lateFee,1,2)}"></span></p>
+            <p><strong>Damage fee:</strong> Rs. <span th:text="${#numbers.formatDecimal(record.damageFee,1,2)}"></span></p>
+            <p><strong>Fuel charge:</strong> Rs. <span th:text="${#numbers.formatDecimal(record.fuelCharge,1,2)}"></span></p>
+            <p><strong>Extra mileage charge:</strong> Rs. <span th:text="${#numbers.formatDecimal(record.mileageCharge,1,2)}"></span></p>
+            <p><strong>Alternate drop-off:</strong> Rs. <span th:text="${#numbers.formatDecimal(record.alternateDropoffCharge,1,2)}"></span></p>
+            <p><strong>Deposit held:</strong> Rs. <span th:text="${#numbers.formatDecimal(record.depositAmount,1,2)}"></span></p>
+            <p><strong>Refund issued:</strong> Rs. <span th:text="${#numbers.formatDecimal(record.refundAmount,1,2)}"></span></p>
+            <p><strong>Net return adjustment:</strong> Rs. <span th:text="${#numbers.formatDecimal(record.returnAdjustmentTotal,1,2)}"></span></p>
+        </div>
+    </section>
+</main></body></html>
