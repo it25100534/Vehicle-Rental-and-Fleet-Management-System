@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | DriveEase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/catalog.css">
+    <link rel="stylesheet" href="/css/public-pages.css">
+<link rel="stylesheet" href="/css/shared-chrome.css"><script src="/js/shared-chrome.js" defer></script></head>
+<body class="catalog-body">
+<div th:replace="~{fragments/customer-header :: header('contact')}"></div>
+
+<main>
+    <section class="contact-hero">
+        <span class="eyebrow">Contact DriveEase</span>
+        <h1>How can we help?</h1>
+        <p>Use the verified contact details below for booking, payment, handover, return, or fleet support.</p>
+    </section>
+
+    <section class="contact-grid" aria-label="Contact methods">
+        <a class="contact-card" href="tel:+94771234567"><span>☎</span><div><h2>Call us</h2><p>+94 77 123 4567</p><small>For urgent rental assistance</small></div></a>
+        <a class="contact-card" href="mailto:support@driveease.lk"><span>✉</span><div><h2>Email support</h2><p>support@driveease.lk</p><small>For questions and document follow-up</small></div></a>
+        <article class="contact-card"><span>⌖</span><div><h2>Visit us</h2><p>Colombo, Sri Lanka</p><small>Please call before visiting</small></div></article>
+        <article class="contact-card"><span>◷</span><div><h2>Working hours</h2><p>Mon–Fri: 9am–7pm</p><small>Saturday: 10am–3pm</small></div></article>
+    </section>
+
+    <section class="support-panel">
+        <div><span class="eyebrow">Before contacting us</span><h2>Keep your reference ready</h2><p>Include your booking ID, invoice ID, or vehicle ID when applicable. Do not send passwords, CVV numbers, or complete card details.</p></div>
+        <div class="support-links"><a class="primary-action" href="/reservationHistory">View my bookings</a><a class="secondary-action" href="/catalog">Browse vehicles</a></div>
+    </section>
+    <section class="support-panel"><div><span class="eyebrow">Send an enquiry</span><h2>Write to our team</h2><form method="post" action="/contact" style="display:grid;gap:12px;max-width:720px"><input name="name" placeholder="Your name" minlength="2" maxlength="120" required><input name="email" type="email" placeholder="Email" maxlength="160" required><input name="subject" placeholder="Subject" minlength="3" maxlength="160" required><textarea name="message" placeholder="Message" minlength="10" maxlength="1000" rows="6" required></textarea><button class="primary-action" type="submit">Send enquiry</button><p th:if="${param.sent}" style="color:#15803d;font-weight:800">Your enquiry was saved for our team.</p><p th:if="${param.error}" th:text="${param.error[0]}" style="color:#b91c1c;font-weight:800"></p></form></div></section>
+</main>
+
+<div th:replace="~{fragments/customer-footer :: footer}"></div>
+</body>
+</html>
