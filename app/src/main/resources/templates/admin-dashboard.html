@@ -19,7 +19,7 @@
 
     <div class="page-header">
         <h2>Overview</h2>
-        <p>Key metrics and recent operations for today.</p>
+        <p>Fleet and booking activity at a glance.</p>
     </div>
 
     <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
@@ -45,7 +45,7 @@
                 <span>Total Bookings</span>
                 <span class="material-symbols-outlined" style="color: var(--accent-blue); font-size: 1.4rem;">calendar_month</span>
             </div>
-            <div class="value" th:text="${#lists.size(allBookings)}">0</div>
+            <div class="value" th:text="${bookingCount}">0</div>
         </div>
 
         <div class="stat-card" style="border-color: rgba(220, 38, 38, 0.2);">
@@ -60,19 +60,19 @@
 
     <div class="table-card">
         <div class="table-card-header">
-            <h3>Admins and Staff Accounts</h3>
+            <h3>Staff accounts</h3>
             <a href="/admin/registration" style="color: var(--accent-blue); text-decoration: none; font-size: 0.9rem; font-weight: 600;">+ Add New User</a>
         </div>
-        <table class="premium-table">
+        <table class="premium-table admin-staff-table">
             <thead>
             <tr>
                 <th>User ID</th>
                 <th>Full Name</th>
                 <th>Username</th>
-                <th>Password</th>
                 <th>Role</th>
-                <th>Password</th>
-                <th style="text-align: right;">Action</th>
+                <th>Employee Type</th>
+                <th>Home branch</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -83,19 +83,18 @@
                 <td style="font-family: monospace; color: var(--text-secondary);" th:text="${admin.userId}"></td>
                 <td style="font-weight: 500;" th:text="${admin.fullName}"></td>
                 <td th:text="${admin.username}"></td>
-                <td th:text="${admin.maskedPasswordHash}"></td>
                 <td>
                     <span class="badge" th:classappend="${admin.role == 'ADMIN' ? 'approved' : 'pending'}" th:text="${admin.role}"></span>
                 </td>
                 <td style="color: var(--text-secondary);" th:text="${admin.employeeType}"></td>
-                <td style="text-align: right;">
+                <td><form class="inline-form" th:action="@{/admin/staff/{id}/branch(id=${admin.userId})}" method="post"><select name="branch" required><option th:each="b:${branches}" th:value="${b.branchId}" th:text="${b.name}" th:selected="${b.branchId==admin.homeBranchId}"></option></select><button class="btn btn-secondary">Assign</button></form></td>
+                <td><div class="row-actions">
                     <a class="btn btn-secondary" th:href="@{/admin/edit(userId=${admin.userId}, fullName=${admin.fullName}, username=${admin.username}, role=${admin.role}, employeeType=${admin.employeeType})}">Edit</a>
-
-                    <form th:action="@{/deleteAdminStaff}" method="post" style="display:inline; margin-left: 8px;">
+                    <form th:action="@{/deleteAdminStaff}" method="post">
                         <input type="hidden" name="userId" th:value="${admin.userId}">
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-danger">Deactivate</button>
                     </form>
-                </td>
+                </div></td>
             </tr>
             </tbody>
         </table>
@@ -103,9 +102,10 @@
 
     <div class="table-card">
         <div class="table-card-header">
-            <h3>Customer Vehicle Bookings</h3>
+            <h3>Recent bookings</h3>
+            <a href="/admin/bookings" class="btn btn-secondary">View all bookings</a>
         </div>
-        <table class="premium-table">
+        <table class="premium-table admin-recent-table">
             <thead>
             <tr>
                 <th>Customer</th>
