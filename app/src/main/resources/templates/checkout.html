@@ -426,34 +426,11 @@
             }
         }
     </style>
-</head>
+<link rel="stylesheet" href="/css/shared-chrome.css"><script src="/js/shared-chrome.js" defer></script></head>
 
 <body class="checkout-body">
 
-<header class="catalog-header">
-    <nav class="catalog-navbar">
-        <a href="/" class="catalog-logo">
-            <span class="catalog-logo-mark">✺</span>
-            <span>DriveEase</span>
-        </a>
-
-        <div class="catalog-nav-links">
-            <a href="/">Home</a>
-            <a href="/#about">About</a>
-            <a href="/catalog">Vehicles</a>
-            <a href="/#contact">Contact</a>
-        </div>
-
-        <div class="catalog-header-actions">
-            <a href="/reservationHistory" class="catalog-header-btn">
-                My Bookings
-                <span>→</span>
-            </a>
-
-            <a href="/profile" class="profile-nav-bubble" title="My Profile">👤</a>
-        </div>
-    </nav>
-</header>
+<div th:replace="~{fragments/customer-header :: header('')}"></div>
 
 <main class="checkout-main">
     <section class="checkout-shell">
@@ -605,62 +582,7 @@
     </section>
 </main>
 
-<footer class="site-footer" id="contact">
-    <div class="footer-inner">
-
-        <div class="footer-brand-area">
-            <div class="footer-brand-column">
-                <div class="footer-logo">✺</div>
-
-                <div class="priority-card rental-help-card">
-                    <h2>Manage your rental</h2>
-                    <p>View your bookings, continue browsing vehicles, or contact support if you need help.</p>
-
-                    <div class="footer-action-row">
-                        <a href="/reservationHistory" class="footer-primary-action">My Bookings</a>
-                        <a href="/catalog" class="footer-secondary-action">Browse Vehicles</a>
-                    </div>
-
-                    <small>Need help? Contact support@driveease.lk or call +94 77 123 4567.</small>
-                </div>
-            </div>
-
-            <div class="footer-links">
-                <div>
-                    <h3>Pages</h3>
-                    <div class="footer-link-grid">
-                        <a href="/">Home</a>
-                        <a href="/#about">About</a>
-                        <a href="/catalog">Vehicles</a>
-                        <a href="/#faq">FAQs</a>
-                        <a href="/#contact">Contact</a>
-                        <a href="/reservationHistory" class="active">My Bookings</a>
-                    </div>
-                </div>
-
-                <div>
-                    <h3>Contact info</h3>
-                    <p>+94 77 123 4567</p>
-                    <p>support@driveease.lk</p>
-                    <p>Colombo, Sri Lanka</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>Designed for the DriveEase vehicle rental system.</p>
-
-            <div class="socials">
-                <span>◎</span>
-                <span>𝕏</span>
-                <span>in</span>
-                <span>f</span>
-            </div>
-        </div>
-
-        <div class="footer-watermark">DriveEase</div>
-    </div>
-</footer>
+<div th:replace="~{fragments/customer-footer :: footer}"></div>
 
 <script src="/js/checkout.js?v=5"></script>
 </body>
