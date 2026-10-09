@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>DriveEase - Vehicles</title>
@@ -7,69 +7,38 @@
 
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/catalog.css">
+    <link rel="stylesheet" href="/css/shared-chrome.css">
+    <link rel="stylesheet" href="/css/catalog-filters.css?v=20261008b">
+    <script src="/js/shared-chrome.js" defer></script>
 </head>
 <body class="catalog-body">
 
-<header class="catalog-header">
-    <nav class="catalog-navbar">
-        <a href="/" class="catalog-logo">
-            <span class="catalog-logo-mark">✺</span>
-            <span>DriveEase</span>
-        </a>
-
-        <div class="catalog-nav-links">
-            <a href="/">Home</a>
-            <a href="/#about">About</a>
-            <a href="/catalog" class="active">Vehicles</a>
-            <a href="/#contact">Contact</a>
-        </div>
-
-        <div class="catalog-header-actions">
-            <a href="/reservationHistory" class="catalog-header-btn">
-                My Bookings
-                <span>→</span>
-            </a>
-
-            <a href="/profile" class="profile-nav-bubble" title="My Profile">👤</a>
-        </div>
-    </nav>
-</header>
+<div th:replace="~{fragments/customer-header :: header('vehicles')}"></div>
 
 <main class="catalog-main">
-    <section class="catalog-hero">
-        <h1>Vehicles</h1>
-        <p>Choose the perfect ride for daily travel, family trips, business, or weekend adventures.</p>
-
-        <div class="catalog-filter-panel">
-
-            <div class="filter-mode-tabs">
-                <button class="filter-mode-tab active" data-mode="TOP">Top Choices</button>
-                <button class="filter-mode-tab" data-mode="ALL">All Vehicles</button>
-                <button class="filter-mode-tab" data-mode="TYPE">By Type</button>
-                <button class="filter-mode-tab" data-mode="USE">By Use</button>
-            </div>
-
-            <div class="category-tabs" id="typeFilterTabs" hidden>
-                <button class="category-tab active" data-type="CAR">Cars</button>
-                <button class="category-tab" data-type="SUV">SUVs</button>
-                <button class="category-tab" data-type="VAN">Vans</button>
-                <button class="category-tab" data-type="MOTORCYCLE">Motorcycles</button>
-                <button class="category-tab" data-type="PREMIUM">Premium</button>
-            </div>
-
-            <div class="category-tabs" id="useFilterTabs" hidden>
-                <button class="category-tab active" data-use="FAMILY">Family</button>
-                <button class="category-tab" data-use="BUSINESS">Business</button>
-                <button class="category-tab" data-use="WEDDING">Wedding</button>
-                <button class="category-tab" data-use="ADVENTURE">Adventure</button>
-                <button class="category-tab" data-use="TRANSPORT">Transport</button>
-                <button class="category-tab" data-use="DAILY">Daily Use</button>
-            </div>
-
-        </div>
+    <section class="catalog-hero" aria-labelledby="catalogTitle">
+        <h1 id="catalogTitle">Vehicles</h1>
     </section>
 
     <section class="catalog-section">
+        <div class="catalog-filter-bar">
+            <div class="catalog-filter-switch" role="group" aria-label="Browse vehicles by">
+                <button class="catalog-switch-option active" type="button" data-group="USE" aria-pressed="true">By use</button>
+                <button class="catalog-switch-option" type="button" data-group="TYPE" aria-pressed="false">By type</button>
+            </div>
+            <div class="catalog-quick-filters" id="quickFilters" role="group" aria-label="Quick vehicle filters"></div>
+            <div class="catalog-search-actions">
+                <label class="catalog-name-search">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+                    <input id="catalogNameSearch" type="search" placeholder="Search vehicles by name" aria-label="Search vehicles by name" maxlength="80" autocomplete="off">
+                </label>
+                <button class="catalog-open-filters" id="openFilters" type="button" aria-haspopup="dialog" aria-controls="catalogFilterModal">Filters</button>
+            </div>
+        </div>
+        <div class="catalog-results-line">
+            <p id="catalogFilterSummary" aria-live="polite">Showing all vehicles</p>
+            <span id="resultCount" aria-live="polite"></span>
+        </div>
         <div id="catalogGrid" class="cars-grid"></div>
 
         <div class="load-more-wrap" id="loadMoreWrap" hidden>
@@ -78,63 +47,33 @@
     </section>
 </main>
 
-<footer class="site-footer" id="contact">
-    <div class="footer-inner">
-
-        <div class="footer-brand-area">
-            <div class="footer-brand-column">
-                <div class="footer-logo">✺</div>
-
-                <div class="priority-card rental-help-card">
-                    <h2>Manage your rental</h2>
-                    <p>View your bookings, continue browsing vehicles, or contact support if you need help.</p>
-
-                    <div class="footer-action-row">
-                        <a href="/reservationHistory" class="footer-primary-action">My Bookings</a>
-                        <a href="/catalog" class="footer-secondary-action">Browse Vehicles</a>
-                    </div>
-
-                    <small>Need help? Contact support@driveease.lk or call +94 77 123 4567.</small>
+<div class="catalog-modal-backdrop" id="catalogFilterModal" hidden>
+    <section class="catalog-modal" role="dialog" aria-modal="true" aria-labelledby="catalogModalTitle">
+        <header class="catalog-modal-header"><div><span>REFINE YOUR SEARCH</span><h2 id="catalogModalTitle">Filters</h2></div><button id="closeFilters" type="button" aria-label="Close filters">×</button></header>
+        <div class="catalog-modal-content">
+            <fieldset class="catalog-modal-group catalog-modal-availability"><legend>Availability</legend>
+                <div class="catalog-modal-availability-fields">
+                    <label for="availabilityStart"><span>Start date</span><input id="availabilityStart" type="date"></label>
+                    <label for="availabilityReturn"><span>Return date</span><input id="availabilityReturn" type="date"></label>
+                    <label for="availabilityBranch"><span>Pickup branch</span><select id="availabilityBranch"><option value="">Any open branch</option></select></label>
                 </div>
-            </div>
-
-            <div class="footer-links">
-                <div>
-                    <h3>Pages</h3>
-                    <div class="footer-link-grid">
-                        <a href="/">Home</a>
-                        <a href="/#about">About</a>
-                        <a href="/catalog" class="active">Vehicles</a>
-                        <a href="/#faq">FAQs</a>
-                        <a href="/#contact">Contact</a>
-                        <a href="/reservationHistory">My Bookings</a>
-                    </div>
-                </div>
-
-                <div>
-                    <h3>Contact info</h3>
-                    <p>+94 77 123 4567</p>
-                    <p>support@driveease.lk</p>
-                    <p>Colombo, Sri Lanka</p>
-                </div>
-            </div>
+                <p class="catalog-modal-availability-status" id="availabilityStatus" aria-live="polite"></p>
+            </fieldset>
+            <fieldset class="catalog-modal-group"><legend>Vehicle type</legend><div class="catalog-modal-options" id="modalTypeOptions"></div></fieldset>
+            <fieldset class="catalog-modal-group"><legend>Body style</legend><div class="catalog-modal-options" id="modalStyleOptions"></div></fieldset>
+            <fieldset class="catalog-modal-group"><legend>Trip purpose</legend><div class="catalog-modal-options" id="modalUseOptions"></div></fieldset>
+            <fieldset class="catalog-modal-group"><legend>Transmission</legend><div class="catalog-modal-options" id="modalTransmissionOptions"></div></fieldset>
+            <fieldset class="catalog-modal-group"><legend>Fuel</legend><div class="catalog-modal-options" id="modalFuelOptions"></div></fieldset>
+            <fieldset class="catalog-modal-group"><legend>Seats</legend><div class="catalog-modal-options" id="modalSeatsOptions"></div></fieldset>
+            <fieldset class="catalog-modal-group"><legend>Featured</legend><div class="catalog-modal-options" id="modalFeaturedOptions"></div></fieldset>
+            <fieldset class="catalog-modal-group catalog-price-group"><legend>Daily price range</legend><div class="catalog-price-inputs"><label>Minimum (Rs.)<input id="modalMinPrice" type="number" min="0" step="1000" placeholder="Any"></label><label>Maximum (Rs.)<input id="modalMaxPrice" type="number" min="0" step="1000" placeholder="Any"></label></div></fieldset>
         </div>
+        <footer class="catalog-modal-footer"><button id="clearModalFilters" class="catalog-modal-clear" type="button">Clear filters</button><button id="applyModalFilters" class="catalog-modal-apply" type="button">Show <span id="modalResultCount">0</span> results</button></footer>
+    </section>
+</div>
 
-        <div class="footer-bottom">
-            <p>Designed for the DriveEase vehicle rental system.</p>
+<div th:replace="~{fragments/customer-footer :: footer}"></div>
 
-            <div class="socials">
-                <span>◎</span>
-                <span>𝕏</span>
-                <span>in</span>
-                <span>f</span>
-            </div>
-        </div>
-
-        <div class="footer-watermark">DriveEase</div>
-    </div>
-</footer>
-
-<script src="/js/catalog.js?v=6"></script>
+<script src="/js/catalog.js?v=14"></script>
 </body>
 </html>
