@@ -19,6 +19,7 @@
     <div class="page-header">
         <h2>Payments & Billing Report</h2>
         <p>Review invoice details, billing information, and recent payment records.</p>
+        <p style="margin-top: 1rem;"><a class="btn btn-primary" href="/admin/reports">Open revenue report</a></p>
     </div>
 
     <div class="stats-grid" style="grid-template-columns: 1fr; margin-bottom: 2rem;">
@@ -36,14 +37,18 @@
     <div class="table-card">
         <div class="table-card-header">
             <h3>Invoice Records</h3>
+            <label class="invoice-search-label">Search invoices
+                <input class="form-control search-field" id="invoice-search" type="search" placeholder="Invoice, customer or vehicle" aria-label="Search invoices">
+            </label>
         </div>
-        <table class="premium-table">
+        <table class="premium-table admin-invoice-table">
             <thead>
             <tr>
                 <th>Invoice ID</th>
                 <th>Customer</th>
                 <th>Vehicle</th>
                 <th>Amount</th>
+                <th>Return Adjustment</th>
                 <th>Status</th>
                 <th>Payment Method</th>
                 <th style="text-align: right;">Actions</th>
@@ -51,11 +56,12 @@
             </thead>
             <tbody id="invoice-table-body">
             <tr>
-                <td colspan="7" style="text-align: center; color: var(--text-secondary); padding: 3rem;">Loading invoice records...</td>
+                <td colspan="8" style="text-align: center; color: var(--text-secondary); padding: 3rem;">Loading invoice records...</td>
             </tr>
             </tbody>
         </table>
     </div>
+    <nav class="admin-pagination" id="invoice-pagination" aria-label="Invoice pages" hidden></nav>
 
 </main>
 
