@@ -246,30 +246,11 @@
             }
         }
     </style>
-</head>
+<link rel="stylesheet" href="/css/shared-chrome.css"><script src="/js/shared-chrome.js" defer></script></head>
 
 <body class="auth-body">
 
-<header class="catalog-header">
-    <nav class="catalog-navbar">
-        <a href="/" class="catalog-logo">
-            <span class="catalog-logo-mark">✺</span>
-            <span>DriveEase</span>
-        </a>
-
-        <div class="catalog-nav-links">
-            <a href="/">Home</a>
-            <a href="/#about">About</a>
-            <a href="/catalog">Vehicles</a>
-            <a href="/#contact">Contact</a>
-        </div>
-
-        <a href="/login" class="catalog-header-btn">
-            Sign In
-            <span>→</span>
-        </a>
-    </nav>
-</header>
+<div th:replace="~{fragments/customer-header :: header('')}"></div>
 
 <main class="auth-main">
     <section class="auth-shell">
@@ -317,12 +298,14 @@
 
                     <div class="auth-field">
                         <label for="username">Username*</label>
-                        <input type="text" id="username" name="username" placeholder="e.g. sanithu" required>
+                        <input type="text" id="username" name="username" placeholder="e.g. sanithu"
+                               minlength="3" maxlength="30" pattern="[A-Za-z0-9._-]{3,30}" required>
                     </div>
 
                     <div class="auth-field">
                         <label for="licenseId">License ID*</label>
-                        <input type="text" id="licenseId" name="licenseId" placeholder="e.g. LIC-001" required>
+                        <input type="text" id="licenseId" name="licenseId" placeholder="e.g. LIC-001"
+                               minlength="4" maxlength="25" pattern="[A-Za-z0-9]+(-[A-Za-z0-9]+)*" required>
                     </div>
 
                     <div class="auth-field">
@@ -345,12 +328,14 @@
 
                     <div class="auth-field">
                         <label for="password">Password*</label>
-                        <input type="password" id="password" name="password" placeholder="Create a password" required>
+                        <input type="password" id="password" name="password" placeholder="Create a password"
+                               minlength="6" maxlength="64" required>
                     </div>
 
                     <div class="auth-field">
                         <label for="confirmPassword">Confirm password*</label>
-                        <input type="password" id="confirmPassword" placeholder="Repeat password" required>
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repeat password"
+                               minlength="6" maxlength="64" required>
                     </div>
 
                     <div class="auth-row span-full">
@@ -367,62 +352,7 @@
     </section>
 </main>
 
-<footer class="site-footer" id="contact">
-    <div class="footer-inner">
-
-        <div class="footer-brand-area">
-            <div class="footer-brand-column">
-                <div class="footer-logo">✺</div>
-
-                <div class="priority-card rental-help-card">
-                    <h2>Manage your rental</h2>
-                    <p>View your bookings, continue browsing vehicles, or contact support if you need help.</p>
-
-                    <div class="footer-action-row">
-                        <a href="/reservationHistory" class="footer-primary-action">My Bookings</a>
-                        <a href="/catalog" class="footer-secondary-action">Browse Vehicles</a>
-                    </div>
-
-                    <small>Need help? Contact support@driveease.lk or call +94 77 123 4567.</small>
-                </div>
-            </div>
-
-            <div class="footer-links">
-                <div>
-                    <h3>Pages</h3>
-                    <div class="footer-link-grid">
-                        <a href="/">Home</a>
-                        <a href="/#about">About</a>
-                        <a href="/catalog">Vehicles</a>
-                        <a href="/#faq">FAQs</a>
-                        <a href="/#contact">Contact</a>
-                        <a href="/reservationHistory">My Bookings</a>
-                    </div>
-                </div>
-
-                <div>
-                    <h3>Contact info</h3>
-                    <p>+94 77 123 4567</p>
-                    <p>support@driveease.lk</p>
-                    <p>Colombo, Sri Lanka</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>Designed for the DriveEase vehicle rental system.</p>
-
-            <div class="socials">
-                <span>◎</span>
-                <span>𝕏</span>
-                <span>in</span>
-                <span>f</span>
-            </div>
-        </div>
-
-        <div class="footer-watermark">DriveEase</div>
-    </div>
-</footer>
+<div th:replace="~{fragments/customer-footer :: footer}"></div>
 
 </body>
 </html>

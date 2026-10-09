@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="/css/catalog.css">
+    <link rel="stylesheet" href="/css/profile-licence.css">
 
     <style>
         .profile-body {
@@ -393,36 +394,11 @@
             }
         }
     </style>
-</head>
+<link rel="stylesheet" href="/css/shared-chrome.css"><script src="/js/shared-chrome.js" defer></script></head>
 
 <body class="profile-body">
 
-<header class="catalog-header">
-    <nav class="catalog-navbar">
-        <a href="/" class="catalog-logo">
-            <span class="catalog-logo-mark">✺</span>
-            <span>DriveEase</span>
-        </a>
-
-        <div class="catalog-nav-links">
-            <a href="/">Home</a>
-            <a href="/#about">About</a>
-            <a href="/catalog">Vehicles</a>
-            <a href="/#contact">Contact</a>
-        </div>
-
-        <div class="catalog-header-actions">
-            <a href="/reservationHistory" class="catalog-header-btn">
-                My Bookings
-                <span>→</span>
-            </a>
-
-            <a href="/profile" class="profile-nav-bubble" title="My Profile">
-                <span th:text="${#strings.substring(customer.username,0,1).toUpperCase()}">U</span>
-            </a>
-        </div>
-    </nav>
-</header>
+<div th:replace="~{fragments/customer-header :: header('')}"></div>
 
 <main class="profile-main">
     <section class="profile-shell">
@@ -435,7 +411,9 @@
 
             <div class="profile-top-actions">
                 <a href="/catalog" class="profile-top-btn secondary">Browse Vehicles</a>
-                <a href="/logout" class="profile-top-btn">Sign Out</a>
+                <form action="/logout" method="post" style="display:inline">
+                    <button type="submit" class="profile-top-btn">Sign Out</button>
+                </form>
             </div>
         </div>
 
@@ -445,6 +423,13 @@
 
         <div class="profile-alert error" th:if="${error}">
             <span th:text="${error}"></span>
+        </div>
+
+        <div class="profile-alert success" th:if="${licenceMessage}">
+            <span th:text="${licenceMessage}">Both sides of your driving licence were submitted.</span>
+        </div>
+        <div class="profile-alert error" th:if="${licenceError}">
+            <span th:text="${licenceError}">We could not upload your licence images.</span>
         </div>
 
         <div class="profile-layout">
@@ -483,6 +468,64 @@
             </aside>
 
             <div class="profile-content">
+
+                <section class="profile-section licence-section" id="licence-verification" aria-labelledby="licence-heading">
+                    <div class="licence-heading-row">
+                        <div class="profile-section-header">
+                            <h2 id="licence-heading">Driving licence</h2>
+                            <p>Submit a clear photo of each side so our team can confirm your licence before you book.</p>
+                        </div>
+                        <span class="licence-status licence-status-approved"
+                              th:if="${licenceSubmission != null and licenceSubmission.status == 'APPROVED'}">Verified</span>
+                        <span class="licence-status licence-status-pending"
+                              th:if="${licenceSubmission != null and licenceSubmission.status == 'PENDING'}">Under review</span>
+                        <span class="licence-status licence-status-rejected"
+                              th:if="${licenceSubmission != null and licenceSubmission.status == 'REJECTED'}">Needs a new upload</span>
+                        <span class="licence-status licence-status-new"
+                              th:if="${licenceSubmission == null or licenceSubmission.status == 'NOT_SUBMITTED'}">Not submitted</span>
+                    </div>
+
+                    <div class="licence-state-message licence-state-approved"
+                         th:if="${licenceSubmission != null and licenceSubmission.status == 'APPROVED'}">
+                        Your driving licence is verified. You can continue to book a vehicle.
+                    </div>
+                    <div class="licence-state-message licence-state-pending"
+                         th:if="${licenceSubmission != null and licenceSubmission.status == 'PENDING'}">
+                        Your images are with our team. Please wait until an agent verifies your driving licence. We’ll notify you when the review is complete.
+                    </div>
+                    <div class="licence-state-message licence-state-rejected"
+                         th:if="${licenceSubmission != null and licenceSubmission.status == 'REJECTED'}">
+                        <strong>Your images need to be resubmitted.</strong>
+                        <span th:if="${licenceSubmission.reason != null and !#strings.isEmpty(licenceSubmission.reason)}"
+                              th:text="${licenceSubmission.reason}">The image was unclear.</span>
+                        <span>Please upload clear photos of both sides below.</span>
+                    </div>
+
+                    <form class="licence-upload-form" action="/profile/licence" method="post" enctype="multipart/form-data"
+                          th:if="${licenceSubmission == null or licenceSubmission.status == 'NOT_SUBMITTED' or licenceSubmission.status == 'REJECTED'}">
+                        <div class="licence-upload-grid">
+                            <label class="licence-upload-tile" for="frontImage">
+                                <span class="licence-upload-icon" aria-hidden="true">↥</span>
+                                <strong>Front of licence</strong>
+                                <span>Make sure the photo and licence number are readable.</span>
+                                <input id="frontImage" name="frontImage" type="file" accept="image/jpeg,image/png" required>
+                                <span class="licence-file-name" data-file-name-for="frontImage">Choose a JPG or PNG image</span>
+                            </label>
+                            <label class="licence-upload-tile" for="backImage">
+                                <span class="licence-upload-icon" aria-hidden="true">↥</span>
+                                <strong>Back of licence</strong>
+                                <span>Keep the full document inside the frame.</span>
+                                <input id="backImage" name="backImage" type="file" accept="image/jpeg,image/png" required>
+                                <span class="licence-file-name" data-file-name-for="backImage">Choose a JPG or PNG image</span>
+                            </label>
+                        </div>
+                        <div class="licence-upload-footer">
+                            <p>JPG or PNG, up to 3 MB per image. Your images are available only to the verification team.</p>
+                            <button type="submit" class="profile-btn primary">Submit for review</button>
+                        </div>
+                        <p class="licence-upload-error" role="alert" hidden></p>
+                    </form>
+                </section>
 
                 <section class="profile-section">
                     <div class="profile-section-header">
@@ -560,6 +603,8 @@
                                        type="password"
                                        name="newPassword"
                                        placeholder="At least 6 characters"
+                                       minlength="6"
+                                       maxlength="64"
                                        required>
                             </div>
 
@@ -569,6 +614,8 @@
                                        type="password"
                                        name="confirmPassword"
                                        placeholder="Repeat new password"
+                                       minlength="6"
+                                       maxlength="64"
                                        required>
                             </div>
                         </div>
@@ -584,68 +631,33 @@
                     </div>
                 </section>
 
+                <section class="profile-section">
+                    <div class="profile-section-header">
+                        <h2>Deactivate account</h2>
+                        <p>This disables future sign-ins. You must finish or cancel every open booking first.</p>
+                    </div>
+                    <form class="profile-form" action="/profile/deactivate" method="post"
+                          onsubmit="return confirm('Deactivate this account? You will be signed out immediately.');">
+                        <div class="profile-field span-full">
+                            <label for="deactivationPassword">Current Password*</label>
+                            <input id="deactivationPassword" type="password" name="currentPassword"
+                                   maxlength="64" autocomplete="current-password" required>
+                        </div>
+                        <div class="profile-actions">
+                            <button type="submit" class="profile-btn primary" style="background:#b42318">Deactivate Account</button>
+                        </div>
+                    </form>
+                </section>
+
             </div>
         </div>
 
     </section>
 </main>
 
-<footer class="site-footer" id="contact">
-    <div class="footer-inner">
+<div th:replace="~{fragments/customer-footer :: footer}"></div>
 
-        <div class="footer-brand-area">
-            <div class="footer-brand-column">
-                <div class="footer-logo">✺</div>
-
-                <div class="priority-card rental-help-card">
-                    <h2>Manage your rental</h2>
-                    <p>View your bookings, continue browsing vehicles, or contact support if you need help.</p>
-
-                    <div class="footer-action-row">
-                        <a href="/reservationHistory" class="footer-primary-action">My Bookings</a>
-                        <a href="/catalog" class="footer-secondary-action">Browse Vehicles</a>
-                    </div>
-
-                    <small>Need help? Contact support@driveease.lk or call +94 77 123 4567.</small>
-                </div>
-            </div>
-
-            <div class="footer-links">
-                <div>
-                    <h3>Pages</h3>
-                    <div class="footer-link-grid">
-                        <a href="/">Home</a>
-                        <a href="/#about">About</a>
-                        <a href="/catalog">Vehicles</a>
-                        <a href="/#faq">FAQs</a>
-                        <a href="/#contact">Contact</a>
-                        <a href="/reservationHistory">My Bookings</a>
-                    </div>
-                </div>
-
-                <div>
-                    <h3>Contact info</h3>
-                    <p>+94 77 123 4567</p>
-                    <p>support@driveease.lk</p>
-                    <p>Colombo, Sri Lanka</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>Designed for the DriveEase vehicle rental system.</p>
-
-            <div class="socials">
-                <span>◎</span>
-                <span>𝕏</span>
-                <span>in</span>
-                <span>f</span>
-            </div>
-        </div>
-
-        <div class="footer-watermark">DriveEase</div>
-    </div>
-</footer>
+<script src="/js/profile-licence.js" defer></script>
 
 </body>
 </html>
