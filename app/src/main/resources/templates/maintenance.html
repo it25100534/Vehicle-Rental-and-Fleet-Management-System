@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Maintenance &amp; Service | DriveEase</title><link rel="stylesheet" href="/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"></head>
+<body><div th:replace="~{fragments/admin-sidebar :: sidebar}"></div>
+<main class="main-content">
+    <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start;gap:2rem">
+        <div><h2>Maintenance &amp; Service</h2><p>Schedule work, control vehicle availability, and record provider costs.</p></div>
+        <div class="action-buttons"><a class="btn btn-secondary" href="/maintenance/schedule">Schedule &amp; History</a><a class="btn btn-secondary" href="/maintenance/compliance">Compliance</a></div>
+    </div>
+    <div class="alert alert-info" th:if="${message}" th:text="${message}"></div>
+    <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+
+    <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="stat-card"><div class="header"><span>Active Jobs</span><span class="material-symbols-outlined">build</span></div><div class="value" th:text="${activeCount}">0</div></div>
+        <div class="stat-card"><div class="header"><span>Due / In Service</span><span class="material-symbols-outlined">warning</span></div><div class="value" th:text="${dueCount}">0</div></div>
+        <div class="stat-card"><div class="header"><span>Recorded Cost</span><span class="material-symbols-outlined">payments</span></div><div class="value" style="font-size:1.5rem">Rs. <span th:text="${#numbers.formatDecimal(totalCost,1,2)}">0.00</span></div></div>
+    </div>
+
+    <section class="form-card" style="max-width:none;margin-bottom:2rem">
+        <h3 style="margin-top:0">Schedule Maintenance Job</h3>
+        <form action="/maintenance/add" method="post">
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">Vehicle</label><select class="form-control" name="vehicleId" required><option value="">Choose vehicle</option><option th:each="vehicle:${vehicles}" th:value="${vehicle.vehicleId}" th:text="${vehicle.vehicleId + ' — ' + vehicle.make + ' ' + vehicle.model}"></option></select></div>
+                <div class="form-group"><label class="form-label">Service Type</label><select class="form-control" name="serviceType" required><option value="">Choose service</option><option>Engine</option><option>Tyre</option><option>Oil Change</option><option>Brake</option><option>General</option></select></div>
+                <div class="form-group"><label class="form-label">Provider</label><input class="form-control" name="provider" maxlength="80" placeholder="Workshop or technician" required></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label class="form-label">Scheduled Date</label><input class="form-control" type="date" name="serviceDate" required></div>
+                <div class="form-group"><label class="form-label">Expected Completion</label><input class="form-control" type="date" name="expectedCompletionDate" required></div>
+                <div class="form-group"><label class="form-label">Estimated Cost (Rs.)</label><input class="form-control" type="number" min="0" max="10000000" step="0.01" name="estimatedCost" value="0" required></div>
+            </div>
+            <div class="form-group"><label class="form-label">Job Notes</label><input class="form-control" name="notes" maxlength="250" placeholder="Required work, parts, or inspection notes"></div>
+            <button class="btn btn-primary" type="submit" style="padding:11px 20px"><span class="material-symbols-outlined">add</span> Schedule Job</button>
+        </form>
+    </section>
+
+    <section class="table-card">
+        <div class="table-card-header"><div><h3 style="margin:0">Maintenance Jobs</h3><div class="secondary-cell">Due and in-progress jobs make the vehicle unavailable.</div></div></div>
+        <table class="premium-table"><thead><tr><th>Record</th><th>Vehicle / Job</th><th>Schedule</th><th>Provider</th><th>Cost</th><th>Status</th><th style="text-align:right">Actions</th></tr></thead>
+            <tbody>
+            <tr th:each="record:${records}">
+                <td class="mono-cell" th:text="${record.recordId}"></td>
+                <td><div class="primary-cell" th:text="${record.vehicleId + ' · ' + record.serviceType}"></div><div class="secondary-cell" th:text="${record.notes}"></div></td>
+                <td><div th:text="${record.serviceDate + ' → ' + record.expectedCompletionDate}"></div><div class="secondary-cell" th:if="${!#strings.isEmpty(record.completedDate)}" th:text="${'Completed ' + record.completedDate}"></div></td>
+                <td th:text="${record.provider}"></td>
+                <td><div th:text="${'Est. Rs. ' + #numbers.formatDecimal(record.estimatedCost,1,2)}"></div><div class="secondary-cell" th:text="${'Actual Rs. ' + #numbers.formatDecimal(record.actualCost,1,2)}"></div></td>
+                <td><span class="badge" th:classappend="${record.status == 'Completed'} ? ' approved' : (${record.status == 'Cancelled'} ? ' closed' : ' maintenance')" th:text="${record.status}"></span></td>
+                <td><div class="action-buttons" style="justify-content:flex-end">
+                    <form action="/maintenance/update" method="post" style="display:flex;gap:7px;align-items:center">
+                        <input type="hidden" name="recordId" th:value="${record.recordId}">
+                        <select class="form-control" name="status" style="min-width:125px;padding:7px 30px 7px 10px" th:disabled="${record.status == 'Completed' || record.status == 'Cancelled'}">
+                            <option value="Pending" th:selected="${record.status == 'Pending'}">Pending</option><option value="In Progress" th:selected="${record.status == 'In Progress'}">In Progress</option><option value="Completed" th:selected="${record.status == 'Completed'}">Completed</option><option value="Cancelled" th:selected="${record.status == 'Cancelled'}">Cancelled</option>
+                        </select>
+                        <input class="form-control" type="number" min="0" max="10000000" step="0.01" name="actualCost" th:value="${record.actualCost}" title="Actual cost" style="width:110px" th:disabled="${record.status == 'Completed' || record.status == 'Cancelled'}">
+                        <input class="form-control" type="date" name="completedDate" th:value="${record.completedDate}" title="Completion date" style="width:145px" th:disabled="${record.status == 'Completed' || record.status == 'Cancelled'}">
+                        <button class="btn btn-secondary" type="submit" th:disabled="${record.status == 'Completed' || record.status == 'Cancelled'}">Update</button>
+                    </form>
+                    <a class="btn btn-ghost-yellow" th:href="@{/maintenance/alert/{id}(id=${record.recordId})}" target="_blank">Alert</a>
+                    <form th:if="${record.status == 'Pending'}" th:action="@{/maintenance/delete/{id}(id=${record.recordId})}" method="post" style="display:inline" onsubmit="return confirm('Delete this pending maintenance job?')"><button class="btn btn-danger" type="submit" aria-label="Delete pending maintenance job"><span class="material-symbols-outlined">delete</span></button></form>
+                </div></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(records)}"><td colspan="7" class="empty-table-cell">No maintenance jobs have been scheduled.</td></tr>
+            </tbody></table>
+    </section>
+</main></body></html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Maintenance Schedule &amp; History | DriveEase</title><link rel="stylesheet" href="/css/admin.css"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"></head>
+<body><div th:replace="~{fragments/admin-sidebar :: sidebar}"></div><main class="main-content">
+    <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start"><div><h2>Maintenance Schedule &amp; History</h2><p>Review upcoming work, completed costs, and fleet downtime.</p></div><a class="btn btn-secondary" href="/maintenance">Back to Maintenance</a></div>
+    <div class="alert alert-info" th:if="${message}" th:text="${message}"></div><div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+    <div class="stats-grid" style="grid-template-columns:repeat(4,1fr)">
+        <div class="stat-card"><div class="header"><span>Upcoming / Active</span></div><div class="value" th:text="${#lists.size(upcoming)}">0</div></div>
+        <div class="stat-card"><div class="header"><span>Completed</span></div><div class="value" th:text="${#lists.size(completed)}">0</div></div>
+        <div class="stat-card"><div class="header"><span>Recorded Cost</span></div><div class="value" style="font-size:1.35rem">Rs. <span th:text="${#numbers.formatDecimal(totalCost,1,2)}"></span></div></div>
+        <div class="stat-card"><div class="header"><span>Downtime Days</span></div><div class="value" th:text="${downtime}">0</div></div>
+    </div>
+    <section class="table-card"><div class="table-card-header"><h3 style="margin:0">Complete Job Timeline</h3></div>
+        <table class="premium-table"><thead><tr><th>Vehicle</th><th>Job</th><th>Provider</th><th>Dates</th><th>Status</th><th>Cost / Downtime</th><th style="text-align:right">Action</th></tr></thead><tbody>
+        <tr th:each="record:${records}"><td class="mono-cell" th:text="${record.vehicleId}"></td><td><div class="primary-cell" th:text="${record.serviceType}"></div><div class="secondary-cell" th:text="${record.notes}"></div></td><td th:text="${record.provider}"></td><td><div th:text="${record.serviceDate + ' → ' + record.expectedCompletionDate}"></div><div class="secondary-cell" th:if="${!#strings.isEmpty(record.completedDate)}" th:text="${'Completed ' + record.completedDate}"></div></td><td><span class="badge" th:classappend="${record.status == 'Completed'} ? ' approved' : (${record.status == 'Cancelled'} ? ' closed' : ' maintenance')" th:text="${record.status}"></span></td><td><div th:text="${'Rs. ' + #numbers.formatDecimal(record.actualCost,1,2)}"></div><div class="secondary-cell" th:text="${record.downtimeDays + ' day(s)'}"></div></td><td><form th:action="@{/maintenance/duplicate/{id}(id=${record.recordId})}" method="post" style="display:flex;justify-content:flex-end"><button class="btn btn-ghost-yellow" type="submit">Schedule Follow-up</button></form></td></tr>
+        <tr th:if="${#lists.isEmpty(records)}"><td colspan="7" class="empty-table-cell">No maintenance history is available.</td></tr>
+        </tbody></table>
+    </section>
+</main></body></html>
