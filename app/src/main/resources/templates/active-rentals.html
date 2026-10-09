@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Active Rentals | DriveEase</title><link rel="stylesheet" href="/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"></head>
+<body><div th:replace="~{fragments/admin-sidebar :: sidebar}"></div>
+<main class="main-content">
+    <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div><h2>Active Rentals</h2><p>Vehicles currently handed over to customers, including rentals that need attention.</p></div>
+        <a class="btn btn-secondary" href="/handover">Back to Handover &amp; Return</a>
+    </div>
+    <div class="table-card" style="margin-top:2rem">
+        <div class="table-card-header"><h3 style="margin:0">Active Rental Board</h3></div>
+        <div class="empty-table-cell" th:if="${#lists.isEmpty(records)}">No rentals are currently active.</div>
+        <table class="premium-table" th:unless="${#lists.isEmpty(records)}">
+            <thead><tr><th>Vehicle</th><th>Customer</th><th>Handover</th><th>Expected Return</th><th>State</th><th>Inspection</th></tr></thead>
+            <tbody><tr th:each="record:${records}">
+                <td><div class="primary-cell" th:text="${record.vehicleId}"></div><div class="secondary-cell" th:text="${record.recordId}"></div></td>
+                <td th:text="${record.customerName}"></td>
+                <td th:text="${record.handedOverAt}"></td>
+                <td th:text="${record.scheduledReturnDate}"></td>
+                <td><span class="badge" th:classappend="${record.overdue ? ' rejected' : ' approved'}" th:text="${record.rentalState}"></span></td>
+                <td><a class="btn btn-ghost-yellow" th:href="@{/handover/{id}(id=${record.recordId})}">Open record</a></td>
+            </tr></tbody>
+        </table>
+    </div>
+</main></body></html>
