@@ -37,6 +37,16 @@ function updatePriceSummary() {
     }
 }
 
+async function loadServerQuote() {
+    const id=document.getElementById("transactionId").value;
+    if(!id||id==="Unknown")return;
+    const response=await fetch(`/api/bookings/${encodeURIComponent(id)}/quote`);
+    if(!response.ok)return;
+    const quote=await response.json();
+    subtotalDisplay.textContent=formatCurrency(quote.rentalSubtotal+quote.extras);
+    totalDisplay.textContent=formatCurrency(quote.total);
+}
+
 function renderPaymentFields(type) {
     let html = "";
 
@@ -179,6 +189,7 @@ paymentType.addEventListener("change", () => renderPaymentFields(paymentType.val
 window.addEventListener("load", () => {
     renderPaymentFields(paymentType.value);
     updatePriceSummary();
+    loadServerQuote();
 });
 
 checkoutForm.addEventListener("submit", async (event) => {
@@ -189,6 +200,7 @@ checkoutForm.addEventListener("submit", async (event) => {
         const paymentMethod = validateForm();
 
         const body = {
+            transactionId: document.getElementById("transactionId").value,
             customerName: document.getElementById("customerName").value.trim(),
             vehicleId: document.getElementById("vehicleId").value.trim(),
             vehicleName: document.getElementById("vehicleName").value.trim(),
@@ -202,11 +214,9 @@ checkoutForm.addEventListener("submit", async (event) => {
             paymentMethod
         };
 
-        console.log("Sending invoice payload:", body);
-
         const response = await fetch("/api/invoices", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", "Idempotency-Key": `booking:${document.getElementById("transactionId").value}` },
             body: JSON.stringify(body)
         });
 
@@ -217,11 +227,11 @@ checkoutForm.addEventListener("submit", async (event) => {
 
         const invoice = await response.json();
 
-        const transactionId = document.getElementById("transactionId").value;
-
-        if (transactionId && transactionId !== "Unknown") {
-            await fetch(`/markAsPaid?transactionId=${encodeURIComponent(transactionId)}`, { method: "POST" });
-        }
+        // Remove sensitive values from the visible form as soon as the server accepts payment.
+        ["cardNumber", "cardHolder", "expiryDate", "cvv"].forEach((id) => {
+            const field = document.getElementById(id);
+            if (field) field.value = "";
+        });
 
         showMessage(`Payment successful! Invoice #${invoice.id} created. Redirecting...`, "success");
 
