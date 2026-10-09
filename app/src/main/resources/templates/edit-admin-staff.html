@@ -32,12 +32,12 @@
 
             <div class="form-group">
                 <label class="form-label">Full Name</label>
-                <input type="text" name="fullName" th:value="${fullName}" required class="form-control">
+                <input type="text" name="fullName" th:value="${fullName}" minlength="2" maxlength="80" required class="form-control">
             </div>
 
             <div class="form-group">
                 <label class="form-label">Username</label>
-                <input type="text" name="username" th:value="${username}" required class="form-control">
+                <input type="text" name="username" th:value="${username}" minlength="3" maxlength="30" pattern="[A-Za-z0-9._-]{3,30}" required class="form-control">
             </div>
 
             <div class="form-row">
@@ -60,7 +60,7 @@
 
             <div class="form-group">
                 <label class="form-label">Update Password</label>
-                <input type="password" name="password" placeholder="Leave blank to keep current password" class="form-control">
+                <input type="password" name="password" minlength="6" maxlength="64" placeholder="Leave blank to keep current password" class="form-control">
             </div>
 
             <div class="form-actions">
