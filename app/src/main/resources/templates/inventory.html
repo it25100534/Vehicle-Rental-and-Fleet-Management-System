@@ -27,15 +27,24 @@
         </a>
     </div>
 
-    <div class="table-card" style="margin-top: 2rem;">
-        <table class="premium-table">
+    <div class="admin-list-toolbar" style="margin-top:22px">
+        <label class="admin-filter-form">Find a vehicle
+            <input id="inventorySearch" class="form-control search-field" type="search" placeholder="ID, make or model" aria-label="Find a vehicle">
+        </label>
+        <p id="inventoryCount" class="table-meta" aria-live="polite"></p>
+    </div>
+    <div class="table-card inventory-table-card">
+        <table class="premium-table inventory-compact-table">
             <thead>
             <tr>
-                <th>Image</th>
+                <th scope="col">Image</th>
                 <th>ID</th>
                 <th>Make & Model</th>
                 <th>Type</th>
+                <th>Category</th>
+                <th>Branch</th>
                 <th>Rate / Day</th>
+                <th>Mileage</th>
                 <th>Status</th>
                 <th style="text-align: right;">Actions</th>
             </tr>
@@ -44,6 +53,14 @@
             </tbody>
         </table>
     </div>
+    <nav class="admin-pagination" aria-label="Inventory pages">
+        <span id="inventoryPageSummary"></span>
+        <div class="page-links">
+            <button id="inventoryPrevious" class="btn btn-secondary" type="button">Previous</button>
+            <span id="inventoryPageNumber" class="page-current"></span>
+            <button id="inventoryNext" class="btn btn-secondary" type="button">Next</button>
+        </div>
+    </nav>
 
 </main>
 
