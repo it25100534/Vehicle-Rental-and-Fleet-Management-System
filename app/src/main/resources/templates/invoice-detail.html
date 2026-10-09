@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Invoice | DriveEase</title>
+<link th:if="${staffView}" rel="stylesheet" href="/css/admin.css"><link th:unless="${staffView}" rel="stylesheet" href="/css/catalog.css">
+<style>
+body.customer-invoice-shell{display:block;margin:0;background:#f7f7f8;color:#171719;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}body.staff-invoice-shell{color:#171719}.billing-main{width:min(1120px,calc(100% - 56px));box-sizing:border-box;margin:0 auto;padding:54px 0 80px}.staff-main{width:auto;max-width:none;margin-left:256px;padding:4rem}.billing-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:24px}.billing-head h1{font-size:2.1rem;margin:0 0 8px}.muted{color:#697080}.billing-card{background:#fff;border:1px solid #e4e5e8;border-radius:22px;padding:26px;margin-bottom:20px;box-shadow:0 10px 35px rgba(20,24,35,.06)}.billing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.field{min-width:0}.field small{display:block;color:#7a7f8c;text-transform:uppercase;font-weight:700;letter-spacing:.06em;margin-bottom:6px}.field strong{display:block;font-size:1.05rem;overflow-wrap:anywhere}.amounts{width:100%;border-collapse:collapse}.amounts td{padding:12px;border-bottom:1px solid #ececef}.amounts td:last-child{text-align:right;font-weight:700}.amounts .total td{font-size:1.25rem;border-top:2px solid #171719;border-bottom:0}.actions{display:flex;gap:10px;flex-wrap:wrap}.action{display:inline-block;padding:11px 17px;border-radius:10px;border:1px solid #cfd2d8;background:#fff;color:#171719;text-decoration:none;font-weight:700}.action.primary{background:#171719;color:#fff}.action.danger{background:#a51919;color:#fff;border-color:#a51919}.notice{padding:13px 16px;background:#e9f8ee;color:#176b37;border-radius:10px;margin-bottom:18px}.forms{display:grid;grid-template-columns:1fr 1fr;gap:18px}.lifecycle{border-top:1px solid #ececef;padding-top:18px}.lifecycle input{width:100%;box-sizing:border-box;padding:11px;border:1px solid #ccd0d7;border-radius:9px;margin:6px 0 10px}@media(max-width:900px){.staff-main{margin-left:0;padding:28px}.billing-main{width:min(100% - 28px,1120px)}.billing-grid,.forms{grid-template-columns:1fr}}
+</style>
+<style>
+body.staff-invoice-shell { color:#f3f7fb; }
+.staff-invoice-shell .staff-main { width:calc(100% - var(--admin-sidebar-width)); max-width:none; margin-left:var(--admin-sidebar-width); padding:28px clamp(20px,3vw,48px) 56px; }
+.staff-invoice-shell .billing-card { background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:14px; box-shadow:none; }
+.staff-invoice-shell .muted, .staff-invoice-shell .field small { color:#a7b4c6; }
+.staff-invoice-shell .amounts td, .staff-invoice-shell .lifecycle { border-color:var(--border-subtle); }
+.staff-invoice-shell .amounts .total td { border-color:#59708e; }
+.staff-invoice-shell .action { background:#24364e; color:#eaf3ff; border-color:#3a526d; }
+.staff-invoice-shell .action.primary { background:#2f6dc1; color:#fff; }
+.staff-invoice-shell .action.danger { background:#753441; color:#ffe6e9; }
+.staff-invoice-shell .lifecycle input { background:#0f1b2b; color:#f2f6fb; border-color:#3a4d65; }
+.staff-invoice-shell .notice { background:#173f35; color:#a2edcf; }
+@media(max-width:900px) { .staff-invoice-shell .staff-main { width:100%; margin-left:0; padding:22px 16px 44px; } }
+</style></head>
+<body th:class="${staffView} ? 'staff-invoice-shell' : 'customer-invoice-shell'">
+<th:block th:if="${staffView}"><div th:replace="~{fragments/admin-sidebar :: sidebar}"></div></th:block>
+<th:block th:unless="${staffView}"></th:block>
+<main class="billing-main" th:classappend="${staffView} ? ' staff-main' : ''">
+ <div class="notice" th:if="${message}" th:text="${message}"></div>
+ <div class="billing-head"><div><p class="muted">DriveEase billing record</p><h1 th:text="'Invoice #' + ${invoice.id}">Invoice</h1><p class="muted" th:text="${invoice.createdAt == null ? 'Date not recorded' : #temporals.format(invoice.createdAt, 'dd MMM yyyy, hh:mm a')}"></p></div><span class="action" th:text="${invoice.status}">PAID</span></div>
+ <section class="billing-card billing-grid">
+  <div class="field"><small>Customer</small><strong th:text="${invoice.customerName}"></strong></div>
+  <div class="field"><small>Vehicle</small><strong th:text="${invoice.vehicleName + ' · ' + invoice.vehicleId}"></strong></div>
+  <div class="field"><small>Branch</small><strong th:text="${invoice.branchId ?: 'Legacy record'}"></strong></div>
+  <div class="field"><small>Booking</small><strong th:text="${invoice.transactionId ?: 'Not linked'}"></strong></div>
+  <div class="field"><small>Payment</small><strong th:text="${paymentLabel}"></strong></div>
+  <div class="field"><small>Paid at</small><strong th:text="${invoice.paidAt == null ? 'Pending' : #temporals.format(invoice.paidAt, 'dd MMM yyyy, hh:mm a')}"></strong></div>
+ </section>
+ <section class="billing-card"><h2>Amount breakdown</h2><table class="amounts">
+  <tr><td th:text="${invoice.rentalDays + ' rental day(s) × Rs. ' + #numbers.formatDecimal(invoice.amountPerDay,1,2)}"></td><td th:text="${'Rs. ' + #numbers.formatDecimal(invoice.subtotal,1,2)}"></td></tr>
+  <tr><td>Discount</td><td th:text="${'- Rs. ' + #numbers.formatDecimal(invoice.discount,1,2)}"></td></tr>
+  <tr><td>Late fee</td><td th:text="${'Rs. ' + #numbers.formatDecimal(invoice.lateFee,1,2)}"></td></tr>
+  <tr><td>Damage, fuel, mileage and drop-off charges</td><td th:text="${'Rs. ' + #numbers.formatDecimal(invoice.damageFee + invoice.fuelCharge + invoice.mileageCharge + invoice.alternateDropoffCharge,1,2)}"></td></tr>
+  <tr><td>Deposit</td><td th:text="${'Rs. ' + #numbers.formatDecimal(invoice.depositAmount,1,2)}"></td></tr>
+  <tr><td>Refund</td><td th:text="${'- Rs. ' + #numbers.formatDecimal(invoice.refundAmount,1,2)}"></td></tr>
+  <tr class="total"><td>Net total</td><td th:text="${'Rs. ' + #numbers.formatDecimal(invoice.totalAmount,1,2)}"></td></tr>
+ </table></section>
+ <section class="billing-card" th:if="${invoice.voidedAt != null || invoice.refundedAt != null}"><h2>Lifecycle record</h2><p th:if="${invoice.voidedAt}" th:text="${'Voided: ' + invoice.voidReason + ' · ' + invoice.voidedAt}"></p><p th:if="${invoice.refundedAt}" th:text="${'Refund: ' + invoice.refundReason + ' · ' + invoice.refundedAt}"></p></section>
+ <div class="actions"><a class="action primary" th:href="${staffView} ? @{/admin/invoices/{id}/print(id=${invoice.id})} : @{/invoices/{id}/print(id=${invoice.id})}">Print receipt</a><a th:if="${staffView}" class="action" th:href="@{/admin/invoices/{id}/edit(id=${invoice.id})}">Edit amounts</a><a th:if="${staffView}" class="action" href="/admin/reports">Revenue report</a><a th:unless="${staffView}" class="action" href="/payments/history">Payment history</a></div>
+ <section class="billing-card forms" th:if="${staffView && invoice.status.name() != 'VOID' && invoice.status.name() != 'REFUNDED'}">
+  <form class="lifecycle" th:action="@{/admin/invoices/{id}/refund(id=${invoice.id})}" method="post"><h3>Record refund</h3><label>Additional refund amount<input name="amount" type="number" min="0.01" step="0.01" th:max="${invoice.totalAmount}" required></label><label>Reason<input name="reason" maxlength="160" required></label><button class="action primary" type="submit">Save refund</button></form>
+  <form class="lifecycle" th:action="@{/admin/invoices/{id}/void(id=${invoice.id})}" method="post" onsubmit="return confirm('Void this invoice? The record will be retained.');"><h3>Void invoice</h3><label>Reason<input name="reason" maxlength="160" required></label><button class="action danger" type="submit">Void invoice</button></form>
+ </section>
+</main></body></html>
