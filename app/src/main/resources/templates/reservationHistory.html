@@ -483,36 +483,26 @@
 .history-action-note {
     font-size: 12px;
 }
+.rental-review-dialog { width: min(460px, calc(100% - 28px)); padding: 27px; border: 1px solid #e2e5e9; border-radius: 18px; box-shadow: 0 22px 80px #0005; color: #171719; }
+.rental-review-dialog::backdrop { background: #09111fc0; }
+.rental-review-dialog h2 { margin: 0 0 7px; font-size: 25px; }
+.rental-review-dialog p { margin: 0 0 17px; color: #626b77; }
+.rental-review-dialog form { display: grid; gap: 12px; }
+.rental-review-dialog label { display: grid; gap: 6px; font-weight: 700; }
+.rental-review-dialog select,.rental-review-dialog textarea { width: 100%; padding: 11px; border: 1px solid #cbd2db; border-radius: 9px; font: inherit; }
+.rental-review-dialog textarea { resize: vertical; }
+.rental-review-actions { display: flex; justify-content: flex-end; gap: 9px; }
+.rental-review-actions button { border: 0; border-radius: 8px; padding: 11px 17px; font: inherit; font-weight: 700; cursor: pointer; }
+.rental-review-actions button[type=submit] { background: #2165d7; color: #fff; }
+.rental-review-error { color: #ba3030 !important; min-height: 0; }
+.history-review-stars { color: #f1b43b; letter-spacing: 1px; white-space: nowrap; }
     </style>
-</head>
+<link rel="stylesheet" href="/css/shared-chrome.css"><script src="/js/shared-chrome.js" defer></script></head>
 
 <body class="history-body">
 <input type="hidden" id="loggedInUsername" th:value="${username}" />
 
-<header class="catalog-header">
-    <nav class="catalog-navbar">
-        <a href="/" class="catalog-logo">
-            <span class="catalog-logo-mark">✺</span>
-            <span>DriveEase</span>
-        </a>
-
-        <div class="catalog-nav-links">
-            <a href="/">Home</a>
-            <a href="/#about">About</a>
-            <a href="/catalog">Vehicles</a>
-            <a href="/#contact">Contact</a>
-        </div>
-
-        <div class="catalog-header-actions">
-            <a href="/catalog" class="catalog-header-btn">
-                Book Vehicle
-                <span>→</span>
-            </a>
-
-            <a href="/profile" class="profile-nav-bubble" title="My Profile">👤</a>
-        </div>
-    </nav>
-</header>
+<div th:replace="~{fragments/customer-header :: header('')}"></div>
 
 <main class="history-main">
     <section class="history-shell">
@@ -532,7 +522,7 @@
                 <div class="history-card-header">
                     <div>
                         <h2>Bookings</h2>
-                        <p>Pending bookings can be edited or deleted before admin approval.</p>
+                        <p>Pending bookings can be edited. Eligible bookings can be cancelled; late cancellation fees are calculated by the server.</p>
                     </div>
                 </div>
 
@@ -617,63 +607,27 @@
     </section>
 </main>
 
-<footer class="site-footer" id="contact">
-    <div class="footer-inner">
+<div th:replace="~{fragments/customer-footer :: footer}"></div>
 
-        <div class="footer-brand-area">
-            <div class="footer-brand-column">
-                <div class="footer-logo">✺</div>
-
-                <div class="priority-card rental-help-card">
-                    <h2>Manage your rental</h2>
-                    <p>View your bookings, continue browsing vehicles, or contact support if you need help.</p>
-
-                    <div class="footer-action-row">
-                        <a href="/reservationHistory" class="footer-primary-action">My Bookings</a>
-                        <a href="/catalog" class="footer-secondary-action">Browse Vehicles</a>
-                    </div>
-
-                    <small>Need help? Contact support@driveease.lk or call +94 77 123 4567.</small>
-                </div>
-            </div>
-
-            <div class="footer-links">
-                <div>
-                    <h3>Pages</h3>
-                    <div class="footer-link-grid">
-                        <a href="/">Home</a>
-                        <a href="/#about">About</a>
-                        <a href="/catalog">Vehicles</a>
-                        <a href="/#faq">FAQs</a>
-                        <a href="/#contact">Contact</a>
-                        <a href="/reservationHistory" class="active">My Bookings</a>
-                    </div>
-                </div>
-
-                <div>
-                    <h3>Contact info</h3>
-                    <p>+94 77 123 4567</p>
-                    <p>support@driveease.lk</p>
-                    <p>Colombo, Sri Lanka</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>Designed for the DriveEase vehicle rental system.</p>
-
-            <div class="socials">
-                <span>◎</span>
-                <span>𝕏</span>
-                <span>in</span>
-                <span>f</span>
-            </div>
-        </div>
-
-        <div class="footer-watermark">DriveEase</div>
-    </div>
-</footer>
-
-<script src="/js/history.js?v=3"></script>
+<dialog class="rental-review-dialog" id="rentalReviewDialog" aria-labelledby="rentalReviewTitle">
+    <h2 id="rentalReviewTitle">Review your rental</h2>
+    <p>Rate your completed trip from one to five stars.</p>
+    <form id="rentalReviewForm">
+        <input type="hidden" name="bookingId" id="reviewBookingId">
+        <label>Stars
+            <select name="stars" required>
+                <option value="5">★★★★★ — 5 stars</option>
+                <option value="4">★★★★☆ — 4 stars</option>
+                <option value="3">★★★☆☆ — 3 stars</option>
+                <option value="2">★★☆☆☆ — 2 stars</option>
+                <option value="1">★☆☆☆☆ — 1 star</option>
+            </select>
+        </label>
+        <label>Your review <textarea name="reviewText" rows="4" maxlength="1000" placeholder="Tell us about your trip (optional)"></textarea></label>
+        <p class="rental-review-error" id="rentalReviewError" role="alert"></p>
+        <div class="rental-review-actions"><button type="button" id="closeRentalReview">Cancel</button><button type="submit">Submit review</button></div>
+    </form>
+</dialog>
+<script src="/js/history.js?v=4"></script>
 </body>
 </html>
