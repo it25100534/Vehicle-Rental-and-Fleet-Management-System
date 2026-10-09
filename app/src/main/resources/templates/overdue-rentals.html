@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Overdue Rentals | DriveEase</title><link rel="stylesheet" href="/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"></head>
+<body><div th:replace="~{fragments/admin-sidebar :: sidebar}"></div>
+<main class="main-content">
+    <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div><h2>Overdue Rentals</h2><p>Active rentals whose scheduled return date has passed.</p></div>
+        <a class="btn btn-secondary" href="/handover">Back to Handover &amp; Return</a>
+    </div>
+    <div class="table-card" style="margin-top:2rem">
+        <div class="table-card-header"><h3 style="margin:0">Overdue Queue</h3></div>
+        <div class="empty-table-cell" th:if="${#lists.isEmpty(records)}">No rentals are overdue.</div>
+        <table class="premium-table" th:unless="${#lists.isEmpty(records)}">
+            <thead><tr><th>Vehicle</th><th>Customer</th><th>Due Date</th><th>Overdue</th><th>Inspection</th></tr></thead>
+            <tbody><tr th:each="record:${records}">
+                <td><div class="primary-cell" th:text="${record.vehicleId}"></div><div class="secondary-cell" th:text="${record.recordId}"></div></td>
+                <td th:text="${record.customerName}"></td>
+                <td th:text="${record.scheduledReturnDate}"></td>
+                <td><span class="badge rejected" th:text="${record.daysOverdue + ' day(s)'}"></span></td>
+                <td><a class="btn btn-ghost-yellow" th:href="@{/handover/{id}(id=${record.recordId})}">Open record</a></td>
+            </tr></tbody>
+        </table>
+    </div>
+</main></body></html>
