@@ -202,6 +202,17 @@
             line-height: 1.45;
         }
 
+        .booking-alert a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 9px 13px;
+            border-radius: 8px;
+            background: #991b1b;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
         .booking-actions {
             display: flex;
             justify-content: flex-end;
@@ -369,34 +380,11 @@
     padding-top: 34px;
 }
     </style>
-</head>
+<link rel="stylesheet" href="/css/shared-chrome.css"><script src="/js/shared-chrome.js" defer></script></head>
 
 <body class="booking-body">
 
-<header class="catalog-header">
-    <nav class="catalog-navbar">
-        <a href="/" class="catalog-logo">
-            <span class="catalog-logo-mark">✺</span>
-            <span>DriveEase</span>
-        </a>
-
-        <div class="catalog-nav-links">
-            <a href="/">Home</a>
-            <a href="/#about">About</a>
-            <a href="/catalog" class="active">Vehicles</a>
-            <a href="/#contact">Contact</a>
-        </div>
-
-        <div class="catalog-header-actions">
-            <a href="/reservationHistory" class="catalog-header-btn">
-                My Bookings
-                <span>→</span>
-            </a>
-
-            <a href="/profile" class="profile-nav-bubble" title="My Profile">👤</a>
-        </div>
-    </nav>
-</header>
+<div th:replace="~{fragments/customer-header :: header('vehicles')}"></div>
 
 <main class="booking-main">
     <section class="booking-shell">
@@ -470,6 +458,7 @@
                         <input id="startDate"
                                type="date"
                                name="startDate"
+                               th:value="${startDate}"
                                required>
                     </div>
 
@@ -478,11 +467,20 @@
                         <input id="returnDate"
                                type="date"
                                name="returnDate"
+                               th:value="${returnDate}"
                                required>
                     </div>
+                    <div class="booking-field"><label for="pickupBranch">Pickup branch*</label><select id="pickupBranch" name="pickupBranch" required><option th:each="branch : ${branches}" th:value="${branch.branchId}" th:text="${branch.name}" th:selected="${branch.branchId == vehicle.currentBranch}"></option></select></div>
+                    <div class="booking-field"><label for="dropoffBranch">Drop-off branch*</label><select id="dropoffBranch" name="dropoffBranch" required><option th:each="branch : ${branches}" th:value="${branch.branchId}" th:text="${branch.name}"></option></select></div>
+                    <div class="booking-field"><label for="extrasTotal">Optional extras</label><select id="extrasTotal" name="extrasTotal"><option value="0">No extras</option><option value="1500">Child seat — Rs. 1,500</option><option value="2500">Additional driver — Rs. 2,500</option><option value="4000">Both extras — Rs. 4,000</option></select></div>
+                    <div class="booking-field"><label for="promoCode">Promo code</label><input id="promoCode" name="promoCode" maxlength="30" placeholder="Optional"></div>
                 </div>
 
-                <div class="booking-alert" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
+                <div class="booking-alert" th:if="${errorMessage != null}">
+                    <span th:text="${errorMessage}"></span>
+                    <br th:if="${licenceError == true}">
+                    <a th:if="${licenceError == true}" href="/profile#licence-verification">Upload your driving licence</a>
+                </div>
 
                 <div class="booking-actions">
                     <a href="/reservationHistory" class="booking-btn secondary">View My History</a>
@@ -495,62 +493,7 @@
     </section>
 </main>
 
-<footer class="site-footer" id="contact">
-    <div class="footer-inner">
-
-        <div class="footer-brand-area">
-            <div class="footer-brand-column">
-                <div class="footer-logo">✺</div>
-
-                <div class="priority-card rental-help-card">
-                    <h2>Manage your rental</h2>
-                    <p>View your bookings, continue browsing vehicles, or contact support if you need help.</p>
-
-                    <div class="footer-action-row">
-                        <a href="/reservationHistory" class="footer-primary-action">My Bookings</a>
-                        <a href="/catalog" class="footer-secondary-action">Browse Vehicles</a>
-                    </div>
-
-                    <small>Need help? Contact support@driveease.lk or call +94 77 123 4567.</small>
-                </div>
-            </div>
-
-            <div class="footer-links">
-                <div>
-                    <h3>Pages</h3>
-                    <div class="footer-link-grid">
-                        <a href="/">Home</a>
-                        <a href="/#about">About</a>
-                        <a href="/catalog" class="active">Vehicles</a>
-                        <a href="/#faq">FAQs</a>
-                        <a href="/#contact">Contact</a>
-                        <a href="/reservationHistory">My Bookings</a>
-                    </div>
-                </div>
-
-                <div>
-                    <h3>Contact info</h3>
-                    <p>+94 77 123 4567</p>
-                    <p>support@driveease.lk</p>
-                    <p>Colombo, Sri Lanka</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>Designed for the DriveEase vehicle rental system.</p>
-
-            <div class="socials">
-                <span>◎</span>
-                <span>𝕏</span>
-                <span>in</span>
-                <span>f</span>
-            </div>
-        </div>
-
-        <div class="footer-watermark">DriveEase</div>
-    </div>
-</footer>
+<div th:replace="~{fragments/customer-footer :: footer}"></div>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const startDateInput = document.getElementById('startDate');
