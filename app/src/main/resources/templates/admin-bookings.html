@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Booking Operations | DriveEase</title><link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+<div th:replace="~{fragments/admin-sidebar :: sidebar}"></div>
+<main class="main-content">
+    <header class="page-header"><h2>Booking operations</h2><p>Review requests and reassign eligible bookings.</p></header>
+    <div class="admin-list-toolbar">
+        <form method="get" action="/admin/bookings" class="admin-filter-form">
+            <label>Status<select class="form-control" name="status">
+                <option value="">All statuses</option>
+                <option value="Pending" th:selected="${statusFilter == 'Pending'}">Pending</option>
+                <option value="Approved" th:selected="${statusFilter == 'Approved'}">Approved</option>
+                <option value="Paid" th:selected="${statusFilter == 'Paid'}">Paid</option>
+                <option value="Active" th:selected="${statusFilter == 'Active'}">Active</option>
+                <option value="Completed" th:selected="${statusFilter == 'Completed'}">Completed</option>
+                <option value="Returned" th:selected="${statusFilter == 'Returned'}">Returned</option>
+                <option value="Cancelled" th:selected="${statusFilter == 'Cancelled'}">Cancelled</option>
+                <option value="Rejected" th:selected="${statusFilter == 'Rejected'}">Rejected</option>
+            </select></label>
+            <label>Pickup branch<select class="form-control" name="branch">
+                <option value="">All branches</option>
+                <option th:each="b : ${branches}" th:value="${b.branchId}" th:text="${b.name}" th:selected="${b.branchId == branchFilter}"></option>
+            </select></label>
+            <button class="btn btn-primary" type="submit">Apply</button>
+            <a class="btn btn-secondary" href="/admin/bookings" th:if="${!#strings.isEmpty(statusFilter) || !#strings.isEmpty(branchFilter)}">Clear</a>
+        </form>
+        <p class="table-meta" th:text="${total + ' bookings'}">0 bookings</p>
+    </div>
+    <div class="table-container">
+        <table class="inventory-table booking-table">
+            <thead><tr><th>Booking</th><th>Customer</th><th>Vehicle</th><th>Dates</th><th>Branches</th><th>Status</th><th>Reassign</th></tr></thead>
+            <tbody>
+                <tr th:if="${bookings.empty}"><td colspan="7" class="empty-table-cell">No bookings match these filters.</td></tr>
+                <tr th:each="b : ${bookings}">
+                    <td class="cell-code" th:text="${b.transaction_id}"></td>
+                    <td th:text="${b.customer_username}"></td>
+                    <td><div class="cell-stack"><strong th:text="${b.vehicle_name}"></strong><span th:text="${b.vehicle_id}"></span></div></td>
+                    <td><div class="cell-stack"><strong th:text="${b.start_date}"></strong><span th:text="${'to ' + b.return_date}"></span></div></td>
+                    <td class="cell-muted" th:text="${(b.pickup_branch_id ?: '—') + ' → ' + (b.dropoff_branch_id ?: '—')}"></td>
+                    <td><span class="badge" th:classappend="${b.status == 'Pending' ? ' pending' : (b.status == 'Approved' ? ' approved' : (b.status == 'Completed' || b.status == 'Returned' ? ' booked' : ' closed'))}" th:text="${b.status}"></span></td>
+                    <td>
+                        <form class="reassign-form" th:if="${b.status == 'Pending' || b.status == 'Approved'}"
+                              th:action="@{/admin/bookings/{id}/reassign(id=${b.transaction_id})}" method="post">
+                            <input type="hidden" name="page" th:value="${page}"><input type="hidden" name="status" th:value="${statusFilter}"><input type="hidden" name="branch" th:value="${branchFilter}">
+                            <select name="vehicleId" required aria-label="Replacement vehicle">
+                                <option value="" selected disabled>Choose vehicle</option>
+                                <option th:each="v : ${vehicles}" th:if="${v.available}" th:value="${v.vehicleId}" th:text="${v.vehicleId + ' · ' + v.make + ' ' + v.model}"></option>
+                            </select>
+                            <button class="btn btn-edit" type="submit">Reassign</button>
+                        </form>
+                        <span class="cell-muted" th:unless="${b.status == 'Pending' || b.status == 'Approved'}">—</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <nav class="admin-pagination" aria-label="Booking pages" th:if="${pages > 1}">
+        <span th:text="${'Showing ' + from + '–' + to + ' of ' + total}"></span>
+        <div class="page-links">
+            <a th:if="${page > 1}" th:href="@{/admin/bookings(page=${page - 1},status=${statusFilter},branch=${branchFilter})}">Previous</a>
+            <span class="page-current" th:text="${page + ' / ' + pages}"></span>
+            <a th:if="${page < pages}" th:href="@{/admin/bookings(page=${page + 1},status=${statusFilter},branch=${branchFilter})}">Next</a>
+        </div>
+    </nav>
+</main>
+</body>
+</html>
