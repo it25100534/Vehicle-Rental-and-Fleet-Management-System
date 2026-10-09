@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Notifications | DriveEase</title>
+    <link th:if="${staffView}" rel="stylesheet" href="/css/admin.css">
+    <link th:unless="${staffView}" rel="stylesheet" href="/css/catalog.css">
+    <style>
+        body.customer-notification-shell { display:block; margin:0; background:#f7f7f8; color:#171719; font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+        .notify-main { width:min(1050px,calc(100% - 56px)); box-sizing:border-box; margin:0 auto; padding:54px 0 90px; color:#171719; }
+        .staff-notification-shell .notify-main { width:calc(100% - var(--admin-sidebar-width)); max-width:none; margin-left:var(--admin-sidebar-width); padding:28px clamp(20px,3vw,48px) 56px; color:#f3f7fb; }
+        .head { display:flex; justify-content:space-between; gap:24px; align-items:center; }
+        .head h1 { font-size:2.5rem; margin:.25rem 0 .5rem; }
+        .head p { margin:.25rem 0; color:#667085; }
+        .staff-notification-shell .head p { color:#a6a6ad; }
+        .count { flex:0 0 auto; background:#171719; color:#fff; border-radius:999px; padding:9px 15px; }
+        .list { display:grid; gap:14px; margin-top:28px; }
+        .notice { display:grid; grid-template-columns:10px 1fr auto; gap:18px; align-items:center; background:#fff; border:1px solid #e1e3e7; border-radius:16px; padding:20px; text-decoration:none; color:#171719; box-shadow:0 8px 25px rgba(20,20,30,.05); }
+        .staff-notification-shell .notice, .staff-notification-shell .empty { background:#141e2e; border:1px solid #2a394d; color:#f3f7fb; box-shadow:none; }
+        .staff-notification-shell .count { background:#24364e; }
+        .staff-notification-shell .empty { text-align:left; padding:24px; max-width:700px; }
+        .bar { width:10px; height:100%; min-height:58px; border-radius:9px; background:#4b77e8; }
+        .notice.urgent .bar { background:#d92d20; }
+        .notice.warning .bar { background:#f79009; }
+        .notice.success .bar { background:#12b76a; }
+        .notice h2 { font-size:1.05rem; margin:0 0 5px; }
+        .notice p { margin:0; color:#667085; }
+        .staff-notification-shell .notice p { color:#a6a6ad; }
+        .arrow { font-size:1.4rem; }
+        .empty { padding:50px; text-align:center; background:#fff; border-radius:18px; margin-top:25px; }
+        @media(max-width:900px) { .staff-notification-shell .notify-main { width:100%; margin-left:0; padding:22px 16px 44px; } .notify-main { width:min(100% - 28px,1050px); } .head { align-items:flex-start; } .head h1 { font-size:2rem; } }
+    </style>
+<link th:unless="${staffView}" rel="stylesheet" href="/css/shared-chrome.css"><script th:unless="${staffView}" src="/js/shared-chrome.js" defer></script></head>
+<body th:class="${staffView} ? 'staff-notification-shell' : 'customer-notification-shell'">
+<th:block th:if="${staffView}">
+    <div th:replace="~{fragments/admin-sidebar :: sidebar}"></div>
+</th:block>
+<th:block th:unless="${staffView}"><div th:replace="~{fragments/customer-header :: header('notifications')}"></div></th:block>
+<main class="notify-main">
+    <div class="head">
+        <div>
+            <p th:text="${staffView} ? 'Operations' : 'My account'"></p>
+            <h1>Notification centre</h1>
+            <p th:text="${staffView} ? 'Customer requests and operational updates that need your attention.' : 'Updates on your bookings, licence and messages.'"></p>
+        </div>
+        <span class="count" th:text="${staffView} ? ${pendingCount + ' requests awaiting action'} : ${items.size() + (items.size() == 1 ? ' update' : ' updates')}"></span>
+    </div>
+    <div class="empty" th:if="${items.isEmpty()}">You are all caught up.</div>
+    <div class="list" th:unless="${items.isEmpty()}">
+        <a th:each="item : ${items}" class="notice" th:classappend="${item.severity}" th:href="${item.link}">
+            <span class="bar"></span>
+            <span><h2 th:text="${item.title}"></h2><p th:text="${item.message}"></p></span>
+            <span class="arrow">→</span>
+        </a>
+    </div>
+</main>
+<th:block th:unless="${staffView}"><div th:replace="~{fragments/customer-footer :: footer}"></div></th:block></body>
+</html>

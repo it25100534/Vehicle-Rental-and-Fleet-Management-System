@@ -1,0 +1,43 @@
+.licence-review-notice { background: #173f35; border: 1px solid #34745b; border-radius: 9px; color: #b9f1d9; padding: 11px 14px; margin-bottom: 18px; font-size: .84rem; }
+.licence-review-notice-error { background: #4b2631; border-color: #824250; color: #ffced5; }
+.licence-awaiting { color: #9eafc5; font-size: .75rem; white-space: nowrap; }
+.licence-review-backdrop[hidden], .licence-reject-reason[hidden], .licence-review-actions [hidden] { display: none !important; }
+.licence-review-backdrop { position: fixed; z-index: 1000; inset: 0; display: grid; place-items: center; padding: 20px; background: rgba(3, 9, 20, .82); backdrop-filter: blur(5px); }
+.licence-review-dialog { display: flex; flex-direction: column; width: min(1050px, 100%); max-height: min(92dvh, 900px); overflow: hidden; border: 1px solid #3b506b; border-radius: 20px; background: #111c2e; box-shadow: 0 28px 85px rgba(0, 0, 0, .45); color: #f5f8fc; }
+.licence-review-header { display: flex; justify-content: space-between; align-items: start; gap: 20px; padding: 24px 30px 20px; border-bottom: 1px solid #2e415b; }
+.licence-review-eyebrow { display: block; margin-bottom: 5px; color: #86aee6; font-size: .7rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+.licence-review-header h2 { margin: 0; font-size: 1.55rem; letter-spacing: -.035em; }
+.licence-review-header p { margin: 5px 0 0; color: #a9bad0; font-size: .84rem; }
+.licence-review-close { display: grid; place-items: center; flex: 0 0 34px; width: 34px; height: 34px; padding: 0; border: 1px solid #3a4b63; border-radius: 50%; background: #23344d; color: #f3f7fe; font-size: 1.45rem; line-height: 1; cursor: pointer; }
+.licence-review-close:hover { background: #304c70; }
+.licence-review-content { overflow-y: auto; min-height: 0; padding: 22px 30px 16px; scrollbar-color: #46648a #142238; scrollbar-width: thin; }
+.licence-review-content::-webkit-scrollbar { width: 8px; }
+.licence-review-content::-webkit-scrollbar-track { background: #142238; }
+.licence-review-content::-webkit-scrollbar-thumb { background: #46648a; border-radius: 8px; }
+.licence-review-person { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 18px; }
+.licence-review-person span:first-child { display: grid; gap: 2px; }
+.licence-review-person strong { font-size: .95rem; }
+.licence-review-person small { color: #aebfd3; font-size: .76rem; }
+.licence-review-status { border: 1px solid #39577c; border-radius: 999px; padding: 5px 10px; background: #1c3553; color: #b6d8ff; font-size: .72rem; font-weight: 750; white-space: nowrap; }
+.licence-review-images { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.licence-review-images figure { min-width: 0; margin: 0; }
+.licence-review-image-frame { display: grid; place-items: center; min-height: 280px; max-height: 400px; border: 1px solid #354c68; border-radius: 12px; background: #091422; overflow: hidden; }
+.licence-review-image-frame img { display: block; max-width: 100%; max-height: 400px; object-fit: contain; }
+.licence-review-images figcaption { padding-top: 9px; color: #d2e0f2; font-size: .78rem; font-weight: 750; }
+.licence-review-privacy { margin: 16px 0 0; color: #9fb0c5; font-size: .75rem; line-height: 1.45; }
+.licence-review-form { flex: 0 0 auto; padding: 16px 30px 22px; border-top: 1px solid #2e415b; }
+.licence-reject-reason { display: grid; gap: 7px; margin-bottom: 15px; }
+.licence-reject-reason label { color: #e8f0fa; font-size: .8rem; font-weight: 750; }
+.licence-reject-reason select { width: min(430px, 100%); }
+.licence-review-actions { display: flex; justify-content: flex-end; gap: 9px; flex-wrap: wrap; }
+.licence-review-actions .btn { min-height: 39px; padding: 8px 14px; cursor: pointer; }
+body.licence-review-opened { overflow: hidden; }
+@media (max-width: 680px) {
+    .licence-review-backdrop { padding: 8px; }
+    .licence-review-dialog { max-height: 96dvh; border-radius: 14px; }
+    .licence-review-header, .licence-review-content, .licence-review-form { padding-left: 16px; padding-right: 16px; }
+    .licence-review-images { grid-template-columns: 1fr; }
+    .licence-review-image-frame { min-height: 200px; }
+    .licence-review-actions { justify-content: stretch; }
+    .licence-review-actions .btn { flex: 1 1 auto; }
+}

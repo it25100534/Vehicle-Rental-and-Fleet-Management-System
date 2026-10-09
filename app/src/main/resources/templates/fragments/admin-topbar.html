@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="topbar" class="topbar">
+    <div class="topbar-actions">
+        <form action="/admin-logout" method="post">
+            <button type="submit" class="icon-btn" title="Logout">
+                <span class="material-symbols-outlined">logout</span>
+            </button>
+        </form>
+    </div>
+</header>
+</body>
+</html>
