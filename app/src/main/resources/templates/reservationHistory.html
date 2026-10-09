@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rental History | DriveEase</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/css/catalog.css">
+
+    <style>
+        .history-body {
+            margin: 0;
+            min-height: 100vh;
+            background: #ffffff;
+            color: #161618;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .history-main {
+            flex: 1;
+            padding: 86px 24px 120px;
+        }
+
+        .history-shell {
+            width: min(1420px, 100%);
+            margin: 0 auto;
+        }
+
+        .history-hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 30px;
+            margin-bottom: 42px;
+        }
+
+        .history-hero h1 {
+            margin: 0;
+            font-size: clamp(54px, 5vw, 78px);
+            line-height: 0.95;
+            letter-spacing: -0.08em;
+            font-weight: 900;
+            color: #161618;
+        }
+
+        .history-hero p {
+            max-width: 560px;
+            margin: 20px 0 0;
+            color: #565656;
+            font-size: 18px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .history-top-btn {
+            min-width: 190px;
+            height: 56px;
+            border-radius: 9px;
+            background: #161618;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-weight: 900;
+            padding: 0 24px;
+        }
+
+        .history-top-btn:hover {
+            background: #1f61d1;
+        }
+
+        .history-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 360px;
+            gap: 32px;
+            align-items: start;
+        }
+
+        .history-card,
+        .support-card {
+            background: #f4f4f4;
+            border-radius: 24px;
+        }
+
+        .history-card {
+            padding: 34px;
+            overflow: hidden;
+        }
+
+        .history-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 26px;
+        }
+
+        .history-card-header h2,
+        .support-card h2 {
+            margin: 0;
+            color: #161618;
+            font-size: 34px;
+            line-height: 1;
+            letter-spacing: -0.06em;
+            font-weight: 900;
+        }
+
+        .history-card-header p,
+        .support-card > p {
+            margin: 12px 0 0;
+            color: #606060;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .history-table-wrap {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 18px;
+            background: #ffffff;
+        }
+
+        .history-table {
+            width: 100%;
+            min-width: 900px;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 18px 18px;
+            border-bottom: 1px solid #eeeeee;
+            text-align: left;
+            vertical-align: middle;
+            color: #161618;
+            font-size: 15px;
+        }
+
+        .history-table th {
+            background: #fafafa;
+            color: #444;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            font-weight: 900;
+        }
+
+        .history-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .history-id {
+            font-weight: 750;
+            color: #444;
+            word-break: break-word;
+        }
+
+        .history-status {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 34px;
+            padding: 8px 13px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .history-status.pending {
+            background: #fff4cc;
+            color: #9a6b00;
+        }
+
+        .history-status.approved {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .history-status.paid {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .history-status.rejected {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .history-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            align-items: center;
+        }
+
+        .history-action-btn {
+            min-width: 96px;
+            height: 40px;
+            border: none;
+            border-radius: 9px;
+            padding: 0 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 900;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .history-action-btn.dark {
+            background: #161618;
+            color: #ffffff;
+        }
+
+        .history-action-btn.green {
+            background: #16a34a;
+            color: #ffffff;
+        }
+
+        .history-action-btn.light {
+            background: #ffffff;
+            color: #161618;
+            border: 1px solid #d7d7d7;
+        }
+
+        .history-action-btn.red {
+            background: #dc3545;
+            color: #ffffff;
+        }
+
+        .history-action-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .history-action-note {
+            font-weight: 900;
+            font-size: 14px;
+            line-height: 1.35;
+        }
+
+        .history-action-note.green {
+            color: #16a34a;
+        }
+
+        .history-action-note.red {
+            color: #dc3545;
+        }
+
+        .history-action-note.gold {
+            color: #b77900;
+        }
+
+        .history-empty {
+            text-align: center;
+            color: #606060;
+            padding: 42px 18px !important;
+            font-weight: 700;
+        }
+
+        .support-card {
+            padding: 30px;
+            position: sticky;
+            top: 24px;
+        }
+
+        .support-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 7px 14px;
+            border-radius: 999px;
+            border: 1px solid #d8d8d8;
+            background: #ffffff;
+            color: #363636;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 22px;
+        }
+
+        .support-list {
+            display: grid;
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .support-item {
+            display: grid;
+            grid-template-columns: 42px 1fr;
+            gap: 14px;
+            align-items: start;
+            padding: 18px;
+            border-radius: 18px;
+            background: #ffffff;
+        }
+
+        .support-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: #161618;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+        }
+
+        .support-item h3 {
+            margin: 0 0 6px;
+            font-size: 17px;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            font-weight: 900;
+            color: #161618;
+        }
+
+        .support-item p,
+        .support-item a {
+            margin: 0;
+            color: #555;
+            font-size: 14px;
+            line-height: 1.4;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .support-item a:hover {
+            color: #161618;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        .status-guide {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #dedede;
+        }
+
+        .status-guide h3 {
+            margin: 0 0 16px;
+            font-size: 20px;
+            letter-spacing: -0.04em;
+            font-weight: 900;
+        }
+
+        .guide-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .guide-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 12px 14px;
+            color: #555;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 1100px) {
+            .history-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .support-card {
+                position: static;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .history-main {
+                padding: 54px 14px 80px;
+            }
+
+            .history-hero {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .history-hero h1 {
+                font-size: 52px;
+            }
+
+            .history-top-btn {
+                width: 100%;
+            }
+
+            .history-card,
+            .support-card {
+                padding: 22px;
+            }
+
+            .history-card-header {
+                flex-direction: column;
+            }
+        }
+        /* ===== HISTORY TABLE FIT FIX ===== */
+
+.history-layout {
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 28px;
+}
+
+.history-card {
+    min-width: 0;
+}
+
+.history-table-wrap {
+    overflow-x: hidden;
+}
+
+.history-table {
+    width: 100%;
+    min-width: 0;
+    table-layout: fixed;
+}
+
+.history-table th,
+.history-table td {
+    padding: 15px 12px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.history-table th {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+}
+
+.history-table .col-id {
+    width: 18%;
+}
+
+.history-table .col-customer {
+    width: 14%;
+}
+
+.history-table .col-vehicle {
+    width: 12%;
+}
+
+.history-table .col-date {
+    width: 13%;
+}
+
+.history-table .col-status {
+    width: 11%;
+}
+
+.history-table .col-actions {
+    width: 19%;
+}
+
+.history-status {
+    min-height: 30px;
+    padding: 7px 10px;
+    font-size: 12px;
+}
+
+.history-actions {
+    gap: 6px;
+}
+
+.history-action-btn {
+    min-width: 72px;
+    height: 34px;
+    padding: 0 10px;
+    font-size: 12px;
+}
+
+.history-action-note {
+    font-size: 12px;
+}
+.rental-review-dialog { width: min(460px, calc(100% - 28px)); padding: 27px; border: 1px solid #e2e5e9; border-radius: 18px; box-shadow: 0 22px 80px #0005; color: #171719; }
+.rental-review-dialog::backdrop { background: #09111fc0; }
+.rental-review-dialog h2 { margin: 0 0 7px; font-size: 25px; }
+.rental-review-dialog p { margin: 0 0 17px; color: #626b77; }
+.rental-review-dialog form { display: grid; gap: 12px; }
+.rental-review-dialog label { display: grid; gap: 6px; font-weight: 700; }
+.rental-review-dialog select,.rental-review-dialog textarea { width: 100%; padding: 11px; border: 1px solid #cbd2db; border-radius: 9px; font: inherit; }
+.rental-review-dialog textarea { resize: vertical; }
+.rental-review-actions { display: flex; justify-content: flex-end; gap: 9px; }
+.rental-review-actions button { border: 0; border-radius: 8px; padding: 11px 17px; font: inherit; font-weight: 700; cursor: pointer; }
+.rental-review-actions button[type=submit] { background: #2165d7; color: #fff; }
+.rental-review-error { color: #ba3030 !important; min-height: 0; }
+.history-review-stars { color: #f1b43b; letter-spacing: 1px; white-space: nowrap; }
+    </style>
+<link rel="stylesheet" href="/css/shared-chrome.css"><script src="/js/shared-chrome.js" defer></script></head>
+
+<body class="history-body">
+<input type="hidden" id="loggedInUsername" th:value="${username}" />
+
+<div th:replace="~{fragments/customer-header :: header('')}"></div>
+
+<main class="history-main">
+    <section class="history-shell">
+
+        <div class="history-hero">
+            <div>
+                <h1>Your rental history!</h1>
+                <p>Track booking requests, approval status, payments, and completed rental records from one clean place.</p>
+            </div>
+
+            <a href="/catalog" class="history-top-btn">Book New Vehicle</a>
+        </div>
+
+        <div class="history-layout">
+
+            <section class="history-card">
+                <div class="history-card-header">
+                    <div>
+                        <h2>Bookings</h2>
+                        <p>Pending bookings can be edited. Eligible bookings can be cancelled; late cancellation fees are calculated by the server.</p>
+                    </div>
+                </div>
+
+                <div class="history-table-wrap">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th class="col-customer">Customer</th>
+                                <th class="col-vehicle">Vehicle</th>
+                                <th class="col-date">Start Date</th>
+                                <th class="col-date">Return Date</th>
+                                <th class="col-status">Status</th>
+                                <th class="col-actions">Actions</th>
+                            </tr>
+                            </thead>
+                        <tbody id="bookingTableBody">
+                        <tr>
+                            <td colspan="7" class="history-empty">Loading your bookings...</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <aside class="support-card">
+                <span class="support-pill">Need help?</span>
+
+                <h2>Contact us anytime</h2>
+                <p>Questions about approval, payment, or vehicle availability? Our support team is ready to help.</p>
+
+                <div class="support-list">
+                    <div class="support-item">
+                        <span class="support-icon">24</span>
+                        <div>
+                            <h3>24 hour service</h3>
+                            <p>Emergency booking and rental support is available anytime.</p>
+                        </div>
+                    </div>
+
+                    <div class="support-item">
+                        <span class="support-icon">☎</span>
+                        <div>
+                            <h3>Call support</h3>
+                            <a href="tel:+94771234567">+94 77 123 4567</a>
+                        </div>
+                    </div>
+
+                    <div class="support-item">
+                        <span class="support-icon">@</span>
+                        <div>
+                            <h3>Email us</h3>
+                            <a href="mailto:support@driveease.lk">support@driveease.lk</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="status-guide">
+                    <h3>Status guide</h3>
+
+                    <div class="guide-list">
+                        <div class="guide-row">
+                            <span>Pending</span>
+                            <span>Waiting for admin</span>
+                        </div>
+                        <div class="guide-row">
+                            <span>Approved</span>
+                            <span>Payment available</span>
+                        </div>
+                        <div class="guide-row">
+                            <span>Paid</span>
+                            <span>Booking confirmed</span>
+                        </div>
+                        <div class="guide-row">
+                            <span>Rejected</span>
+                            <span>Request declined</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </section>
+</main>
+
+<div th:replace="~{fragments/customer-footer :: footer}"></div>
+
+<dialog class="rental-review-dialog" id="rentalReviewDialog" aria-labelledby="rentalReviewTitle">
+    <h2 id="rentalReviewTitle">Review your rental</h2>
+    <p>Rate your completed trip from one to five stars.</p>
+    <form id="rentalReviewForm">
+        <input type="hidden" name="bookingId" id="reviewBookingId">
+        <label>Stars
+            <select name="stars" required>
+                <option value="5">★★★★★ — 5 stars</option>
+                <option value="4">★★★★☆ — 4 stars</option>
+                <option value="3">★★★☆☆ — 3 stars</option>
+                <option value="2">★★☆☆☆ — 2 stars</option>
+                <option value="1">★☆☆☆☆ — 1 star</option>
+            </select>
+        </label>
+        <label>Your review <textarea name="reviewText" rows="4" maxlength="1000" placeholder="Tell us about your trip (optional)"></textarea></label>
+        <p class="rental-review-error" id="rentalReviewError" role="alert"></p>
+        <div class="rental-review-actions"><button type="button" id="closeRentalReview">Cancel</button><button type="submit">Submit review</button></div>
+    </form>
+</dialog>
+<script src="/js/history.js?v=4"></script>
+</body>
+</html>
